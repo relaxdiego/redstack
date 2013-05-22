@@ -1,5 +1,5 @@
+require "net/http"
+require "json"
 require "redstack/version"
-
-module RedStack
-  # Your code goes here...
-end
+require "redstack/session"
+require "redstack/access"
