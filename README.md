@@ -18,7 +18,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Create a new OpenStack session. 
+```
+os = RedStack::Session.new host: 'http://myopenstackinstance.com:5000', api_version: 'v2.0'
+```
+
+Authenticate against the identity service
+```
+os.authenticate username: 'johndoe', password: 'gu29qa!'
+```
+
+Get a list of tenants/projects you have access to
+```
+tenants = os.tenants.get :all
+```
 
 ## Contributing
 
