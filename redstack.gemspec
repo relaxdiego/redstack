@@ -20,4 +20,12 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "minitest", "~> 4.7.0"
+  spec.add_development_dependency 'rb-fsevent', '~> 0.9'
+  spec.add_development_dependency "guard"
+  spec.add_development_dependency "guard-rake"
+  spec.add_development_dependency "guard-minitest"
+  spec.add_development_dependency 'ruby_gntp'
+  spec.add_development_dependency "debugger"
+  spec.add_development_dependency "pry"
 end

@@ -40,3 +40,22 @@ tenants = os.tenants.get :all
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Setting Up Your Local Dev Environment
+A few requirements before proceeding:
+
+* RVM
+* git
+* growl on Mac OS X
+
+Once the above have been installed, go to the RedStack project directory and install the required gems:
+
+```
+bundle install
+```
+
+Now you can start developing! Open the project folder with your favorit text editor, then, on your terminal, run guard from the project directory:
+
+```
+bundle exec guard
+```
