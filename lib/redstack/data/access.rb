@@ -9,6 +9,10 @@ module Data
       @access = JSON.parse(str)
     end
     
+    def [](key)
+      @access['access'][key]
+    end
+    
     def ==(other)
       access == other.access
     end    

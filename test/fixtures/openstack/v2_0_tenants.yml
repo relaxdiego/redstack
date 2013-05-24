@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://devstack:5000/v2.0/tenants
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+      X-Auth-Token:
+      - 9106a79ad65d4960915b0f508af6a05d
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '162'
+      date:
+      - Fri, 24 May 2013 09:43:04 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"tenants_links": [], "tenants": [{"description": "This is a valid
+        project", "enabled": true, "id": "9e40558cdfe749bbaeb664c2344e9192", "name":
+        "valid_project"}]}'
+    http_version: 
+  recorded_at: Fri, 24 May 2013 09:44:22 GMT
+recorded_with: VCR 2.5.0

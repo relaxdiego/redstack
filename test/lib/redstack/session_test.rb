@@ -20,5 +20,11 @@ describe "RedStack::Session" do
     @os.authenticated?.must_equal false
     @os.access.must_be_nil
   end
+  
+  it "has a tenants method" do
+    @os.authenticate username: 'validuser', password: '123qwe'
+    
+    @os.tenants.must_be_instance_of RedStack::Mappers::TenantMapper
+  end
  
 end

@@ -30,7 +30,7 @@ os.authenticate username: 'johndoe', password: 'gu29qa!'
 
 Get a list of tenants/projects you have access to
 ```
-tenants = os.tenants.get :all
+tenants = os.tenants.get_all
 ```
 
 ## Contributing

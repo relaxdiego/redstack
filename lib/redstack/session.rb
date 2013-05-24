@@ -51,11 +51,13 @@ module RedStack
       !access.nil?
     end
     
+    def tenants
+      @tenants ||= Mappers::TenantMapper.new(self)
+    end
+    
     def uri(path=nil)
       URI.join(host, api_version)
     end
-    
-    private
     
     def connection
       @connection ||= Faraday::Connection.new(:url => uri.to_s) do |c|
