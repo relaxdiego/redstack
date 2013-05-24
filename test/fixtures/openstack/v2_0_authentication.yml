@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"123qwe","tenant":""}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '337'
+      date:
+      - Fri, 24 May 2013 07:43:28 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-05-24T07:43:28.398836",
+        "expires": "2013-05-25T07:43:28Z", "id": "9106a79ad65d4960915b0f508af6a05d"},
+        "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
+        "id": "679cc361626346ac80603911ae379c5d", "roles": [], "name": "validuser"},
+        "metadata": {"is_admin": 0, "roles": []}}}'
+    http_version: 
+  recorded_at: Fri, 24 May 2013 07:44:46 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"invaliduser","password":"123qwe","tenant":""}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 401
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '96'
+      date:
+      - Fri, 24 May 2013 07:43:28 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Could not find user: invaliduser", "code":
+        401, "title": "Unauthorized"}}'
+    http_version: 
+  recorded_at: Fri, 24 May 2013 07:44:46 GMT
+recorded_with: VCR 2.5.0

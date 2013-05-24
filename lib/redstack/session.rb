@@ -1,59 +1,69 @@
 module RedStack
 
   class Session
-    attr_accessor :host, :api_version, :access
+    attr_accessor :access,
+                  :api_version,
+                  :host
     
+    attr_reader   :identity_service,
+                  :stub_openstack
+
     def initialize(options = {})
-      @host        = options[:host]
-      @api_version = options[:api_version]
+      @api_version    = options[:api_version]
+      @host           = options[:host]
+      @stub_openstack = options[:stub_openstack] || false
+      
+      if stub_openstack
+        VCR.configure do |c|
+          c.cassette_library_dir = File.expand_path("../../../test/fixtures/openstack", __FILE__)
+          c.hook_into :faraday
+        end
+      end
     end
     
     def authenticate(credentials = {})
-      loc     = uri('tokens')
-      server  = Net::HTTP.new(loc.host, loc.port)
-      auth_data = {
-        "auth" => {
-          "passwordCredentials" => {
-            "username" => "admin",
-            "password" => "password"
-          }
-        }
-      }.to_json
-      content_type = {'Content-Type' => 'application/json'}
-      response     = server.post(loc.path, auth_data, content_type)
-      @access       = Access.new(response.body)
+      response = nil
       
-      # Response can be:
-      # ============================================
-      # POST /v2.0/tokens
-      #   Headers:
-      #     * content-type: application/json
-      #     * accept: */*
-      #     * user-agent: Ruby
-      #     * connection: close
-      #     * host: localhost:3000
-      #     * content-length: 75
-      #     * cache-control: no-cache
-      #   Body:
-      #     {"auth":{"passwordCredentials":{"username":"admin","password":"password"}}}
-      # --------------------------------------------
-      # Response code: 200
-      #   Headers:
-      #     * vary: X-Auth-Token
-      #     * content-type: application/json
-      #     * content-length: 329
-      #     * date: Wed, 22 May 2013 08:11:26 GMT
-      #     * connection: close
-      #   Content (329 bytes): {"access": {"token": {"issued_at": "2013-05-22T08:11:26.389895", "expires": "2013-05-23T08:11:26Z", "id": "1fc3da465dc143d6b20546c2a502de74"}, "serviceCatalog": [], "user": {"username": "admin", "roles_links": [], "id": "0ae8dad9d5ba4273bae88be20325a07b", "roles": [], "name": "admin"}, "metadata": {"is_admin": 0, "roles": []}}}
+      VCR.use_cassette("#{ api_version }_authentication", record: :new_episodes, match_requests_on: [:body]) do
+        response = connection.post do |req|
+          req.url 'tokens'
+          req.body = {
+            auth: {
+              passwordCredentials: {
+                username: credentials[:username],
+                password: credentials[:password],
+                tenant: ''
+              }
+            }
+          }.to_json
+        end
+      end
+      
+      case response.status
+      when 200
+        @access = Access.new(response.body)
+      when 401
+        @access = nil
+      end
+    end
+    
+    def authenticated?
+      !access.nil?
     end
     
     def uri(path=nil)
-      if path
-        URI.join(host, api_version + "/", path)
-      else
-        URI.join(host, api_version)
+      URI.join(host, api_version)
+    end
+    
+    private
+    
+    def connection
+      @connection ||= Faraday::Connection.new(:url => uri.to_s) do |c|
+        c.headers['Content-Type'] = 'application/json'
+        c.adapter Faraday.default_adapter
       end
     end
-  end
+    
+  end # class Session
 
-end
+end # module RedStack
