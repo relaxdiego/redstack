@@ -23,18 +23,18 @@ http_interactions:
       content-length:
       - '337'
       date:
-      - Fri, 24 May 2013 07:43:28 GMT
+      - Fri, 24 May 2013 09:44:54 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-05-24T07:43:28.398836",
-        "expires": "2013-05-25T07:43:28Z", "id": "9106a79ad65d4960915b0f508af6a05d"},
+      string: ! '{"access": {"token": {"issued_at": "2013-05-24T09:44:54.111353",
+        "expires": "2013-05-25T09:44:54Z", "id": "c2e12b92358b4b549a18ed97ffc82dd8"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "679cc361626346ac80603911ae379c5d", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'
     http_version: 
-  recorded_at: Fri, 24 May 2013 07:44:46 GMT
+  recorded_at: Fri, 24 May 2013 09:46:11 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
@@ -58,7 +58,7 @@ http_interactions:
       content-length:
       - '96'
       date:
-      - Fri, 24 May 2013 07:43:28 GMT
+      - Fri, 24 May 2013 09:44:54 GMT
       connection:
       - close
     body:
@@ -66,5 +66,5 @@ http_interactions:
       string: ! '{"error": {"message": "Could not find user: invaliduser", "code":
         401, "title": "Unauthorized"}}'
     http_version: 
-  recorded_at: Fri, 24 May 2013 07:44:46 GMT
+  recorded_at: Fri, 24 May 2013 09:46:11 GMT
 recorded_with: VCR 2.5.0

@@ -24,7 +24,7 @@ module RedStack
     def authenticate(credentials = {})
       response = nil
       
-      VCR.use_cassette("#{ api_version }_authentication", record: :new_episodes, match_requests_on: [:body]) do
+      VCR.use_cassette("#{ api_version }_tokens", record: :new_episodes, match_requests_on: [:body]) do
         response = connection.post do |req|
           req.url 'tokens'
           req.body = {
