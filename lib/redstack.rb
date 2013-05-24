@@ -5,4 +5,4 @@ require "vcr"
 
 require "redstack/version"
 require "redstack/session"
-require "redstack/access"
+require "redstack/data/access"

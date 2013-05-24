@@ -41,7 +41,7 @@ module RedStack
       
       case response.status
       when 200
-        @access = Access.new(response.body)
+        @access = Data::Access.new(response.body)
       when 401
         @access = nil
       end
