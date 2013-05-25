@@ -51,8 +51,8 @@ module RedStack
       !access.nil?
     end
     
-    def tenants
-      @tenants ||= Mappers::TenantMapper.new(self)
+    def projects
+      @projects ||= Collections::Projects.new(self)
     end
     
     def uri(path=nil)

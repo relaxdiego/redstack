@@ -21,10 +21,11 @@ describe "RedStack::Session" do
     @os.access.must_be_nil
   end
   
-  it "has a tenants method" do
+  it "has a projects method" do
     @os.authenticate username: 'validuser', password: '123qwe'
     
-    @os.tenants.must_be_instance_of RedStack::Mappers::TenantMapper
+    @os.projects.must_be_instance_of RedStack::Collections::Projects
+    @os.projects.session.must_equal @os
   end
  
 end
