@@ -15,7 +15,7 @@ module RedStack
       
       if stub_openstack
         VCR.configure do |c|
-          c.cassette_library_dir = File.expand_path("../../../test/fixtures/openstack", __FILE__)
+          c.cassette_library_dir = File.expand_path('../../../test/fixtures/openstack', __FILE__)
           c.hook_into :faraday
         end
       end
