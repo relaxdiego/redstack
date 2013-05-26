@@ -10,8 +10,8 @@ module Identity
                 :session
     
     def initialize(options={})
-      @session = options[:session]
-      @project = options[:project]
+      @project = options[:model]
+      @session = project.session
     end
     
     def users

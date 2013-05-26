@@ -14,7 +14,7 @@ module Identity
     end
     
     def find
-      @items = User.find(session: session).map { |p| UserController.new(model: p, session: session) }
+      @items = User.find(session: session).map { |p| UserController.new(model: p) }
       self
     end
     

@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://devstack:5000/v2.0/tenants
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+      X-Auth-Token:
+      - c2e12b92358b4b549a18ed97ffc82dd8
+  response:
+    status:
+      code: 401
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '118'
+      date:
+      - Sun, 26 May 2013 07:43:35 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Could not find token: c2e12b92358b4b549a18ed97ffc82dd8",
+        "code": 401, "title": "Unauthorized"}}'
+    http_version: 
+  recorded_at: Sun, 26 May 2013 07:43:35 GMT
+recorded_with: VCR 2.5.0

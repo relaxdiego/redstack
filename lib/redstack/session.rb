@@ -51,8 +51,23 @@ module RedStack
       !access.nil?
     end
     
+    def is_admin?
+      false
+    end
+    
     def projects
       @projects ||= Controllers::Identity::ProjectsController.new(session: self)
+    end
+    
+    def request_admin_access
+      unless is_admin?
+        user_projects = projects.find
+        projects.each do |project|
+          
+        end
+      end
+      
+      is_admin?
     end
     
     def uri(path=nil)

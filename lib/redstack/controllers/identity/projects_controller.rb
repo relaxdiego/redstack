@@ -13,8 +13,12 @@ module Identity
       @session = options[:session]
     end
     
+    def create(attributes={})
+      ProjectController.new(model: Project.create(attributes))
+    end
+    
     def find
-      @items = Project.find(session: session).map { |p| ProjectController.new(model: p, session: session) }
+      @items = Project.find(session: session).map { |p| ProjectController.new(model: p) }
       self
     end
     
