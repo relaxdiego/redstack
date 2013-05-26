@@ -41,7 +41,7 @@ module RedStack
       
       case response.status
       when 200
-        @access = Access.new(response.body)
+        @access = JSON.parse(response.body)['access']
       when 401
         @access = nil
       end

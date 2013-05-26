@@ -11,7 +11,6 @@ describe 'RedStack::Session' do
     
     @os.authenticated?.must_equal true
     @os.access.wont_be_nil
-    @os.access.must_be_instance_of RedStack::Access
   end
   
   it 'handles invalid usernames' do
