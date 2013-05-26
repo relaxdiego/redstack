@@ -52,7 +52,7 @@ module RedStack
     end
     
     def projects
-      @projects ||= Controllers::Identity::ProjectsController.new(self)
+      @projects ||= Controllers::Identity::ProjectsController.new(session: self)
     end
     
     def uri(path=nil)

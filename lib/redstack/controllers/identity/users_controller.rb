@@ -2,7 +2,7 @@ module RedStack
 module Controllers
 module Identity
     
-  class ProjectsController
+  class UsersController
     
     include RedStack::Models::Identity
     
@@ -14,7 +14,7 @@ module Identity
     end
     
     def find
-      @items = Project.find(session: session).map { |p| ProjectController.new(model: p, session: session) }
+      @items = User.find(session: session).map { |p| UserController.new(model: p, session: session) }
       self
     end
     

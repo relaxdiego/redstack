@@ -2,19 +2,19 @@ require_relative '../../../../test_helper'
 
 include RedStack::Models::Identity
 
-describe 'RedStack::Models::Identity:Project' do
+describe 'RedStack::Models::Identity:User' do
 
   before do
     @os = RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: true)
     @os.authenticate username: 'validuser', password: '123qwe'
   end
   
-  it 'retrieves projects' do
-    projects = Project.find(session: @os)
+  it 'retrieves users' do
+    users = User.find(session: @os)
     
-    projects.must_be_instance_of Array
-    projects.length.wont_be_nil
-    projects.first.session.must_equal @os
+    users.must_be_instance_of Array
+    users.length.wont_be_nil
+    users.first.session.must_equal @os
   end
        
 end

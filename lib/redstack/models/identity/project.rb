@@ -30,7 +30,7 @@ module Identity
       @data = options[:data]
       @session = options[:session]
     end
-    
+        
   end # class Project
 
 end # module Identity
