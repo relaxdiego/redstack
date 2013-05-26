@@ -1,6 +1,6 @@
 require_relative '../../../../test_helper'
 
-describe 'RedStack::Controllers::ProjectsController' do
+describe 'RedStack::Controllers::Identity::ProjectsController' do
 
   before do
     @os = RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: true)
@@ -14,5 +14,5 @@ describe 'RedStack::Controllers::ProjectsController' do
     projects.must_be_instance_of Array
     projects.length.wont_be_nil
   end
-   
+     
 end
