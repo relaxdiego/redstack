@@ -7,4 +7,4 @@ require "redstack/version"
 require "redstack/access"
 require "redstack/session"
 
-require "redstack/collections/projects"
+require 'redstack/controllers/identity/projects_controller'

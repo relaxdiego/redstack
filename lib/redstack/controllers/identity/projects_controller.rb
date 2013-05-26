@@ -1,7 +1,8 @@
 module RedStack
-module Collections
-
-  class Projects
+module Controllers
+module Identity
+    
+  class ProjectsController
 
     attr_reader :session,
                 :items
@@ -10,7 +11,7 @@ module Collections
       @session = session
     end
     
-    def find_all
+    def find
       response = nil
     
       VCR.use_cassette("#{ session.api_version }_tenants", record: :new_episodes, match_requests_on: [:body]) do
@@ -22,8 +23,7 @@ module Collections
     
       case response.status
       when 200
-        @data = JSON.parse(response.body)
-        self
+        JSON.parse(response.body)['tenants']
       when 401
         nil
       end
@@ -37,7 +37,8 @@ module Collections
       items.length
     end
 
-  end # class Projects
+  end # class ProjectController
 
-end # module Collections
+end # module Identity
+end # module Controllers
 end # module RedStack

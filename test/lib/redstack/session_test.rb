@@ -11,7 +11,7 @@ describe "RedStack::Session" do
     
     @os.authenticated?.must_equal true
     @os.access.wont_be_nil
-    @os.access.must_be_instance_of RedStack::Data::Access
+    @os.access.must_be_instance_of RedStack::Access
   end
   
   it "handles invalid usernames" do
@@ -24,7 +24,7 @@ describe "RedStack::Session" do
   it "has a projects method" do
     @os.authenticate username: 'validuser', password: '123qwe'
     
-    @os.projects.must_be_instance_of RedStack::Collections::Projects
+    @os.projects.must_be_instance_of RedStack::Controllers::Identity::ProjectsController
     @os.projects.session.must_equal @os
   end
  

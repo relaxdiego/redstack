@@ -1,5 +1,4 @@
 module RedStack
-module Data
 
   class Access
     attr_reader :access
@@ -19,5 +18,4 @@ module Data
 
   end
 
-end
 end

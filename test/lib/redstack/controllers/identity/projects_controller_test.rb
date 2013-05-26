@@ -1,16 +1,17 @@
-require_relative '../../../test_helper'
+require_relative '../../../../test_helper'
 
-include RedStack::Collections
+include RedStack::Controllers
 
-describe "RedStack::Collections::Projects" do
+describe "RedStack::Controllers::ProjectsController" do
 
   it "retrieves projects of the currently logged in user" do
     @os = RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: true)
     @os.authenticate username: 'validuser', password: '123qwe'
-    projects = Projects.new(@os)
-
-    projects.find_all.must_equal projects
-    projects.length.must_equal 1
+    
+    projects = @os.projects.find
+    
+    projects.must_be_instance_of Array
+    projects.length.wont_be_nil
   end
    
 end
