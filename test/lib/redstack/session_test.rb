@@ -3,24 +3,26 @@ require_relative '../../test_helper'
 describe 'RedStack::Session' do
   
   before do
-    @os = RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: true)
+    @os = new_openstack_session
     @os.authenticate username: 'validuser', password: '123qwe'
   end
    
   it 'authenticates against the backend' do  
-    @os = RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: true)
+    @os = new_openstack_session
     @os.authenticate username: 'validuser', password: '123qwe'
     
     @os.authenticated?.must_equal true
+    @os.access['default'].wont_be_nil
     @os.access.wont_be_nil
   end
   
   it 'handles invalid usernames' do
-    @os = RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: true)
+    @os = new_openstack_session
     @os.authenticate username: 'invaliduser', password: '123qwe'
     
     @os.authenticated?.must_equal false
-    @os.access.must_be_nil
+    @os.access.wont_be_nil
+    @os.access['default'].must_be_nil
   end
   
   it 'has a projects method' do  
@@ -33,7 +35,7 @@ describe 'RedStack::Session' do
   end
   
   it 'can request for admin access' do
-    @os.authenticate username: 'invaliduser', password: '123qwe'
+    @os.authenticate username: 'admin', password: 'password'
     
     @os.is_admin?.must_equal false
     @os.request_admin_access.must_equal true

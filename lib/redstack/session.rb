@@ -11,48 +11,80 @@ module RedStack
     def initialize(options = {})
       @api_version    = options[:api_version]
       @host           = options[:host]
-      @stub_openstack = options[:stub_openstack] || false
-      
-      if stub_openstack
-        VCR.configure do |c|
-          c.cassette_library_dir = File.expand_path('../../../test/fixtures/openstack', __FILE__)
-          c.hook_into :faraday
-        end
+      @access         = { 'default' => nil }
+    end
+    
+    def authenticate(options = {})
+      if options.has_key? :username
+        authenticate_with_credentials(options)
+      else
+        authenticate_with_token(options)
       end
     end
     
-    def authenticate(credentials = {})
+    def authenticate_with_credentials(options = {})
       response = nil
+      path     = connection.url_prefix.path + '/tokens'
       
-      VCR.use_cassette("#{ api_version }_tokens", record: :new_episodes, match_requests_on: [:body]) do
+      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:body, :method]) do
         response = connection.post do |req|
           req.url 'tokens'
           req.body = {
             auth: {
               passwordCredentials: {
-                username: credentials[:username],
-                password: credentials[:password],
-                tenant: ''
+                username: options[:username],
+                password: options[:password],
+                tenant:   options[:tenant] || options[:project] || ''
               }
             }
           }.to_json
         end
       end
-      
+            
       case response.status
       when 200
-        @access = JSON.parse(response.body)['access']
+        value       = JSON.parse(response.body)['access']
+        key         = value['token']['tenant'].nil? ? 'default' : value['token']['tenant']['id']
+        access[key] = value
       when 401
-        @access = nil
+        access['default'] = nil
+      end
+    end
+    
+    def authenticate_with_token(options = {})
+      response = nil
+      path     = connection.url_prefix.path + '/tokens'
+      
+      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:headers, :body, :method]) do
+        response = connection.post do |req|
+          req.url 'tokens'
+          req.body = {
+            auth: {
+              tenantName: options[:tenant] || options[:project] || '',
+              token: {
+                id: options[:token]
+              }
+            }
+          }.to_json
+        end
+      end
+            
+      case response.status
+      when 200
+        value       = JSON.parse(response.body)['access']
+        key         = value['token']['tenant'].nil? ? 'default' : value['token']['tenant']['id']
+        access[key] = value
+      when 401
+        access['default'] = nil
       end
     end
     
     def authenticated?
-      !access.nil?
+      !access['default'].nil?
     end
     
     def is_admin?
-      false
+      !access['admin'].nil?
     end
     
     def projects
@@ -62,11 +94,14 @@ module RedStack
     def request_admin_access
       unless is_admin?
         user_projects = projects.find
-        projects.each do |project|
-          
+        user_projects.each do |project|
+          authenticate token: access['default']['token']['id'], project: project['name']
+          if access[project['id']]['user']['roles'].detect { |h| h['name']=='admin' }
+            access['admin'] = access[project['id']]
+          end
         end
       end
-      
+
       is_admin?
     end
     

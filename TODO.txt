@@ -1,0 +1,9 @@
+* Modify Session so that it uses Identity::Controllers::TokensController for requesting tokens
+
+* Think about re-arranging the files/namespace to RedStack::<Service>::<Layer> (e.g. RedStack::Identity::Controllers)
+
+* Extract common code in controllers and move to ArrayController and ObjectController
+
+* Consider moving service-specific session methods to their own files?
+
+* Clean up gems, fix .ruby-version, .ruby-gemset files

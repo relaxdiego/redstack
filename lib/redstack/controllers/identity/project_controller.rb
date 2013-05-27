@@ -6,12 +6,33 @@ module Identity
     
     include RedStack::Models::Identity
     
-    attr_reader :project,
+    attr_reader :model,
                 :session
     
+    def self.create(options={})
+      session = options[:session]
+      session.request_admin_access
+      service_endpoint = session.access['admin']['serviceCatalog']
+                         .detect{ |s|s['type']=='identity' }['endpoints'][0]['adminURL']
+      connection = session.connection.dup
+      connection.url_prefix = service_endpoint    
+      attributes = options[:attributes]
+
+      project = Project.create(
+                  attributes: attributes, 
+                  token: session.access['admin']['token']['id'],
+                  connection: connection
+                )
+      new(model: project, session: session)
+    end
+    
     def initialize(options={})
-      @project = options[:model]
-      @session = project.session
+      @model   = options[:model]
+      @session = options[:session]
+    end
+    
+    def [](key)
+      model[key]
     end
     
     def users

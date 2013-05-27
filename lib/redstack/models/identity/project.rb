@@ -6,21 +6,47 @@ module Identity
     
     attr_reader :data,
                 :session
+
+    def self.create(options={})
+      response   = nil
+      attributes = { tenant: options[:attributes] }.to_json
+      token      = options[:token] || raise(ArgumentError.new('token not supplied'))
+      connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
+      path       = connection.url_prefix.path + '/tenants'
+
+      VCR.use_cassette(path, record: :all, match_requests_on: [:headers, :body, :method]) do
+        response = connection.post do |req|
+          req.url path
+          req.headers['X-Auth-Token'] = token
+          req.body = attributes
+        end
+      end
+
+      case response.status
+      when 200
+        new(data: JSON.parse(response.body)['tenant'])
+      when 401
+        nil
+      end
+    end
+
     
     def self.find(options={})
-      response = nil
-      session = options[:session]
-    
-      VCR.use_cassette("#{ session.api_version }_project_find", record: :new_episodes, match_requests_on: [:body]) do
-        response = session.connection.get do |req|
-          req.url 'tenants'
-          req.headers['X-Auth-Token'] = session.access['token']['id']
+      response   = nil
+      token      = options[:token] || raise(ArgumentError.new('token not supplied'))
+      connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
+      path       = connection.url_prefix.path + '/tenants'
+      
+      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:body, :method]) do
+        response = connection.get do |req|
+          req.url path
+          req.headers['X-Auth-Token'] = token
         end
       end
     
       case response.status
       when 200
-        JSON.parse(response.body)['tenants'].map { |p| new(data: p, session: session) }
+        JSON.parse(response.body)['tenants'].map { |p| new(data: p) }
       when 401
         nil
       end
@@ -31,24 +57,10 @@ module Identity
       @session = options[:session]
     end
     
-    def create(attributes={})
-      response = nil
-    
-      VCR.use_cassette("#{ session.api_version }_project_create", record: :new_episodes) do
-        response = session.identity_service.admin_endpoint.post do |req|
-          req.url 'tenants'
-          req.headers['X-Auth-Token'] = session.access['token']['id']
-        end
-      end
-    
-      case response.status
-      when 200
-        JSON.parse(response.body)['tenants'].map { |p| new(data: p, session: session) }
-      when 401
-        nil
-      end
+    def [](key)
+      data[key]
     end
-        
+            
   end # class Project
 
 end # module Identity

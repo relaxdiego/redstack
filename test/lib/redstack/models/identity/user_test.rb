@@ -5,7 +5,7 @@ include RedStack::Models::Identity
 describe 'RedStack::Models::Identity:User' do
 
   before do
-    @os = RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: true)
+    @os = new_openstack_session
     @os.authenticate username: 'validuser', password: '123qwe'
   end
   

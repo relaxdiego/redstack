@@ -11,3 +11,8 @@ require 'vcr'
 
 # always require last
 require 'mocha/setup'
+
+def new_openstack_session(options={})
+  stub_openstack = options[:stub_openstack] || false
+  RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0', stub_openstack: stub_openstack)
+end
