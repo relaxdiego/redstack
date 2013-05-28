@@ -32,7 +32,12 @@ os.authenticate username: 'johndoe', password: 'gu29qa!'
 
 Get a list of tenants/projects you have access to
 ```
-tenants = os.tenants.get_all
+projects = os.projects.find
+```
+
+Create a project (Requires user with admin rights)
+```
+project = os.projects.create { name: 'New Project', description: 'My awesome project', enabled: true }
 ```
 
 ## Contributing
