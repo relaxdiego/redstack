@@ -1,6 +1,6 @@
 module RedStack
-module Models
 module Identity
+module Models
     
   class Project
     
@@ -63,7 +63,7 @@ module Identity
             
   end # class Project
 
-end # module Identity
 end # module Models
+end # module Identity
 end # module RedStack
   

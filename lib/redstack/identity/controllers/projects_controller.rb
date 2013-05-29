@@ -1,10 +1,10 @@
 module RedStack
-module Controllers
 module Identity
+module Controllers
     
   class ProjectsController
     
-    include RedStack::Models::Identity
+    include RedStack::Identity::Models
     
     attr_reader :session,
                 :items
@@ -47,6 +47,6 @@ module Identity
     
   end # class ProjectsController
 
-end # module Identity
 end # module Controllers
+end # module Identity
 end # module RedStack

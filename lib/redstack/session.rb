@@ -88,7 +88,7 @@ module RedStack
     end
     
     def projects
-      @projects ||= Controllers::Identity::ProjectsController.new(session: self)
+      @projects ||= Identity::Controllers::ProjectsController.new(session: self)
     end
     
     def request_admin_access
