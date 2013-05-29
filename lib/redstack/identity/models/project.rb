@@ -14,7 +14,7 @@ module Models
       connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       path       = connection.url_prefix.path + '/tenants'
 
-      VCR.use_cassette(path, record: :all, match_requests_on: [:headers, :body, :method]) do
+      VCR.use_cassette(path, record: :new_episodes,  match_requests_on: [:headers, :body, :method]) do
         response = connection.post do |req|
           req.url path
           req.headers['X-Auth-Token'] = token
@@ -37,7 +37,7 @@ module Models
       connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       path       = connection.url_prefix.path + '/tenants'
       
-      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:body, :method]) do
+      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:headers, :body, :method]) do
         response = connection.get do |req|
           req.url path
           req.headers['X-Auth-Token'] = token

@@ -26,7 +26,7 @@ module RedStack
       response = nil
       path     = connection.url_prefix.path + '/tokens'
       
-      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:body, :method]) do
+      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:headers, :body, :method]) do
         response = connection.post do |req|
           req.url 'tokens'
           req.body = {
@@ -96,6 +96,7 @@ module RedStack
         user_projects = projects.find
         user_projects.each do |project|
           authenticate token: access['default']['token']['id'], project: project['name']
+          next if access[project['id']].nil?
           if access[project['id']]['user']['roles'].detect { |h| h['name']=='admin' }
             access['admin'] = access[project['id']]
           end

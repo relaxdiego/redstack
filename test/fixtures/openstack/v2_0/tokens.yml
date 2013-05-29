@@ -1,0 +1,285 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"123qwe","tenant":""}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '337'
+      date:
+      - Wed, 29 May 2013 05:37:58 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-05-29T05:37:58.698126",
+        "expires": "2013-05-30T05:37:58Z", "id": "7bbf841ee4c54ee8ae38378d178a6c3f"},
+        "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
+        "id": "679cc361626346ac80603911ae379c5d", "roles": [], "name": "validuser"},
+        "metadata": {"is_admin": 0, "roles": []}}}'
+    http_version: 
+  recorded_at: Wed, 29 May 2013 05:37:58 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"admin","password":"password","tenant":""}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '329'
+      date:
+      - Wed, 29 May 2013 05:37:58 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-05-29T05:37:58.979575",
+        "expires": "2013-05-30T05:37:58Z", "id": "63cc35c4cf644f03b017d32a932863c2"},
+        "serviceCatalog": [], "user": {"username": "admin", "roles_links": [], "id":
+        "c519d07f32e64eeeb97edbe815317a30", "roles": [], "name": "admin"}, "metadata":
+        {"is_admin": 0, "roles": []}}}'
+    http_version: 
+  recorded_at: Wed, 29 May 2013 05:37:58 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"tenantName":"mmaglana","token":{"id":"63cc35c4cf644f03b017d32a932863c2"}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '2649'
+      date:
+      - Wed, 29 May 2013 05:37:59 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-05-29T05:37:59.112847",
+        "expires": "2013-05-30T05:37:58Z", "id": "a48d926022614f82aff43884ef3c8f80",
+        "tenant": {"description": "", "enabled": true, "id": "212b7cca6266486c8b5b819c3e70f85c",
+        "name": "mmaglana"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/212b7cca6266486c8b5b819c3e70f85c",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/212b7cca6266486c8b5b819c3e70f85c",
+        "id": "2f835cf8ce0f4da9ac96ad2d5f7218e0", "publicURL": "http://192.168.56.11:8774/v2/212b7cca6266486c8b5b819c3e70f85c"}],
+        "endpoints_links": [], "type": "compute", "name": "nova"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:3333", "region": "RegionOne", "internalURL": "http://192.168.56.11:3333",
+        "id": "6c4eb6f214e74c7d926325818a24e193", "publicURL": "http://192.168.56.11:3333"}],
+        "endpoints_links": [], "type": "s3", "name": "s3"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:9292", "region": "RegionOne", "internalURL": "http://192.168.56.11:9292",
+        "id": "4f1698b7a8b146e49b8fda7b31873ac4", "publicURL": "http://192.168.56.11:9292"}],
+        "endpoints_links": [], "type": "image", "name": "glance"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:8777", "region": "RegionOne", "internalURL": "http://192.168.56.11:8777",
+        "id": "2ec9c4dc62f442aebb5c2c693fa04c77", "publicURL": "http://192.168.56.11:8777"}],
+        "endpoints_links": [], "type": "metering", "name": "ceilometer"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8776/v1/212b7cca6266486c8b5b819c3e70f85c",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8776/v1/212b7cca6266486c8b5b819c3e70f85c",
+        "id": "03604f7c40f240fa8e8330633e2795e4", "publicURL": "http://192.168.56.11:8776/v1/212b7cca6266486c8b5b819c3e70f85c"}],
+        "endpoints_links": [], "type": "volume", "name": "cinder"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8773/services/Admin", "region": "RegionOne",
+        "internalURL": "http://192.168.56.11:8773/services/Cloud", "id": "3bc719dc3959407581a32b884928dbf6",
+        "publicURL": "http://192.168.56.11:8773/services/Cloud"}], "endpoints_links":
+        [], "type": "ec2", "name": "ec2"}, {"endpoints": [{"adminURL": "http://192.168.56.11:35357/v2.0",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:5000/v2.0", "id":
+        "067d964ae12b40328b8595af88ff3ded", "publicURL": "http://192.168.56.11:5000/v2.0"}],
+        "endpoints_links": [], "type": "identity", "name": "keystone"}], "user": {"username":
+        "admin", "roles_links": [], "id": "c519d07f32e64eeeb97edbe815317a30", "roles":
+        [{"name": "admin"}], "name": "admin"}, "metadata": {"is_admin": 0, "roles":
+        ["163d79d3dfc94a44a6e952eba02ea934"]}}}'
+    http_version: 
+  recorded_at: Wed, 29 May 2013 05:37:59 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"tenantName":"demo","token":{"id":"63cc35c4cf644f03b017d32a932863c2"}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '2647'
+      date:
+      - Wed, 29 May 2013 05:37:59 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-05-29T05:37:59.228451",
+        "expires": "2013-05-30T05:37:58Z", "id": "a523bf0ad1564121957e5bf748f601e0",
+        "tenant": {"description": null, "enabled": true, "id": "ce41dd3a49394231a73cf8a055461ef6",
+        "name": "demo"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/ce41dd3a49394231a73cf8a055461ef6",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/ce41dd3a49394231a73cf8a055461ef6",
+        "id": "2f835cf8ce0f4da9ac96ad2d5f7218e0", "publicURL": "http://192.168.56.11:8774/v2/ce41dd3a49394231a73cf8a055461ef6"}],
+        "endpoints_links": [], "type": "compute", "name": "nova"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:3333", "region": "RegionOne", "internalURL": "http://192.168.56.11:3333",
+        "id": "6c4eb6f214e74c7d926325818a24e193", "publicURL": "http://192.168.56.11:3333"}],
+        "endpoints_links": [], "type": "s3", "name": "s3"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:9292", "region": "RegionOne", "internalURL": "http://192.168.56.11:9292",
+        "id": "4f1698b7a8b146e49b8fda7b31873ac4", "publicURL": "http://192.168.56.11:9292"}],
+        "endpoints_links": [], "type": "image", "name": "glance"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:8777", "region": "RegionOne", "internalURL": "http://192.168.56.11:8777",
+        "id": "2ec9c4dc62f442aebb5c2c693fa04c77", "publicURL": "http://192.168.56.11:8777"}],
+        "endpoints_links": [], "type": "metering", "name": "ceilometer"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8776/v1/ce41dd3a49394231a73cf8a055461ef6",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8776/v1/ce41dd3a49394231a73cf8a055461ef6",
+        "id": "03604f7c40f240fa8e8330633e2795e4", "publicURL": "http://192.168.56.11:8776/v1/ce41dd3a49394231a73cf8a055461ef6"}],
+        "endpoints_links": [], "type": "volume", "name": "cinder"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8773/services/Admin", "region": "RegionOne",
+        "internalURL": "http://192.168.56.11:8773/services/Cloud", "id": "3bc719dc3959407581a32b884928dbf6",
+        "publicURL": "http://192.168.56.11:8773/services/Cloud"}], "endpoints_links":
+        [], "type": "ec2", "name": "ec2"}, {"endpoints": [{"adminURL": "http://192.168.56.11:35357/v2.0",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:5000/v2.0", "id":
+        "067d964ae12b40328b8595af88ff3ded", "publicURL": "http://192.168.56.11:5000/v2.0"}],
+        "endpoints_links": [], "type": "identity", "name": "keystone"}], "user": {"username":
+        "admin", "roles_links": [], "id": "c519d07f32e64eeeb97edbe815317a30", "roles":
+        [{"name": "admin"}], "name": "admin"}, "metadata": {"is_admin": 0, "roles":
+        ["163d79d3dfc94a44a6e952eba02ea934"]}}}'
+    http_version: 
+  recorded_at: Wed, 29 May 2013 05:37:59 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"tenantName":"admin","token":{"id":"63cc35c4cf644f03b017d32a932863c2"}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '2648'
+      date:
+      - Wed, 29 May 2013 05:37:59 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-05-29T05:37:59.337753",
+        "expires": "2013-05-30T05:37:58Z", "id": "c34aae33f35b4a958debc27fd777e4fd",
+        "tenant": {"description": null, "enabled": true, "id": "f9621075370d477fb56792530ad29689",
+        "name": "admin"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/f9621075370d477fb56792530ad29689",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/f9621075370d477fb56792530ad29689",
+        "id": "2f835cf8ce0f4da9ac96ad2d5f7218e0", "publicURL": "http://192.168.56.11:8774/v2/f9621075370d477fb56792530ad29689"}],
+        "endpoints_links": [], "type": "compute", "name": "nova"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:3333", "region": "RegionOne", "internalURL": "http://192.168.56.11:3333",
+        "id": "6c4eb6f214e74c7d926325818a24e193", "publicURL": "http://192.168.56.11:3333"}],
+        "endpoints_links": [], "type": "s3", "name": "s3"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:9292", "region": "RegionOne", "internalURL": "http://192.168.56.11:9292",
+        "id": "4f1698b7a8b146e49b8fda7b31873ac4", "publicURL": "http://192.168.56.11:9292"}],
+        "endpoints_links": [], "type": "image", "name": "glance"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:8777", "region": "RegionOne", "internalURL": "http://192.168.56.11:8777",
+        "id": "2ec9c4dc62f442aebb5c2c693fa04c77", "publicURL": "http://192.168.56.11:8777"}],
+        "endpoints_links": [], "type": "metering", "name": "ceilometer"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8776/v1/f9621075370d477fb56792530ad29689",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8776/v1/f9621075370d477fb56792530ad29689",
+        "id": "03604f7c40f240fa8e8330633e2795e4", "publicURL": "http://192.168.56.11:8776/v1/f9621075370d477fb56792530ad29689"}],
+        "endpoints_links": [], "type": "volume", "name": "cinder"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8773/services/Admin", "region": "RegionOne",
+        "internalURL": "http://192.168.56.11:8773/services/Cloud", "id": "3bc719dc3959407581a32b884928dbf6",
+        "publicURL": "http://192.168.56.11:8773/services/Cloud"}], "endpoints_links":
+        [], "type": "ec2", "name": "ec2"}, {"endpoints": [{"adminURL": "http://192.168.56.11:35357/v2.0",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:5000/v2.0", "id":
+        "067d964ae12b40328b8595af88ff3ded", "publicURL": "http://192.168.56.11:5000/v2.0"}],
+        "endpoints_links": [], "type": "identity", "name": "keystone"}], "user": {"username":
+        "admin", "roles_links": [], "id": "c519d07f32e64eeeb97edbe815317a30", "roles":
+        [{"name": "admin"}], "name": "admin"}, "metadata": {"is_admin": 0, "roles":
+        ["163d79d3dfc94a44a6e952eba02ea934"]}}}'
+    http_version: 
+  recorded_at: Wed, 29 May 2013 05:37:59 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"invaliduser","password":"123qwe","tenant":""}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 401
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '96'
+      date:
+      - Wed, 29 May 2013 05:37:59 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Could not find user: invaliduser", "code":
+        401, "title": "Unauthorized"}}'
+    http_version: 
+  recorded_at: Wed, 29 May 2013 05:37:59 GMT
+recorded_with: VCR 2.5.0
