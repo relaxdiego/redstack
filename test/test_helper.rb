@@ -4,6 +4,11 @@ $:.unshift File.expand_path('../../lib', __FILE__)
 # Add this folder to the load path
 $:.unshift File.expand_path('..', __FILE__)
 
+require 'coveralls'
+Coveralls.wear!
+
+SimpleCov.command_name 'Unit Tests'
+
 require 'bundler/setup'
 require 'minitest/autorun'
 require 'redstack'
