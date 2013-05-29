@@ -10,7 +10,7 @@
 ###	Improvements
 
 * DONE: Re-arrange the files/namespace to RedStack::Service::Layer (e.g. RedStack::Identity::Controllers)
-* Add travis and coveralls config file
+* DONE: Add travis and coveralls config file
 * Make sure VCR config is by a redstack.yml config file and that it's set only once, at gem load time
 * Modify Session so that it uses Identity::Controllers::TokensController for requesting tokens
 * Extract common code in controllers and move to ArrayController and ObjectController
