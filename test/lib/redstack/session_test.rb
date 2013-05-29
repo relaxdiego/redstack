@@ -26,7 +26,7 @@ describe 'RedStack::Session' do
   end
   
   it 'has a projects method' do  
-    @os.projects.must_be_instance_of RedStack::Controllers::Identity::ProjectsController
+    @os.projects.must_be_instance_of RedStack::Identity::Controllers::ProjectsController
     @os.projects.session.must_equal @os
   end
   

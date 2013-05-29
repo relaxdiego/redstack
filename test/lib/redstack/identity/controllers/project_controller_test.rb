@@ -1,8 +1,8 @@
 require_relative '../../../../test_helper'
 
-include RedStack::Controllers::Identity
+include RedStack::Identity::Controllers
 
-describe 'RedStack::Controllers::Identity::ProjectController' do
+describe 'RedStack::Identity::Controllers::ProjectController' do
 
   before do
     @os = new_openstack_session
