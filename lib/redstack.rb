@@ -10,10 +10,4 @@ end
 
 require 'redstack/version'
 require 'redstack/session'
-
-require 'redstack/identity/models/project'
-require 'redstack/identity/models/user'
-
-require 'redstack/identity/controllers/projects_controller'
-require 'redstack/identity/controllers/project_controller'
-require 'redstack/identity/controllers/users_controller'
+require 'redstack/identity'
