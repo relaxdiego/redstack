@@ -8,4 +8,4 @@ branches:
     - release
 script:
   - cp redstack.yml.travis redstack.yml
-  - rake
+  - bundle exec rake
