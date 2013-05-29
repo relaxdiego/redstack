@@ -6,3 +6,5 @@ branches:
     - master
     - develop
     - release
+script:
+  - cp redstack.yml.travis redstack.yml
