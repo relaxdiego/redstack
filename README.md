@@ -3,6 +3,8 @@
 A Ruby binding for the OpenStack API.
 
 [![Code Climate](https://codeclimate.com/github/relaxdiego/redstack.png)](https://codeclimate.com/github/relaxdiego/redstack)
+[![Build Status](https://travis-ci.org/relaxdiego/redstack.png)](https://travis-ci.org/relaxdiego/redstack) 
+[![Coverage Status](https://coveralls.io/repos/relaxdiego/redstack/badge.png)](https://coveralls.io/r/relaxdiego/redstack)
 
 ## Installation
 
