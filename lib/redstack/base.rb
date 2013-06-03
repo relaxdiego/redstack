@@ -1,0 +1,1 @@
+require 'redstack/base/model'

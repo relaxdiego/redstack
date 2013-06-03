@@ -1,25 +1,17 @@
 module RedStack
 module Identity
 module Models
-    
-  class User
-    
-    attr_reader :data,
-                :session
-    
-    def self.find(options={})
-      session = options[:session]
-      
-      # TODO: Add logic for actually retrieving data from the backend
-      [new(data: {}, session: session)]
-    end
-    
-    def initialize(options={})
-      @data = options[:data]
-      @session = options[:session]
-    end
+  
+  # http://docs.openstack.org/api/openstack-identity-service/2.0/content/User_Operations.html
+  class User < RedStack::Base::Model      
+  
+    attribute :username
+    attribute :name
+    attribute :email
+    attribute :enabled,   default: true
+    attribute :password,  key: 'OS-KSADM:password', read: false
         
-  end # class Project
+  end # class User
 
 end # module Models
 end # module Identity

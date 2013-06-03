@@ -12,7 +12,9 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
 ]
-SimpleCov.start
+SimpleCov.start do
+  add_filter '/test/'
+end
 
 require 'bundler/setup'
 require 'minitest/autorun'
@@ -27,4 +29,41 @@ require 'mocha/setup'
 
 def new_openstack_session
   RedStack::Session.new(host: 'http://devstack:5000', api_version: 'v2.0')
+end
+
+
+module TestFixtures
+  
+  def self.users
+    {
+      admin: {
+        username: 'an_admin',
+        name: 'An Admin User',
+        email: 'anadminuser@gmail.com',
+        enabled: true,
+        password: 'passwordz'
+      },
+      non_admin: {
+        username: 'not_admin',
+        name: 'Not An Admin',
+        email: 'notadmin@gmail.com',
+        enabled: true,
+        password: 'passwordz'
+      }
+    }
+  end
+
+  def self.projects
+    {
+      admin_project: {
+        name: 'Admin Project',
+        enabled: true
+      },
+      non_admin_project: {
+        name: 'Non Admin Project',
+        enabled: true
+      }
+    }
+  end
+  
 end

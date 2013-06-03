@@ -1,8 +1,7 @@
 module RedStack
 
   class Session
-    attr_accessor :access,
-                  :api_version,
+    attr_accessor :api_version,
                   :host
     
     attr_reader   :identity_service,
@@ -11,80 +10,18 @@ module RedStack
     def initialize(options = {})
       @api_version    = options[:api_version]
       @host           = options[:host]
-      @access         = { 'default' => nil }
     end
     
     def authenticate(options = {})
-      if options.has_key? :username
-        authenticate_with_credentials(options)
-      else
-        authenticate_with_token(options)
-      end
-    end
-    
-    def authenticate_with_credentials(options = {})
-      response = nil
-      path     = connection.url_prefix.path + '/tokens'
-      
-      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:headers, :body, :method]) do
-        response = connection.post do |req|
-          req.url 'tokens'
-          req.body = {
-            auth: {
-              passwordCredentials: {
-                username: options[:username],
-                password: options[:password],
-                tenant:   options[:tenant] || options[:project] || ''
-              }
-            }
-          }.to_json
-        end
-      end
-            
-      case response.status
-      when 200
-        value       = JSON.parse(response.body)['access']
-        key         = value['token']['tenant'].nil? ? 'default' : value['token']['tenant']['id']
-        access[key] = value
-      when 401
-        access['default'] = nil
-      end
-    end
-    
-    def authenticate_with_token(options = {})
-      response = nil
-      path     = connection.url_prefix.path + '/tokens'
-      
-      VCR.use_cassette(path, record: :new_episodes, match_requests_on: [:headers, :body, :method]) do
-        response = connection.post do |req|
-          req.url 'tokens'
-          req.body = {
-            auth: {
-              tenantName: options[:tenant] || options[:project] || '',
-              token: {
-                id: options[:token]
-              }
-            }
-          }.to_json
-        end
-      end
-            
-      case response.status
-      when 200
-        value       = JSON.parse(response.body)['access']
-        key         = value['token']['tenant'].nil? ? 'default' : value['token']['tenant']['id']
-        access[key] = value
-      when 401
-        access['default'] = nil
-      end
+      tokens.get_default(options)
     end
     
     def authenticated?
-      !access['default'].nil?
+      !tokens[:default].nil?
     end
     
     def is_admin?
-      !access['admin'].nil?
+      !tokens[:admin].nil?
     end
     
     def projects
@@ -104,6 +41,10 @@ module RedStack
       end
 
       is_admin?
+    end
+    
+    def tokens
+      @tokens ||= Identity::Controllers::TokensController.new(session: self)
     end
     
     def uri(path=nil)

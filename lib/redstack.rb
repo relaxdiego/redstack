@@ -15,7 +15,9 @@ module RedStack
     end
     
     require 'redstack/version'
+    require 'redstack/errors'
     require 'redstack/session'
+    require 'redstack/base'
     require 'redstack/identity'
   end
   
