@@ -1,6 +1,3 @@
 require 'redstack/identity/models/project'
 require 'redstack/identity/models/user'
 require 'redstack/identity/models/token'
-require 'redstack/identity/controllers/projects_controller'
-require 'redstack/identity/controllers/project_controller'
-require 'redstack/identity/controllers/users_controller'
