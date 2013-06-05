@@ -54,6 +54,26 @@ describe 'RedStack::Identity::Models::Project' do
     projects.length.wont_be_nil
   end
 
+
+
+  it 'retrieves all projects' do
+    some_projects = Project.find(
+                      endpoint_type: 'public',
+                      token:         @nonadmin_default_token, 
+                      connection:    @os.connection
+                    )
+
+    all_projects = Project.find(
+                     endpoint_type: 'admin',
+                     token:         @admin_scoped_token, 
+                     connection:    @os.connection
+                   )
+    
+    all_projects.length.must_be :>, some_projects.length
+  end
+
+
+
   it 'creates a project' do
     attributes = {
       name:         'REDSTACK_CREATE_PROJECT_TEST',
