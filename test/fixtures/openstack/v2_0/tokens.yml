@@ -297,4 +297,36 @@ http_interactions:
         "code": 404, "title": "Not Found"}}'
     http_version: 
   recorded_at: Wed, 05 Jun 2013 05:51:29 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"invaliduserhere","password":"passwordz","tenant":""}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 401
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '100'
+      date:
+      - Wed, 05 Jun 2013 04:12:48 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Could not find user: invaliduserhere", "code":
+        401, "title": "Unauthorized"}}'
+    http_version: 
+  recorded_at: Wed, 05 Jun 2013 06:51:05 GMT
 recorded_with: VCR 2.5.0

@@ -8,12 +8,23 @@ module RedStack
                   :stub_openstack
 
     def initialize(options = {})
-      @api_version    = options[:api_version]
-      @host           = options[:host]
+      @api_version = options[:api_version]
+      @host        = options[:host]
+      @tokens      = {}
     end
     
     def authenticate(options = {})
-      tokens.get_default(options)
+      token = Identity::Models::Token.create(
+                connection: connection,
+                attributes: {
+                  username: options[:username], 
+                  password: options[:password] 
+                }
+              )
+      
+      if token.is_default?
+        @tokens[:default] = token
+      end
     end
     
     def authenticated?
@@ -44,7 +55,7 @@ module RedStack
     end
     
     def tokens
-      @tokens ||= Identity::Controllers::TokensController.new(session: self)
+      @tokens
     end
     
     def uri(path=nil)
