@@ -6,7 +6,8 @@ module Models
   class Project < RedStack::Base::Model
 
     resource  'tenant'
-      
+
+    attribute :id      
     attribute :name
     attribute :description
     attribute :enabled

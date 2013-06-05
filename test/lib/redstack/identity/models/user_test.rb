@@ -10,28 +10,36 @@ describe 'RedStack::Identity::Models::User' do
     @admin               = TestFixtures.users[:admin]
     @admin_project       = TestFixtures.projects[:admin_project]
     @admin_default_token = Token.create(
-                      username:   @admin[:username], 
-                      password:   @admin[:password], 
-                      connection: @os.connection
-                    )
+                             connection: @os.connection,
+                             attributes: {
+                               username: @admin[:username], 
+                               password: @admin[:password]
+                             }
+                           )
     @admin_scoped_token  = Token.create(
-                      token:      @admin_default_token, 
-                      project:    @admin_project[:name], 
-                      connection: @os.connection
-                    )
+                             connection: @os.connection,
+                             attributes: {
+                               token:    @admin_default_token, 
+                               project:  @admin_project[:name]
+                             }
+                           )
     
     @non_admin              = TestFixtures.users[:non_admin]
     @non_admin_project      = TestFixtures.projects[:non_admin_project]
     @nonadmin_default_token = Token.create(
-                      username:   @non_admin[:username], 
-                      password:   @non_admin[:password], 
-                      connection: @os.connection
-                    )
+                                connection: @os.connection,
+                                attributes: {
+                                  username: @non_admin[:username], 
+                                  password: @non_admin[:password]
+                                }
+                              )
     @nonadmin_scoped_token  = Token.create(
-                      token:      @nonadmin_default_token, 
-                      project:    @non_admin_project[:name], 
-                      connection: @os.connection
-                    )
+                                connection: @os.connection,
+                                attributes: {
+                                  token:    @nonadmin_default_token, 
+                                  project:  @non_admin_project[:name]
+                                }
+                              )
   end
   
   it 'retrieves users when a valid scoped token is provided' do  
@@ -59,9 +67,9 @@ describe 'RedStack::Identity::Models::User' do
 
   it 'creates a user when a valid token is provided' do
     attributes = {
-      username: 'newuser',
-      name:     'Some User',
-      email:    'newuser@gmail.com',
+      username: 'redstacknewuser',
+      name:     'RedStack New User',
+      email:    'redstacknewuser@gmail.com',
       enabled:  true,
       password: 'secrete'
     }
@@ -74,7 +82,11 @@ describe 'RedStack::Identity::Models::User' do
     
     # The querystring argument ensures that Faraday doesn't match against the 
     # User.find query made in other tests which will not return this user.
-    users = User.find(token: @admin_scoped_token, connection: @os.connection, querystring: 'after_user_create')
+    users = User.find(
+              token:        @admin_scoped_token, 
+              connection:   @os.connection, 
+              querystring: 'after_user_create'
+            )
     users.find{ |u| u.username == attributes[:username] }.wont_be_nil "User '#{ attributes[:username] }' was not created"
     
     # Cleanup

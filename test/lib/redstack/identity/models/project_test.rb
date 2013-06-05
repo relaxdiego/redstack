@@ -10,28 +10,36 @@ describe 'RedStack::Identity::Models::Project' do
     @admin               = TestFixtures.users[:admin]
     @admin_project       = TestFixtures.projects[:admin_project]
     @admin_default_token = Token.create(
-                      username:   @admin[:username], 
-                      password:   @admin[:password], 
-                      connection: @os.connection
-                    )
+                              connection: @os.connection,
+                              attributes: {
+                                username: @admin[:username], 
+                                password: @admin[:password]
+                              }
+                            )
     @admin_scoped_token  = Token.create(
-                      token:      @admin_default_token, 
-                      project:    @admin_project[:name], 
-                      connection: @os.connection
-                    )
+                             connection: @os.connection,
+                             attributes: {
+                               token:    @admin_default_token, 
+                               project:  @admin_project[:name]
+                             }
+                           )
     
     @non_admin              = TestFixtures.users[:non_admin]
     @non_admin_project      = TestFixtures.projects[:non_admin_project]
     @nonadmin_default_token = Token.create(
-                      username:   @non_admin[:username], 
-                      password:   @non_admin[:password], 
-                      connection: @os.connection
-                    )
+                                connection: @os.connection,
+                                attributes: {
+                                  username: @non_admin[:username], 
+                                  password: @non_admin[:password]
+                                }
+                              )
     @nonadmin_scoped_token  = Token.create(
-                      token:      @nonadmin_default_token, 
-                      project:    @non_admin_project[:name], 
-                      connection: @os.connection
-                    )
+                                connection: @os.connection,
+                                attributes: {
+                                  token:    @nonadmin_default_token, 
+                                  project:  @non_admin_project[:name]
+                                }
+                              )
   end
 
   

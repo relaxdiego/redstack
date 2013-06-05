@@ -5,6 +5,7 @@ module Models
   # http://docs.openstack.org/api/openstack-identity-service/2.0/content/User_Operations.html
   class User < RedStack::Base::Model      
   
+    attribute :id
     attribute :username
     attribute :name
     attribute :email

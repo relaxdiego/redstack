@@ -8,7 +8,7 @@ module Base
 
 
     def initialize(options = {})
-      @data  = options[:data]
+      @data  = options[:data] || {}
       @error = options[:error]
     end
 
@@ -42,12 +42,7 @@ module Base
         raise(RedStack::UnexpectedError.new(JSON.parse(response.body)['error']['message']))
       end
     end
-
-    
-    def id
-      data['id']
-    end
-    
+  
     
     def resource_path
       self.class.resource_path
@@ -75,7 +70,7 @@ module Base
       value = {}
       
       attrs.keys.each do |name|
-        value[attrs[name][:key]] = values[name] || attrs[name][:default]
+        value[attrs[name][:key]] = (values[name] || attrs[name][:default]) unless name == :id and values[name].nil?
       end
       
       value
@@ -171,6 +166,12 @@ module Base
     
     def service_name
       self.class.service_name
+    end
+    
+    private
+    
+    def error=(val)
+      @error = val
     end
     
   end
