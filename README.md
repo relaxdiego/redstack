@@ -22,6 +22,12 @@ Or install it yourself as:
 
 ## Usage
 
+In your code, require and configure RedStack
+```
+require 'redstack'
+RedStack.configure
+```
+
 Create a new OpenStack session. 
 ```
 os = RedStack::Session.new host: 'http://myopenstackinstance.com:5000', api_version: 'v2.0'
