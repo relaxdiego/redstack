@@ -10,7 +10,7 @@ module Base
 
 
     def initialize(options = {})
-      @data       = options[:data] || {}
+      @data       = (options[:data] || {})[self.class.resource_name]
       @error      = options[:error]
       @connection = options[:connection]
       @token      = options[:token]
@@ -68,42 +68,14 @@ module Base
         end
       end
     end
-    
-    
-    def self.build_attributes(values)
-      attrs = self::ATTRIBUTES
-      value = {}
       
-      attrs.keys.each do |name|
-        value[attrs[name][:key]] = (values[name] || attrs[name][:default]) unless name == :id and values[name].nil?
-      end
-      
-      value
-    end
-    
     
     def self.create(options = {})
-      admin_token   = options[:token] || raise(ArgumentError.new('token not supplied'))
-      connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
-      attributes    = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
-      stub_path     = connection.url_prefix.path + '/' + resource_path
-      
-      raise(ArgumentError.new('token is unscoped')) if admin_token.is_default?
-      
-      response = nil
-      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
-        response = connection.post do |req|
-          req.headers['X-Auth-Token'] = admin_token.id
-          req.url admin_token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
-          req.body = {
-            resource_name => build_attributes(attributes)
-          }.to_json
-        end
-      end
+      response = do_create(options)
 
       case response.status
       when 200
-        new(data: JSON.parse(response.body)[resource_name], token: admin_token, connection: connection)
+        new(data: JSON.parse(response.body), token: options[:token], connection: options[:connection])
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
       else
@@ -137,7 +109,7 @@ module Base
       case response.status
       when 200
         JSON.parse(response.body)[resource_name(plural: true)]
-          .map { |r| new(data: r, token: admin_token, connection: connection) }
+          .map { |r| new(data: { resource_name => r }, token: admin_token, connection: connection) }
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
       end
@@ -178,6 +150,38 @@ module Base
     
     def error=(val)
       @error = val
+    end
+
+
+    def self.build_attributes(values)
+      attrs = self::ATTRIBUTES
+      value = {}
+      
+      attrs.keys.each do |name|
+        value[attrs[name][:key]] = (values[name] || attrs[name][:default]) unless name == :id and values[name].nil?
+      end
+      
+      { resource_name => value }
+    end
+
+    
+    def self.do_create(options)
+      token      = options[:token]      || raise(ArgumentError.new('token not supplied'))
+      connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
+      attributes = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
+      stub_path  = connection.url_prefix.path + '/' + resource_path
+      
+      raise(ArgumentError.new('token is unscoped')) if token.is_default?
+      
+      response = nil
+      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
+        response = connection.post do |req|
+          req.headers['X-Auth-Token'] = token.id
+          req.url token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
+          req.body = build_attributes(attributes).to_json
+        end
+      end
+      response
     end
     
   end

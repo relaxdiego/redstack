@@ -8,10 +8,11 @@ module Models
     attribute :id
     attribute :issued_at
     attribute :expires
-    attribute :project, key: 'tenant'
+    attribute :project, key: 'tenant' 
     
     def initialize(options = {})
-      @services = options[:services]
+      @services      = options[:data]['access']['serviceCatalog']
+      options[:data] = options[:data]['access']
       super options
     end
                 
@@ -39,49 +40,6 @@ module Models
     def is_scoped?
       !is_default?
     end
-
-
-    def self.create(options = {})
-      attributes = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
-      connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
-      stub_path  = connection.url_prefix.path + '/' + resource_path
-      body       = {}
-            
-      body[:auth] = if attributes.has_key? :username
-                      {
-                        passwordCredentials: {
-                          username: attributes[:username],
-                          password: attributes[:password],
-                          tenant:   attributes[:tenant] || attributes[:project] || ''
-                        }
-                      }
-                    else
-                      {
-                        token: {
-                          id: attributes[:token].id
-                        },
-                        tenantName: attributes[:tenant] || attributes[:project] || ''
-                      }
-                    end
-
-      response = nil
-      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
-        response = connection.post do |req|
-          req.url resource_path
-          req.body = body.to_json
-        end
-      end
-      
-      case response.status
-      when 200
-        body = JSON.parse(response.body)
-        self.new data:       body['access']['token'], 
-                 services:   body['access']['serviceCatalog'], 
-                 connection: connection
-      else
-        self.new error: JSON.parse(response.body)['error']
-      end
-    end
     
     
     def validate(options={})
@@ -106,6 +64,47 @@ module Models
       else
         return false, JSON.parse(response.body)['error']
       end
+    end
+    
+    
+    private
+    
+    def self.build_attributes(attributes)
+      body = {}
+      
+      body[:auth] = if attributes.has_key? :username
+                      {
+                        passwordCredentials: {
+                          username: attributes[:username],
+                          password: attributes[:password],
+                          tenant:   attributes[:tenant] || attributes[:project] || ''
+                        }
+                      }
+                    else
+                      {
+                        token: {
+                          id: attributes[:token].id
+                        },
+                        tenantName: attributes[:tenant] || attributes[:project] || ''
+                      }
+                    end
+      body
+    end
+
+    def self.do_create(options)
+      attributes = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
+      connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
+      stub_path  = connection.url_prefix.path + '/' + resource_path
+
+      response = nil
+      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
+        response = connection.post do |req|
+          req.url resource_path
+          req.body = build_attributes(attributes).to_json
+        end
+      end
+      
+      response
     end
                 
   end # class Token

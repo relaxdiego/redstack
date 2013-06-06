@@ -14,17 +14,21 @@ module RedStack
     end
     
     def authenticate(options = {})
-      token = Identity::Models::Token.create(
-                connection: connection,
-                attributes: {
-                  username: options[:username], 
-                  password: options[:password] 
-                }
-              )
+      begin
+        token = Identity::Models::Token.create(
+                  connection: connection,
+                  attributes: {
+                    username: options[:username], 
+                    password: options[:password] 
+                  }
+                )
       
-      if token.is_default?
-        @tokens[:default] = token
-      end
+        if token.is_default?
+          @tokens[:default] = token
+        end
+      rescue RedStack::NotAuthorizedError => e
+        @tokens[:default] = nil
+      end      
     end
     
     def authenticated?

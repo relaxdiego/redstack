@@ -23,7 +23,7 @@ describe 'RedStack::Identity::Models::Token' do
             )
     
     token.must_be_instance_of Token
-    token.id.must_be_instance_of String
+    token['id'].must_be_instance_of String
     token.is_default?.must_equal true
     token.is_unscoped?.must_equal true
   end
@@ -67,17 +67,20 @@ describe 'RedStack::Identity::Models::Token' do
   end
   
   
-  it 'creates a token with an error message when invalid credentials are provided' do
-    token = Token.create(
-              connection: @os.connection,
-              attributes: {
-                username: 'invaliduserzzz', 
-                password: 'asdlfkj123'
-              }
-            )
+  it 'raises an error message when invalid credentials are provided' do  
+    create_method = lambda do
+      Token.create(
+        connection: @os.connection,
+        attributes: {
+          username: 'invaliduserzzz', 
+          password: 'asdlfkj123'
+        }
+      )
+    end
     
-    token.error.wont_be_nil
-    token.id.must_be_nil
+    create_method.must_raise RedStack::NotAuthorizedError
+    error = create_method.call rescue $!
+    error.message.wont_be_nil
   end
   
   
