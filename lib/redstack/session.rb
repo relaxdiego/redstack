@@ -31,29 +31,6 @@ module RedStack
       !tokens[:default].nil?
     end
     
-    def is_admin?
-      !tokens[:admin].nil?
-    end
-    
-    def projects
-      @projects ||= Identity::Controllers::ProjectsController.new(session: self)
-    end
-    
-    def request_admin_access
-      unless is_admin?
-        user_projects = projects.find
-        user_projects.each do |project|
-          authenticate token: access['default']['token']['id'], project: project['name']
-          next if access[project['id']].nil?
-          if access[project['id']]['user']['roles'].detect { |h| h['name']=='admin' }
-            access['admin'] = access[project['id']]
-          end
-        end
-      end
-
-      is_admin?
-    end
-    
     def tokens
       @tokens
     end

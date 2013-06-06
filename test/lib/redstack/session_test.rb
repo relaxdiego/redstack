@@ -2,6 +2,13 @@ require_relative '../../test_helper'
  
 describe 'RedStack::Session' do
   
+  before do
+    @non_admin = TestFixtures.users[:non_admin]
+    @os        = new_openstack_session
+    
+    @os.authenticate username: @non_admin[:username], password: @non_admin[:password]
+  end
+  
   it 'authenticates against the backend' do  
     non_admin = TestFixtures.users[:non_admin]
     os        = new_openstack_session
@@ -22,11 +29,12 @@ describe 'RedStack::Session' do
     os.tokens[:default].must_be_nil
   end
   
-  # it 'has a projects method' do  
-  #   @os.projects.must_be_instance_of RedStack::Identity::Controllers::ProjectsController
-  #   @os.projects.session.must_equal @os
-  # end
-  # 
+  it 'fetches projects' do      
+    projects = @os.find_projects
+    
+    projects.wont_be_nil
+  end
+  
   # it 'has is_admin? method' do
   #   @os.must_respond_to :is_admin?
   # end
