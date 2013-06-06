@@ -2,8 +2,8 @@
 
 ###	Features
 
-* Authenticate against back-end
-* Token CRUD
+* DONE: Authenticate against back-end
+* DONE: Token Create
 * Project CRUD
 * User CRUD
 
