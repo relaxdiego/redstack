@@ -3,33 +3,38 @@ module Base
   
   class Model
 
-    attr_reader :data,
-                :error
+    attr_reader :connection,
+                :data,
+                :error,
+                :token
 
 
     def initialize(options = {})
-      @data  = options[:data] || {}
-      @error = options[:error]
+      @data       = options[:data] || {}
+      @error      = options[:error]
+      @connection = options[:connection]
+      @token      = options[:token]
     end
 
     
     def [](key)
       data[key]
     end
+    alias :attributes :[]
 
 
     def delete!(options = {})
-      admin_token = options[:token] || raise(ArgumentError.new('token not supplied'))
-      connection  = options[:connection] || raise(ArgumentError.new('connection not supplied'))
-      stub_path   = connection.url_prefix.path + '/' + resource_path
+      if token.get_endpoint(service: service_name, type: 'admin').nil?
+        raise RedStack::NotAuthorizedError.new('token is not authorized to delete the project')
+      end
       
-      raise(ArgumentError.new('token is unscoped')) if admin_token.is_default?
-      
+      stub_path = connection.url_prefix.path + '/' + resource_path
+            
       response = nil
       VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.delete do |req|
-          req.headers['X-Auth-Token'] = admin_token.id
-          req.url admin_token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ self.id }"
+          req.headers['X-Auth-Token'] = token.id
+          req.url token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ self['id'] }"
         end
       end
 
@@ -98,7 +103,7 @@ module Base
 
       case response.status
       when 200
-        new(data: JSON.parse(response.body)[resource_name])
+        new(data: JSON.parse(response.body)[resource_name], token: admin_token, connection: connection)
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
       else
@@ -131,7 +136,8 @@ module Base
 
       case response.status
       when 200
-        JSON.parse(response.body)[resource_name(plural: true)].map { |r| new(data: r) }
+        JSON.parse(response.body)[resource_name(plural: true)]
+          .map { |r| new(data: r, token: admin_token, connection: connection) }
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
       end

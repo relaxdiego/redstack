@@ -90,6 +90,6 @@ describe 'RedStack::Identity::Models::User' do
     users.find{ |u| u.username == attributes[:username] }.wont_be_nil "User '#{ attributes[:username] }' was not created"
     
     # Cleanup
-    user.delete! token: @admin_scoped_token, connection: @os.connection
+    user.delete!
   end
 end

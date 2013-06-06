@@ -75,25 +75,28 @@ module Models
       case response.status
       when 200
         body = JSON.parse(response.body)
-        self.new data: body['access']['token'], services: body['access']['serviceCatalog']
+        self.new data:       body['access']['token'], 
+                 services:   body['access']['serviceCatalog'], 
+                 connection: connection
       else
         self.new error: JSON.parse(response.body)['error']
       end
     end
     
     
-    def validate!(options={})
-      admin_token   = options[:admin_token] || raise(ArgumentError.new('admin token not supplied'))
-      connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
-      stub_path     = connection.url_prefix.path + '/' + resource_path
-      
-      raise(ArgumentError.new('token is unscoped')) if admin_token.is_default?
+    def validate(options={})
+      if get_endpoint(service: service_name, type: 'admin').nil?
+        raise RedStack::NotAuthorizedError.new('token is not authorized to validate other tokens')
+      end
+
+      token     = options[:token] || raise(ArgumentError.new('token to validate was not supplied'))
+      stub_path = connection.url_prefix.path + '/' + resource_path
 
       response = nil
       VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.get do |req|
-          req.headers['X-Auth-Token'] = admin_token.id
-          req.url admin_token.get_endpoint(service: 'identity', type: 'admin') + "/#{ resource_path }/#{ id }"
+          req.headers['X-Auth-Token'] = self.id
+          req.url self.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ token.id }"
         end
       end
 
@@ -101,8 +104,7 @@ module Models
       when 200
         true
       else
-        self.error = JSON.parse(response.body)['error']
-        false
+        return false, JSON.parse(response.body)['error']
       end
     end
                 

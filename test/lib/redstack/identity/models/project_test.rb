@@ -93,7 +93,7 @@ describe 'RedStack::Identity::Models::Project' do
     project['enabled'].must_equal attributes[:enabled]
     
     # Cleanup
-    project.delete! token: @admin_scoped_token, connection: @os.connection
+    project.delete!
   end
        
 end

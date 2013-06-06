@@ -81,7 +81,7 @@ describe 'RedStack::Identity::Models::Token' do
   end
   
   
-  it 'validates itself against the backend' do
+  it 'validates another token against the backend' do
     # Get a scoped token for the admin user (which should have access to admin enpoints)
     default_token = Token.create(
                       connection: @os.connection,
@@ -90,7 +90,7 @@ describe 'RedStack::Identity::Models::Token' do
                         password:   @admin[:password]
                       }
                     )
-    scoped_token  = Token.create(
+    admin_token  = Token.create(
                       connection: @os.connection,
                       attributes: {
                         token:    default_token, 
@@ -106,9 +106,9 @@ describe 'RedStack::Identity::Models::Token' do
                         password: @non_admin[:password]
                       }
                     )
-    
-    # Validate this default token
-    result = default_token.validate!(admin_token: scoped_token, connection: @os.connection)
+
+    # Validate default token
+    result = admin_token.validate(token: default_token)
     
     default_token.error.must_be_nil
     result.must_equal true
@@ -124,7 +124,7 @@ describe 'RedStack::Identity::Models::Token' do
                         password: @admin[:password]
                       }
                     )
-    scoped_token  = Token.create(
+    admin_token  = Token.create(
                       connection: @os.connection,
                       attributes: {
                         token:    default_token, 
@@ -144,11 +144,11 @@ describe 'RedStack::Identity::Models::Token' do
     # Change the token id to make it invalid
     default_token.id.gsub!(/./, 'A')
     
-    # Validate this default token
-    result = default_token.validate!(admin_token: scoped_token, connection: @os.connection)
+    # Validate it using the admin token
+    result, error = admin_token.validate(token: default_token)
   
-    default_token.error.wont_be_nil
     result.must_equal false
+    error.wont_be_nil
   end
        
 end
