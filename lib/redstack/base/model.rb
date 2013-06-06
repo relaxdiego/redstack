@@ -19,7 +19,7 @@ module Base
 
 
     def delete!(options = {})
-      admin_token = options[:token] || raise(ArgumentError.new('admin token not supplied'))
+      admin_token = options[:token] || raise(ArgumentError.new('token not supplied'))
       connection  = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       stub_path   = connection.url_prefix.path + '/' + resource_path
       
@@ -78,7 +78,7 @@ module Base
     
     
     def self.create(options = {})
-      admin_token   = options[:token] || raise(ArgumentError.new('admin token not supplied'))
+      admin_token   = options[:token] || raise(ArgumentError.new('token not supplied'))
       connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       attributes    = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
       stub_path     = connection.url_prefix.path + '/' + resource_path
@@ -108,7 +108,7 @@ module Base
     
     
     def self.find(options = {})
-      admin_token   = options[:token] || raise(ArgumentError.new('admin token not supplied'))
+      admin_token   = options[:token] || raise(ArgumentError.new('token not supplied'))
       connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       stub_path     = connection.url_prefix.path + '/' + resource_path
       endpoint_type = options[:endpoint_type] || 'admin'
