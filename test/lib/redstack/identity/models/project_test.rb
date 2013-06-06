@@ -52,6 +52,7 @@ describe 'RedStack::Identity::Models::Project' do
     
     projects.must_be_instance_of Array
     projects.length.wont_be_nil
+    projects.each { |p| p.must_be_instance_of Project }
   end
 
 

@@ -47,6 +47,7 @@ describe 'RedStack::Identity::Models::User' do
     
     users.must_be_instance_of Array
     users.length.wont_be_nil
+    users.each { |u| u.must_be_instance_of User }
   end
   
   
