@@ -1,6 +1,6 @@
 module RedStack
 module Base
-  
+
   class Model
 
     attr_reader :connection,
@@ -16,7 +16,7 @@ module Base
       @token      = options[:token]
     end
 
-    
+
     def [](attr_name)
       data[attr_name.to_s] || data[self.class::ATTRIBUTES[attr_name][:key]]
     end
@@ -24,17 +24,23 @@ module Base
 
 
     def delete!(options = {})
-      if token.get_endpoint(service: service_name, type: 'admin').nil?
-        raise RedStack::NotAuthorizedError.new('token is not authorized to delete the project')
+      if token.is_default?
+        raise(RedStack::NotAuthorizedError.new(
+                "Token with id #{ token[:id] } is not authorized to delete #{ resource_name }"
+              ))
       end
-      
-      stub_path = connection.url_prefix.path + '/' + resource_path
-            
+
+      url  = token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
+      mock_data_path = connection.build_url(url).path
+
+      url += "/#{ self[:id] }"
+      url += "?#{ options[:querystring] }" if options[:querystring]
+
       response = nil
-      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
+      VCR.use_cassette(mock_data_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.delete do |req|
           req.headers['X-Auth-Token'] = token[:id]
-          req.url token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ self['id'] }"
+          req.url url
         end
       end
 
@@ -47,23 +53,23 @@ module Base
         raise(RedStack::UnexpectedError.new(JSON.parse(response.body)['error']['message']))
       end
     end
-  
-    
+
+
     def resource_path
       self.class.resource_path
     end
-    
-    
+
+
     def self.attribute(attr_name, options = {})
       const_set('ATTRIBUTES', {}) unless defined?(self::ATTRIBUTES)
       attrs = self::ATTRIBUTES
-      
+
       attrs[attr_name] = {}
       attrs[attr_name][:key] = (options[:key] || attr_name).to_s
       attrs[attr_name][:default] = options[:default] || nil
     end
-      
-    
+
+
     def self.create(options = {})
       response = do_create(options)
 
@@ -76,8 +82,8 @@ module Base
         raise(RedStack::UnexpectedError.new(JSON.parse(response.body)['error']['message']))
       end
     end
-    
-    
+
+
     def self.find(options = {})
       token         = options[:token] || raise(ArgumentError.new('token not supplied'))
       connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
@@ -110,40 +116,40 @@ module Base
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
       end
     end
-    
-    
+
+
     def self.resource(name)
       const_set('RESOURCE_NAME', name.to_s.downcase)
     end
-    
-    
+
+
     def self.resource_name(options = {})
       name = defined?(self::RESOURCE_NAME) ? self::RESOURCE_NAME : self.name.split('::').last.downcase
       options[:plural] ? name + 's' : name
     end
-        
-    
+
+
     def self.resource_path
       resource_name plural: true
     end
-    
-    
+
+
     def self.service(name)
       const_set('SERVICE_NAME', name.to_s)
     end
-    
-    
+
+
     def self.service_name
       defined?(self::SERVICE_NAME) ? self::SERVICE_NAME : self.name.split('::')[1].downcase
     end
-    
-    
+
+
     def service_name
       self.class.service_name
     end
-    
+
     private
-    
+
     def error=(val)
       @error = val
     end
@@ -152,7 +158,7 @@ module Base
     def self.build_attributes(values)
       attrs = self::ATTRIBUTES
       value = {}
-      
+
       attrs.keys.each do |name|
         value[attrs[name][:key]] = (values[name] || attrs[name][:default]) unless name == :id and values[name].nil?
       end
@@ -160,15 +166,15 @@ module Base
       { resource_name => value }
     end
 
-    
+
     def self.do_create(options)
       token      = options[:token]      || raise(ArgumentError.new('token not supplied'))
       connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       attributes = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
       stub_path  = connection.url_prefix.path + '/' + resource_path
-      
+
       raise(ArgumentError.new('token is unscoped')) if token.is_default?
-      
+
       response = nil
       VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.post do |req|
@@ -179,7 +185,7 @@ module Base
       end
       response
     end
-    
+
   end
 
 end
