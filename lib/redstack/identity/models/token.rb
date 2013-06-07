@@ -43,18 +43,22 @@ module Models
     
     
     def validate(options={})
-      if get_endpoint(service: service_name, type: 'admin').nil?
-        raise RedStack::NotAuthorizedError.new('token is not authorized to validate other tokens')
+      if self.is_default?
+        raise RedStack::NotAuthorizedError.new("token with id #{ self[:id] } is not authorized to validate other tokens")
       end
 
       token     = options[:token] || raise(ArgumentError.new('token to validate was not supplied'))
       stub_path = connection.url_prefix.path + '/' + resource_path
 
+      url  = self.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
+      mock_data_path = connection.build_url(url).path
+      url += "/#{ token[:id] }"
+
       response = nil
-      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
+      VCR.use_cassette(mock_data_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.get do |req|
           req.headers['X-Auth-Token'] = self[:id]
-          req.url self.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ token[:id] }"
+          req.url url
         end
       end
 
