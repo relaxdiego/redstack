@@ -32,7 +32,7 @@ module Models
     
     
     def is_default?
-      project.nil? unless error
+      self[:project].nil? unless error
     end
     alias :is_unscoped? :is_default?
     
@@ -53,8 +53,8 @@ module Models
       response = nil
       VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.get do |req|
-          req.headers['X-Auth-Token'] = self.id
-          req.url self.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ token.id }"
+          req.headers['X-Auth-Token'] = self[:id]
+          req.url self.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ token[:id] }"
         end
       end
 
@@ -83,7 +83,7 @@ module Models
                     else
                       {
                         token: {
-                          id: attributes[:token].id
+                          id: attributes[:token][:id]
                         },
                         tenantName: attributes[:tenant] || attributes[:project] || ''
                       }

@@ -33,7 +33,7 @@ module Base
       response = nil
       VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.delete do |req|
-          req.headers['X-Auth-Token'] = token.id
+          req.headers['X-Auth-Token'] = token[:id]
           req.url token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }/#{ self['id'] }"
         end
       end
@@ -61,12 +61,6 @@ module Base
       attrs[attr_name] = {}
       attrs[attr_name][:key] = (options[:key] || attr_name).to_s
       attrs[attr_name][:default] = options[:default] || nil
-      
-      unless options[:read] == false
-        define_method(attr_name) do
-          self[attr_name]
-        end
-      end
     end
       
     
@@ -101,7 +95,7 @@ module Base
       response = nil
       VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.get do |req|
-          req.headers['X-Auth-Token'] = admin_token.id
+          req.headers['X-Auth-Token'] = admin_token[:id]
           req.url path
         end
       end
@@ -176,7 +170,7 @@ module Base
       response = nil
       VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.post do |req|
-          req.headers['X-Auth-Token'] = token.id
+          req.headers['X-Auth-Token'] = token[:id]
           req.url token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
           req.body = build_attributes(attributes).to_json
         end

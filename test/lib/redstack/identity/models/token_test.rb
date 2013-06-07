@@ -23,7 +23,7 @@ describe 'RedStack::Identity::Models::Token' do
             )
     
     token.must_be_instance_of Token
-    token['id'].must_be_instance_of String
+    token[:id].must_be_instance_of String
     token.is_default?.must_equal true
     token.is_unscoped?.must_equal true
   end
@@ -161,7 +161,7 @@ describe 'RedStack::Identity::Models::Token' do
                     )
     
     # Change the token id to make it invalid
-    default_token.id.gsub!(/./, 'A')
+    default_token[:id].gsub!(/./, 'A')
     
     # Validate it using the admin token
     result, error = admin_token.validate(token: default_token)

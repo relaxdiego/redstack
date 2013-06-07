@@ -69,7 +69,6 @@ describe 'RedStack::Identity::Models::User' do
   it 'creates a user when a valid token is provided' do
     attributes = {
       username: 'redstacknewuser',
-      name:     'RedStack New User',
       email:    'redstacknewuser@gmail.com',
       enabled:  true,
       password: 'secrete'
@@ -88,7 +87,7 @@ describe 'RedStack::Identity::Models::User' do
               connection:   @os.connection, 
               querystring: 'after_user_create'
             )
-    users.find{ |u| u.username == attributes[:username] }.wont_be_nil "User '#{ attributes[:username] }' was not created"
+    users.find{ |u| u[:username] == attributes[:username] }.wont_be_nil "User '#{ attributes[:username] }' was not created"
     
     # Cleanup
     user.delete!
