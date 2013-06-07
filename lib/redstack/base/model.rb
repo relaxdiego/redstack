@@ -79,31 +79,33 @@ module Base
     
     
     def self.find(options = {})
-      admin_token   = options[:token] || raise(ArgumentError.new('token not supplied'))
+      token         = options[:token] || raise(ArgumentError.new('token not supplied'))
       connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
-      stub_path     = connection.url_prefix.path + '/' + resource_path
       endpoint_type = options[:endpoint_type] || 'admin'
-      
-      path = nil
+
+      url_or_path = ''
       if endpoint_type == 'admin'
-        raise(ArgumentError.new('token is unscoped')) if admin_token.is_default?
-        path = admin_token.get_endpoint(service: service_name, type: endpoint_type) + "/#{ resource_path }?#{ options[:querystring] }"
-      else
-        path = "#{ resource_path }?#{ options[:querystring] }"
+        raise(ArgumentError.new("admin endpoint is not available to token with id #{ token['id'] }")) if token.is_default?
+        url_or_path = token.get_endpoint(service: service_name, type: endpoint_type) + '/'
       end
-      
+      url_or_path += "#{ resource_path }#{ options[:querystring] ? '?' + options[:querystring] : '' }"
+
+      mock_data_path = connection.build_url(url_or_path).path
+
       response = nil
-      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
+      VCR.use_cassette(mock_data_path,
+                       record: :new_episodes,
+                       match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.get do |req|
-          req.headers['X-Auth-Token'] = admin_token[:id]
-          req.url path
+          req.headers['X-Auth-Token'] = token[:id]
+          req.url url_or_path
         end
       end
 
       case response.status
       when 200
         JSON.parse(response.body)[resource_name(plural: true)]
-          .map { |r| new(data: { resource_name => r }, token: admin_token, connection: connection) }
+          .map { |r| new(data: { resource_name => r }, token: token, connection: connection) }
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
       end
