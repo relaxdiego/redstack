@@ -171,15 +171,21 @@ module Base
       token      = options[:token]      || raise(ArgumentError.new('token not supplied'))
       connection = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       attributes = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
-      stub_path  = connection.url_prefix.path + '/' + resource_path
 
-      raise(ArgumentError.new('token is unscoped')) if token.is_default?
+      if token.is_default?
+        raise(RedStack::NotAuthorizedError.new(
+                "Token with id #{ token[:id] } is not authorized to create #{ resource_name }"
+              ))
+      end
+
+      url  = token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
+      mock_data_path = connection.build_url(url).path
 
       response = nil
-      VCR.use_cassette(stub_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
+      VCR.use_cassette(mock_data_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
         response = connection.post do |req|
           req.headers['X-Auth-Token'] = token[:id]
-          req.url token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
+          req.url url
           req.body = build_attributes(attributes).to_json
         end
       end
