@@ -76,9 +76,9 @@ module Models
                       {
                         passwordCredentials: {
                           username: attributes[:username],
-                          password: attributes[:password],
-                          tenant:   attributes[:tenant] || attributes[:project] || ''
-                        }
+                          password: attributes[:password]
+                        },
+                        tenantName: attributes[:tenant] || attributes[:project] || ''
                       }
                     else
                       {

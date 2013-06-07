@@ -52,6 +52,22 @@ describe 'RedStack::Identity::Models::Token' do
   end
   
   
+  it 'creates a scoped token when valid credentials and a project name are provided' do
+    scoped_token  = Token.create(
+                      connection: @os.connection,
+                      attributes: {
+                        username: @non_admin[:username], 
+                        password: @non_admin[:password],
+                        project:  @non_admin_project[:name]
+                      }
+                    )
+    
+    scoped_token.must_be_instance_of Token
+    scoped_token.is_default?.must_equal false
+    scoped_token.is_scoped?.must_equal true
+  end
+  
+  
   it 'has a [] method which is a proxy to token.data[]' do
     token = Token.create(
               connection: @os.connection,
