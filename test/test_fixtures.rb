@@ -9,13 +9,13 @@ module TestFixtures
   def self.users
     {
       admin: {
-        name: 'an_admin',
+        username: 'an_admin',
         email: 'anadminuser@gmail.com',
         enabled: true,
         password: 'passwordz'
       },
       non_admin: {
-        name: 'not_admin',
+        username: 'not_admin',
         email: 'notadmin@gmail.com',
         enabled: true,
         password: 'passwordz'

@@ -17,8 +17,8 @@ module Base
     end
 
     
-    def [](key)
-      data[key.to_s]
+    def [](attr_name)
+      data[attr_name.to_s] || data[self.class::ATTRIBUTES[attr_name][:key]]
     end
     alias :attributes :[]
 
@@ -54,17 +54,17 @@ module Base
     end
     
     
-    def self.attribute(name, options = {})
+    def self.attribute(attr_name, options = {})
       const_set('ATTRIBUTES', {}) unless defined?(self::ATTRIBUTES)
       attrs = self::ATTRIBUTES
       
-      attrs[name] = {}
-      attrs[name][:key] = options[:key] || name
-      attrs[name][:default] = options[:default] || nil
+      attrs[attr_name] = {}
+      attrs[attr_name][:key] = (options[:key] || attr_name).to_s
+      attrs[attr_name][:default] = options[:default] || nil
       
       unless options[:read] == false
-        define_method(name) do
-          data[self.class::ATTRIBUTES[name][:key].to_s]
+        define_method(attr_name) do
+          self[attr_name]
         end
       end
     end
@@ -160,7 +160,7 @@ module Base
       attrs.keys.each do |name|
         value[attrs[name][:key]] = (values[name] || attrs[name][:default]) unless name == :id and values[name].nil?
       end
-      
+
       { resource_name => value }
     end
 

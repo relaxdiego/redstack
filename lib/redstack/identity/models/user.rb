@@ -6,8 +6,7 @@ module Models
   class User < RedStack::Base::Model      
   
     attribute :id
-    attribute :username
-    attribute :name
+    attribute :username,  key: 'name'
     attribute :email
     attribute :enabled,   default: true
     attribute :password,  key: 'OS-KSADM:password', read: false
