@@ -4,4 +4,4 @@
 # a global variable from here while making sure that you set it in your code just before you
 # call RedStack.configure. Another option is for you to directly set this when calling
 # RedStack.configure (e.g. RedStack.configure openstack_stub_dir: '/absolute/path/to/stubdir' )
-openstack_stub_dir: <%= File.expand_path('../test/fixtures/openstack', __FILE__) %>
+openstack_stub_dir: <%= File.expand_path('../test/mock_data/openstack', __FILE__) %>
