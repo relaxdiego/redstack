@@ -18,7 +18,7 @@ module Base
 
     
     def [](key)
-      data[key]
+      data[key.to_s]
     end
     alias :attributes :[]
 
