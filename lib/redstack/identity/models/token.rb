@@ -51,7 +51,7 @@ module Models
       stub_path = connection.url_prefix.path + '/' + resource_path
 
       url  = self.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
-      mock_data_path = connection.build_url(url).path
+      mock_data_path = "#{ self.class.service_name }/#{ connection.build_url(url).path }"
       url += "/#{ token[:id] }"
 
       response = nil
@@ -98,7 +98,7 @@ module Models
     def self.do_create(options)
       attributes     = options[:attributes] || raise(ArgumentError.new('attributes not supplied'))
       connection     = options[:connection] || raise(ArgumentError.new('connection not supplied'))
-      mock_data_path = connection.url_prefix.path + '/' + resource_path
+      mock_data_path = "#{ self.service_name }/#{ connection.url_prefix.path }/#{ resource_path }"
 
       response = nil
       VCR.use_cassette(mock_data_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do

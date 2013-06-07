@@ -31,7 +31,7 @@ module Base
       end
 
       url  = token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
-      mock_data_path = connection.build_url(url).path
+      mock_data_path = "#{ self.class.service_name }/#{ connection.build_url(url).path }"
 
       url += "/#{ self[:id] }"
       url += "?#{ options[:querystring] }" if options[:querystring]
@@ -96,7 +96,7 @@ module Base
       end
       url_or_path += "#{ resource_path }#{ options[:querystring] ? '?' + options[:querystring] : '' }"
 
-      mock_data_path = connection.build_url(url_or_path).path
+      mock_data_path = "#{ self.service_name }/#{ connection.build_url(url_or_path).path }"
 
       response = nil
       VCR.use_cassette(mock_data_path,
@@ -179,7 +179,7 @@ module Base
       end
 
       url  = token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
-      mock_data_path = connection.build_url(url).path
+      mock_data_path = "#{ self.service_name }/#{ connection.build_url(url).path }"
 
       response = nil
       VCR.use_cassette(mock_data_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
