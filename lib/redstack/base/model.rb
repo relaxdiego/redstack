@@ -18,9 +18,16 @@ module Base
 
 
     def [](attr_name)
-      data[attr_name.to_s] || data[self.class::ATTRIBUTES[attr_name][:key]]
+      validate_attr_name(attr_name)
+      data[self.class::ATTRIBUTES[attr_name.to_sym][:key]]
     end
     alias :attributes :[]
+
+
+    def []=(attr_name, value)
+      validate_attr_name(attr_name)
+      data[self.class::ATTRIBUTES[attr_name.to_sym][:key]] = value
+    end
 
 
     def delete!(options = {})
@@ -63,6 +70,7 @@ module Base
     def self.attribute(attr_name, options = {})
       const_set('ATTRIBUTES', {}) unless defined?(self::ATTRIBUTES)
       attrs = self::ATTRIBUTES
+      attr_name = attr_name.to_sym
 
       attrs[attr_name] = {}
       attrs[attr_name][:key] = (options[:key] || attr_name).to_s
@@ -190,6 +198,16 @@ module Base
         end
       end
       response
+    end
+
+
+    def validate_attr_name(attr_name)
+      if self.class::ATTRIBUTES[attr_name.to_sym].nil?
+        raise(ArgumentError.new(
+          "#{ attr_name.to_s } is unknown. Available keys are #{ self.class::ATTRIBUTES.keys.join(', ') }"
+        ))
+      end
+      true
     end
 
   end
