@@ -10,7 +10,7 @@ module Models
     attribute :id      
     attribute :name
     attribute :description
-    attribute :enabled
+    attribute :enabled,     default: true
             
   end # class Project
 

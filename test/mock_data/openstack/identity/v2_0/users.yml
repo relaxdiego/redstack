@@ -16,7 +16,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message: 
+      message:
     headers:
       vary:
       - X-Auth-Token
@@ -32,7 +32,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{"user": {"name": "redstacknewuser", "OS_KSADM_password": "secrete",
         "enabled": true, "email": "redstacknewuser@gmail.com", "id": "20478f4551f24f6289a4e6c362595692"}}'
-    http_version: 
+    http_version:
   recorded_at: Fri, 07 Jun 2013 22:44:18 GMT
 - request:
     method: get
@@ -50,7 +50,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message: 
+      message:
     headers:
       vary:
       - X-Auth-Token
@@ -88,7 +88,7 @@ http_interactions:
         "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
         "ceilometer@example.com"}, {"name": "alt_demo", "id": "f0cd181907c94fa49e317faf6fdcd628",
         "tenantId": null, "enabled": true, "email": "alt_demo@example.com"}]}'
-    http_version: 
+    http_version:
   recorded_at: Fri, 07 Jun 2013 22:44:18 GMT
 - request:
     method: delete
@@ -106,7 +106,7 @@ http_interactions:
   response:
     status:
       code: 204
-      message: 
+      message:
     headers:
       vary:
       - X-Auth-Token
@@ -119,7 +119,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ''
-    http_version: 
+    http_version:
   recorded_at: Fri, 07 Jun 2013 22:44:18 GMT
 - request:
     method: get
@@ -137,7 +137,7 @@ http_interactions:
   response:
     status:
       code: 403
-      message: 
+      message:
     headers:
       vary:
       - X-Auth-Token
@@ -153,7 +153,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{"error": {"message": "You are not authorized to perform the requested
         action: admin_required", "code": 403, "title": "Not Authorized"}}'
-    http_version: 
+    http_version:
   recorded_at: Fri, 07 Jun 2013 22:44:18 GMT
 - request:
     method: get
@@ -171,7 +171,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message: 
+      message:
     headers:
       vary:
       - X-Auth-Token
@@ -207,6 +207,40 @@ http_interactions:
         "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
         "ceilometer@example.com"}, {"name": "alt_demo", "id": "f0cd181907c94fa49e317faf6fdcd628",
         "tenantId": null, "enabled": true, "email": "alt_demo@example.com"}]}'
-    http_version: 
+    http_version:
   recorded_at: Fri, 07 Jun 2013 22:44:18 GMT
+- request:
+    method: post
+    uri: http://192.168.56.11:35357/v2.0/users
+    body:
+      encoding: UTF-8
+      string: ! '{"user":{"name":null,"email":null,"enabled":true,"OS-KSADM:password":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+      X-Auth-Token:
+      - 187b5dd1896348d79a76259a862e15ed
+  response:
+    status:
+      code: 400
+      message:
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '105'
+      date:
+      - Sat, 08 Jun 2013 00:58:07 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Name field is required and cannot be empty",
+        "code": 400, "title": "Bad Request"}}'
+    http_version:
+  recorded_at: Sat, 08 Jun 2013 00:58:06 GMT
 recorded_with: VCR 2.5.0

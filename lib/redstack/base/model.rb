@@ -78,6 +78,38 @@ module Base
     end
 
 
+    def save!
+      if token.is_default?
+        raise(RedStack::NotAuthorizedError.new(
+                "Token with id #{ token[:id] } is not authorized to save #{ resource_name }"
+              ))
+      end
+
+      url  = token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
+      mock_data_path = "#{ self.class.service_name }/#{ connection.build_url(url).path }"
+
+      url += "/#{ self[:id] }"
+
+      response = nil
+      VCR.use_cassette(mock_data_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
+        response = connection.post do |req|
+          req.headers['X-Auth-Token'] = token[:id]
+          req.url url
+          req.body = self.class.build_attributes(data).to_json
+        end
+      end
+
+      case response.status
+      when 200
+        true
+      when 401, 403
+        raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
+      else
+        raise(RedStack::UnexpectedError.new(JSON.parse(response.body)['error']['message']))
+      end
+    end
+
+
     def self.create(options = {})
       response = do_create(options)
 
@@ -163,15 +195,22 @@ module Base
     end
 
 
-    def self.build_attributes(values)
+    def self.build_attributes(input_values)
       attrs = self::ATTRIBUTES
-      value = {}
-
+      output_values = {}
       attrs.keys.each do |name|
-        value[attrs[name][:key]] = (values[name] || attrs[name][:default]) unless name == :id and values[name].nil?
-      end
+        next if name == :id
 
-      { resource_name => value }
+        output_values[attrs[name][:key]] =
+            if input_values[name].nil? and input_values[attrs[name][:key]].nil?
+              attrs[name][:default]
+            elsif input_values[name].nil?
+              input_values[attrs[name][:key]]
+            else
+              input_values[name]
+            end
+      end
+      { resource_name => output_values }
     end
 
 
