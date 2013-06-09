@@ -104,10 +104,13 @@ describe 'RedStack::Identity::Models::Project' do
 
 
   it 'updates a project' do
+    # the querystring param is so that the VCR gem doesn't use
+    # the same mocks used in other tests.
     project = Project.create(
-                attributes: @new_attributes,
-                token:      @admin_scoped_token,
-                connection: @os.connection
+                attributes:  @new_attributes,
+                token:       @admin_scoped_token,
+                connection:  @os.connection,
+                querystring: 'before_project_update'
               )
 
     project[:name]        = @updated_attributes[:name]
@@ -123,6 +126,7 @@ describe 'RedStack::Identity::Models::Project' do
 
     project = projects.find { |p| p[:id] == project[:id] }
 
+    project.wont_be_nil
     project[:name].must_equal @updated_attributes[:name]
     project[:description].must_equal @updated_attributes[:description]
     project[:enabled].must_equal @updated_attributes[:enabled]
@@ -166,9 +170,10 @@ describe 'RedStack::Identity::Models::Project' do
 
   it 'marks itself as not dirty after changes have been saved' do
     project = Project.create(
-                attributes: @new_attributes,
-                token:      @admin_scoped_token,
-                connection: @os.connection
+                attributes:  @new_attributes,
+                token:       @admin_scoped_token,
+                connection:  @os.connection,
+                querystring: 'project_dirtiness_test'
               )
 
     project[:name]        = @updated_attributes[:name]

@@ -233,6 +233,7 @@ module Base
 
       url  = token.get_endpoint(service: service_name, type: 'admin') + "/#{ resource_path }"
       mock_data_path = "#{ self.service_name }/#{ connection.build_url(url).path }"
+      url += "?#{ options[:querystring] }" if options[:querystring]
 
       response = nil
       VCR.use_cassette(mock_data_path, record: :new_episodes, match_requests_on: [:uri, :headers, :body, :method]) do
