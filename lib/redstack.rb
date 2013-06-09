@@ -21,8 +21,19 @@ module RedStack
     require 'redstack/identity'
   end
   
-  def self.load_config(path)
-    YAML.load(ERB.new(File.read(path)).result) || {}
+  def self.load_config(config_dir, config_file)
+    owd = Dir.pwd
+
+    # Change pwd to location of the config so that any ERB tags
+    # in the config file are evaluated relative to that file's location
+    Dir.chdir config_dir
+    
+    config = YAML.load(ERB.new(File.read(config_dir + config_file)).result) || {}
+    
+    # Change back to original working directory
+    Dir.chdir owd
+        
+    config
   end
   
   def self.find_config(dir=nil)
@@ -30,7 +41,7 @@ module RedStack
     filepath = '/redstack.yml'
 
     if File.exists?(dir + filepath)
-      load_config(dir + filepath)
+      load_config(dir, filepath)
     elsif dir == '/'
       {}
     else

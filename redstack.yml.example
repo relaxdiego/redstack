@@ -1,7 +1,2 @@
-# Path to the directory must be absolute. If you are going to use File.expand_path
-# just like the example below, know that the path will be relative to lib/redstack/redstack.rb
-# which is in the redstack gem directory. If that won't work for you, consider calling
-# a global variable from here while making sure that you set it in your code just before you
-# call RedStack.configure. Another option is for you to directly set this when calling
-# RedStack.configure (e.g. RedStack.configure openstack_stub_dir: '/absolute/path/to/stubdir' )
+# Keep in mind that File.expand_path is evaluated relative to this YAML file's location
 openstack_stub_dir: <%= File.expand_path('../test/mock_data/openstack', __FILE__) %>
