@@ -148,6 +148,22 @@ describe 'RedStack::Identity::Models::Project' do
   end
 
 
+  it 'does not mark itself as dirty when an attribute is assigned the same value' do
+    project = Project.create(
+                attributes: @new_attributes,
+                token:      @admin_scoped_token,
+                connection: @os.connection
+              )
+
+    project[:name] = @new_attributes[:name]
+
+    project.dirty?.must_equal false
+
+    # Cleanup
+    project.delete!
+  end
+
+
   it 'marks itself as not dirty after changes have been saved' do
     project = Project.create(
                 attributes: @new_attributes,

@@ -27,7 +27,7 @@ module Base
 
     def []=(attr_name, value)
       validate_attr_name(attr_name)
-      @dirty = true
+      @dirty = true unless data[self.class::ATTRIBUTES[attr_name.to_sym][:key]] == value
       data[self.class::ATTRIBUTES[attr_name.to_sym][:key]] = value
     end
 
