@@ -11,6 +11,7 @@ module Base
 
     def initialize(options = {})
       @data       = (options[:data] || {})[self.class.resource_name]
+      @dirty      = false
       @error      = options[:error]
       @connection = options[:connection]
       @token      = options[:token]
@@ -26,6 +27,7 @@ module Base
 
     def []=(attr_name, value)
       validate_attr_name(attr_name)
+      @dirty = true
       data[self.class::ATTRIBUTES[attr_name.to_sym][:key]] = value
     end
 
@@ -61,6 +63,9 @@ module Base
       end
     end
 
+    def dirty?
+      @dirty
+    end
 
     def resource_path
       self.class.resource_path
@@ -101,6 +106,7 @@ module Base
 
       case response.status
       when 200
+        @dirty = false
         true
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
