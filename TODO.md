@@ -4,7 +4,7 @@
 
 * DONE: Authenticate against back-end
 * DONE: Token Create
-* Project CRUD
+* DONE: Project CRUD
 * User CRUD
 
 ###	Improvements
