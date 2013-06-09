@@ -182,4 +182,23 @@ describe 'RedStack::Identity::Models::Project' do
     project.delete!
   end
 
+
+  it 'deletes a project' do
+    project = Project.create(
+                attributes: @new_attributes,
+                token:      @admin_scoped_token,
+                connection: @os.connection
+              )
+
+    project.delete!.must_equal true
+
+    projects = Project.find(
+              token:        @admin_scoped_token,
+              connection:   @os.connection,
+              querystring: 'after_project_delete'
+            )
+
+    project = projects.find { |p| p[:id] == project[:id] }
+    project.must_be_nil
+  end
 end
