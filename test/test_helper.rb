@@ -19,7 +19,12 @@ end
 # Stuff needed for testing
 require 'bundler/setup'
 require 'minitest/autorun'
-require 'pry'
+
+# Do not require these gems when running in the CI
+unless ENV['CI'] || ENV['TRAVIS']
+  require 'pry'
+end
+
 
 # Configure RedStack. It will try to look for
 # redstack.yml up the directory tree
