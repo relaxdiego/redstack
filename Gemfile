@@ -11,4 +11,5 @@ group :test do
   gem 'simplecov', '~> 0.7.0'
   gem 'coveralls', '~> 0.6.0'
   gem 'json', '~> 1.7.0'
+  gem 'minitest', '~> 4.7.0'
 end
