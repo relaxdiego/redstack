@@ -4,32 +4,34 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'redstack/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "redstack"
+  spec.name          = 'redstack'
   spec.version       = RedStack::VERSION
-  spec.authors       = ["Mark Maglana"]
-  spec.email         = ["mmaglana@gmail.com"]
+  spec.authors       = ['Mark Maglana']
+  spec.email         = ['mmaglana@gmail.com']
   spec.description   = %q{A Ruby binding for the OpenStack API}
   spec.summary       = %q{A Ruby binding for the OpenStack API}
-  spec.homepage      = "https://github.com/relaxdiego/redstack"
-  spec.license       = "MIT"
+  spec.homepage      = 'https://github.com/relaxdiego/redstack'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_dependency "faraday", "~> 0.8.7"     # vcr 2.5.0 doesn't work with faraday 0.9.0 RCs yet
-  spec.add_dependency "vcr", "~> 2.5.0"
+  spec.add_dependency 'faraday', '~> 0.8.0'     # NOTE: vcr 2.5.0 doesn't work with faraday 0.9.0 RCs yet
+  spec.add_dependency 'vcr', '~> 2.5.0'
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "minitest", "~> 4.7.0"
-  spec.add_development_dependency 'rb-fsevent', '~> 0.9'
-  spec.add_development_dependency "guard"
-  spec.add_development_dependency "guard-rake"
-  spec.add_development_dependency "guard-minitest"
-  spec.add_development_dependency 'ruby_gntp'
-  spec.add_development_dependency "debugger"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "mocha"
+  spec.add_development_dependency 'bundler', '~> 1.3.0'
+  spec.add_development_dependency 'rake', '~> 10.0.0'
+  spec.add_development_dependency 'minitest', '~> 4.7.0'
+  spec.add_development_dependency 'rb-fsevent', '~> 0.9.0'
+  spec.add_development_dependency 'guard', '~> 1.8.0'
+  spec.add_development_dependency 'guard-rake', '~> 0.0.0'
+  spec.add_development_dependency 'guard-minitest', '~> 0.5.0'
+  spec.add_development_dependency 'ruby_gntp', '~> 0.3.0'
+  spec.add_development_dependency 'debugger', '~> 1.6.0'
+  spec.add_development_dependency 'pry', '~> 0.9.0'
+  spec.add_development_dependency 'simplecov', '~> 0.7.0'
+  spec.add_development_dependency 'coveralls', '~> 0.6.0'
+  spec.add_development_dependency 'json', '~> 1.7.0'
 end
