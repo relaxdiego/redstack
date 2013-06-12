@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://192.168.56.11:35357/v2.0/users
+    uri: http://192.168.56.11:35357/v2.0/tenants/0a8c022d3f624981b8d90da23357fb8b/users?get_project_users_test
     body:
       encoding: US-ASCII
       string: ''
@@ -12,82 +12,30 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - e42c06b86b6043759bce35397a0dc9e8
+      - 6e73c3d6d9b14f98836b7dd0a544d168
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
       content-type:
       - application/json
       content-length:
-      - '1807'
+      - '275'
       date:
-      - Sun, 09 Jun 2013 06:15:24 GMT
+      - Wed, 12 Jun 2013 10:35:01 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
       string: ! '{"users": [{"name": "morphadmin", "id": "1c228375f0b347babd0af51fe2a9f40e",
         "tenantId": null, "enabled": true, "email": "morphadmin@morphlabs.com"}, {"name":
-        "an_admin", "id": "43a000fbf0894c06a49230c7ba7401f9", "tenantId": "a7726e17f157440ea09ba1d624a83886",
-        "enabled": true, "email": "anadminuser@gmail.com"}, {"name": "demo", "id":
-        "99d6415b60d44c37ac12f42a3b87f84a", "tenantId": null, "enabled": true, "email":
-        "demo@example.com"}, {"name": "cinder", "id": "ba8976ede656477495935e0ca1402794",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "cinder@example.com"}, {"name": "mmaglana", "id": "c019e8a63ca94084a9057e2e279317fc",
-        "tenantId": "fcfea339c56347f48eb7a630775ad7bb", "enabled": true, "email":
-        "mmaglana@gmail.com"}, {"name": "glance", "id": "c0d4e8add85d4c13b64ecf77c2f46c46",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "glance@example.com"}, {"name": "not_admin", "id": "c1fa7602504d4f92b817dfdf0b2412a7",
-        "tenantId": "07289d89987c4d779f388ac96148fb8b", "enabled": true, "email":
-        "notadmin@gmail.com"}, {"name": "admin", "id": "c21c957d93074f0fa13d66d0ad3270e1",
-        "tenantId": null, "enabled": true, "email": "admin@example.com"}, {"name":
-        "Some User", "id": "cba523a6f0e843ab827876ecb4de1ee5", "tenantId": "b7786369738945b8aaa37d7a8eaf411b",
-        "enabled": true, "email": "some@user.com"}, {"name": "nova", "id": "da2d21deb24b43cbb690a2782228f3ad",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "nova@example.com"}, {"name": "ceilometer", "id": "f004439f30ff4bd08c1b7480ba3da38b",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "ceilometer@example.com"}, {"name": "alt_demo", "id": "f0cd181907c94fa49e317faf6fdcd628",
-        "tenantId": null, "enabled": true, "email": "alt_demo@example.com"}]}'
-    http_version:
-  recorded_at: Sun, 09 Jun 2013 06:15:24 GMT
-- request:
-    method: get
-    uri: http://192.168.56.11:35357/v2.0/users
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-      X-Auth-Token:
-      - 70b2a5a52bbf4521a2a3c8adba461f6b
-  response:
-    status:
-      code: 403
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-type:
-      - application/json
-      content-length:
-      - '136'
-      date:
-      - Sun, 09 Jun 2013 06:15:25 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ! '{"error": {"message": "You are not authorized to perform the requested
-        action: admin_required", "code": 403, "title": "Not Authorized"}}'
-    http_version:
-  recorded_at: Sun, 09 Jun 2013 06:15:25 GMT
+        "admin", "id": "c21c957d93074f0fa13d66d0ad3270e1", "tenantId": null, "enabled":
+        true, "email": "admin@example.com"}]}'
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:32 GMT
 - request:
     method: post
     uri: http://192.168.56.11:35357/v2.0/users
@@ -100,11 +48,11 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - e42c06b86b6043759bce35397a0dc9e8
+      - 6e73c3d6d9b14f98836b7dd0a544d168
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -113,15 +61,15 @@ http_interactions:
       content-length:
       - '166'
       date:
-      - Sun, 09 Jun 2013 06:15:25 GMT
+      - Wed, 12 Jun 2013 10:35:02 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
       string: ! '{"user": {"name": "redstacknewuser", "OS_KSADM_password": "secrete",
-        "enabled": true, "email": "redstacknewuser@gmail.com", "id": "df80a23214024e0fb891a9d3a63ac9d1"}}'
-    http_version:
-  recorded_at: Sun, 09 Jun 2013 06:15:25 GMT
+        "enabled": true, "email": "redstacknewuser@gmail.com", "id": "9e71e043b467498298d52648ed01534e"}}'
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
 - request:
     method: get
     uri: http://192.168.56.11:35357/v2.0/users?after_user_create
@@ -134,11 +82,11 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - e42c06b86b6043759bce35397a0dc9e8
+      - 6e73c3d6d9b14f98836b7dd0a544d168
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -147,7 +95,7 @@ http_interactions:
       content-length:
       - '1965'
       date:
-      - Sun, 09 Jun 2013 06:15:25 GMT
+      - Wed, 12 Jun 2013 10:35:03 GMT
       connection:
       - close
     body:
@@ -157,30 +105,29 @@ http_interactions:
         "an_admin", "id": "43a000fbf0894c06a49230c7ba7401f9", "tenantId": "a7726e17f157440ea09ba1d624a83886",
         "enabled": true, "email": "anadminuser@gmail.com"}, {"name": "demo", "id":
         "99d6415b60d44c37ac12f42a3b87f84a", "tenantId": null, "enabled": true, "email":
-        "demo@example.com"}, {"name": "cinder", "id": "ba8976ede656477495935e0ca1402794",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "cinder@example.com"}, {"name": "mmaglana", "id": "c019e8a63ca94084a9057e2e279317fc",
-        "tenantId": "fcfea339c56347f48eb7a630775ad7bb", "enabled": true, "email":
-        "mmaglana@gmail.com"}, {"name": "glance", "id": "c0d4e8add85d4c13b64ecf77c2f46c46",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "glance@example.com"}, {"name": "not_admin", "id": "c1fa7602504d4f92b817dfdf0b2412a7",
-        "tenantId": "07289d89987c4d779f388ac96148fb8b", "enabled": true, "email":
-        "notadmin@gmail.com"}, {"name": "admin", "id": "c21c957d93074f0fa13d66d0ad3270e1",
+        "demo@example.com"}, {"name": "redstacknewuser", "OS_KSADM_password": "secrete",
+        "enabled": true, "email": "redstacknewuser@gmail.com", "id": "9e71e043b467498298d52648ed01534e"},
+        {"name": "cinder", "id": "ba8976ede656477495935e0ca1402794", "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7",
+        "enabled": true, "email": "cinder@example.com"}, {"name": "mmaglana", "id":
+        "c019e8a63ca94084a9057e2e279317fc", "tenantId": "fcfea339c56347f48eb7a630775ad7bb",
+        "enabled": true, "email": "mmaglana@gmail.com"}, {"name": "glance", "id":
+        "c0d4e8add85d4c13b64ecf77c2f46c46", "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7",
+        "enabled": true, "email": "glance@example.com"}, {"name": "not_admin", "id":
+        "c1fa7602504d4f92b817dfdf0b2412a7", "tenantId": "07289d89987c4d779f388ac96148fb8b",
+        "enabled": true, "email": "notadmin@gmail.com"}, {"name": "admin", "id": "c21c957d93074f0fa13d66d0ad3270e1",
         "tenantId": null, "enabled": true, "email": "admin@example.com"}, {"name":
         "Some User", "id": "cba523a6f0e843ab827876ecb4de1ee5", "tenantId": "b7786369738945b8aaa37d7a8eaf411b",
         "enabled": true, "email": "some@user.com"}, {"name": "nova", "id": "da2d21deb24b43cbb690a2782228f3ad",
         "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "nova@example.com"}, {"name": "redstacknewuser", "OS_KSADM_password": "secrete",
-        "enabled": true, "email": "redstacknewuser@gmail.com", "id": "df80a23214024e0fb891a9d3a63ac9d1"},
-        {"name": "ceilometer", "id": "f004439f30ff4bd08c1b7480ba3da38b", "tenantId":
-        "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email": "ceilometer@example.com"},
-        {"name": "alt_demo", "id": "f0cd181907c94fa49e317faf6fdcd628", "tenantId":
-        null, "enabled": true, "email": "alt_demo@example.com"}]}'
-    http_version:
-  recorded_at: Sun, 09 Jun 2013 06:15:25 GMT
+        "nova@example.com"}, {"name": "ceilometer", "id": "f004439f30ff4bd08c1b7480ba3da38b",
+        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
+        "ceilometer@example.com"}, {"name": "alt_demo", "id": "f0cd181907c94fa49e317faf6fdcd628",
+        "tenantId": null, "enabled": true, "email": "alt_demo@example.com"}]}'
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
 - request:
     method: delete
-    uri: http://192.168.56.11:35357/v2.0/users/df80a23214024e0fb891a9d3a63ac9d1
+    uri: http://192.168.56.11:35357/v2.0/users/9e71e043b467498298d52648ed01534e
     body:
       encoding: US-ASCII
       string: ''
@@ -190,25 +137,25 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - e42c06b86b6043759bce35397a0dc9e8
+      - 6e73c3d6d9b14f98836b7dd0a544d168
   response:
     status:
       code: 204
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
       content-length:
       - '0'
       date:
-      - Sun, 09 Jun 2013 06:15:25 GMT
+      - Wed, 12 Jun 2013 10:35:03 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
       string: ''
-    http_version:
-  recorded_at: Sun, 09 Jun 2013 06:15:25 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
 - request:
     method: get
     uri: http://192.168.56.11:35357/v2.0/users
@@ -221,11 +168,11 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - 4939e2ebb03f4a27b58ecfa9889198e3
+      - 6e73c3d6d9b14f98836b7dd0a544d168
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -234,7 +181,7 @@ http_interactions:
       content-length:
       - '1807'
       date:
-      - Tue, 11 Jun 2013 23:03:00 GMT
+      - Wed, 12 Jun 2013 10:35:03 GMT
       connection:
       - close
     body:
@@ -261,8 +208,8 @@ http_interactions:
         "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
         "ceilometer@example.com"}, {"name": "alt_demo", "id": "f0cd181907c94fa49e317faf6fdcd628",
         "tenantId": null, "enabled": true, "email": "alt_demo@example.com"}]}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:59 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
 - request:
     method: get
     uri: http://192.168.56.11:35357/v2.0/users
@@ -275,11 +222,11 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - 383760912c794e76a5096570cd6d74df
+      - 1c418ac301cd41ce893b6f4e28416513
   response:
     status:
       code: 403
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -288,134 +235,13 @@ http_interactions:
       content-length:
       - '136'
       date:
-      - Tue, 11 Jun 2013 23:03:00 GMT
+      - Wed, 12 Jun 2013 10:35:03 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
       string: ! '{"error": {"message": "You are not authorized to perform the requested
         action: admin_required", "code": 403, "title": "Not Authorized"}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:59 GMT
-- request:
-    method: post
-    uri: http://192.168.56.11:35357/v2.0/users
-    body:
-      encoding: UTF-8
-      string: ! '{"user":{"name":"redstacknewuser","email":"redstacknewuser@gmail.com","enabled":true,"OS-KSADM:password":"secrete"}}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-      X-Auth-Token:
-      - 4939e2ebb03f4a27b58ecfa9889198e3
-  response:
-    status:
-      code: 200
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-type:
-      - application/json
-      content-length:
-      - '166'
-      date:
-      - Tue, 11 Jun 2013 23:03:00 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ! '{"user": {"name": "redstacknewuser", "OS_KSADM_password": "secrete",
-        "enabled": true, "email": "redstacknewuser@gmail.com", "id": "14990f8ea9424b79b48c973987057e24"}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:59 GMT
-- request:
-    method: get
-    uri: http://192.168.56.11:35357/v2.0/users?after_user_create
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-      X-Auth-Token:
-      - 4939e2ebb03f4a27b58ecfa9889198e3
-  response:
-    status:
-      code: 200
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-type:
-      - application/json
-      content-length:
-      - '1965'
-      date:
-      - Tue, 11 Jun 2013 23:03:01 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ! '{"users": [{"name": "redstacknewuser", "OS_KSADM_password": "secrete",
-        "enabled": true, "email": "redstacknewuser@gmail.com", "id": "14990f8ea9424b79b48c973987057e24"},
-        {"name": "morphadmin", "id": "1c228375f0b347babd0af51fe2a9f40e", "tenantId":
-        null, "enabled": true, "email": "morphadmin@morphlabs.com"}, {"name": "an_admin",
-        "id": "43a000fbf0894c06a49230c7ba7401f9", "tenantId": "a7726e17f157440ea09ba1d624a83886",
-        "enabled": true, "email": "anadminuser@gmail.com"}, {"name": "demo", "id":
-        "99d6415b60d44c37ac12f42a3b87f84a", "tenantId": null, "enabled": true, "email":
-        "demo@example.com"}, {"name": "cinder", "id": "ba8976ede656477495935e0ca1402794",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "cinder@example.com"}, {"name": "mmaglana", "id": "c019e8a63ca94084a9057e2e279317fc",
-        "tenantId": "fcfea339c56347f48eb7a630775ad7bb", "enabled": true, "email":
-        "mmaglana@gmail.com"}, {"name": "glance", "id": "c0d4e8add85d4c13b64ecf77c2f46c46",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "glance@example.com"}, {"name": "not_admin", "id": "c1fa7602504d4f92b817dfdf0b2412a7",
-        "tenantId": "07289d89987c4d779f388ac96148fb8b", "enabled": true, "email":
-        "notadmin@gmail.com"}, {"name": "admin", "id": "c21c957d93074f0fa13d66d0ad3270e1",
-        "tenantId": null, "enabled": true, "email": "admin@example.com"}, {"name":
-        "Some User", "id": "cba523a6f0e843ab827876ecb4de1ee5", "tenantId": "b7786369738945b8aaa37d7a8eaf411b",
-        "enabled": true, "email": "some@user.com"}, {"name": "nova", "id": "da2d21deb24b43cbb690a2782228f3ad",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "nova@example.com"}, {"name": "ceilometer", "id": "f004439f30ff4bd08c1b7480ba3da38b",
-        "tenantId": "ce3119df5c9e47f9b9976697ec24f3e7", "enabled": true, "email":
-        "ceilometer@example.com"}, {"name": "alt_demo", "id": "f0cd181907c94fa49e317faf6fdcd628",
-        "tenantId": null, "enabled": true, "email": "alt_demo@example.com"}]}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:03:00 GMT
-- request:
-    method: delete
-    uri: http://192.168.56.11:35357/v2.0/users/14990f8ea9424b79b48c973987057e24
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-      X-Auth-Token:
-      - 4939e2ebb03f4a27b58ecfa9889198e3
-  response:
-    status:
-      code: 204
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-length:
-      - '0'
-      date:
-      - Tue, 11 Jun 2013 23:03:01 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ''
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:03:00 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:34 GMT
 recorded_with: VCR 2.5.0

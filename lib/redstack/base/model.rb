@@ -134,15 +134,19 @@ module Base
       token         = options[:token] || raise(ArgumentError.new('token not supplied'))
       connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
       endpoint_type = options[:endpoint_type] || 'admin'
+      url_prefix    = options[:url_prefix].gsub(/^\/|\/$/, '') + '/' if options[:url_prefix]
 
       url_or_path = ''
       if endpoint_type == 'admin'
         raise(ArgumentError.new("admin endpoint is not available to token with id #{ token['id'] }")) if token.is_default?
         url_or_path = token.get_endpoint(service: service_name, type: endpoint_type) + '/'
       end
+      url_or_path += url_prefix if url_prefix
       url_or_path += "#{ resource_path }#{ options[:querystring] ? '?' + options[:querystring] : '' }"
 
-      mock_data_path = "#{ self.service_name }/#{ connection.build_url(url_or_path).path }"
+      # Remove the prefix and store the mock data alongside the correct resource type
+      mock_data_path = connection.build_url(url_or_path).path.gsub(/#{ url_prefix }/,'')
+      mock_data_path = "#{ self.service_name }/#{ mock_data_path }"
 
       response = nil
       VCR.use_cassette(mock_data_path,

@@ -12,7 +12,7 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - 4939e2ebb03f4a27b58ecfa9889198e3
+      - 6e73c3d6d9b14f98836b7dd0a544d168
   response:
     status:
       code: 200
@@ -25,7 +25,7 @@ http_interactions:
       content-length:
       - '411'
       date:
-      - Wed, 12 Jun 2013 07:05:26 GMT
+      - Wed, 12 Jun 2013 10:35:02 GMT
       connection:
       - close
     body:
@@ -36,5 +36,5 @@ http_interactions:
         "name": "Member"}, {"enabled": "True", "description": "Default role for project
         membership", "name": "_member_", "id": "9fe2ff9ee4384b1894a90878d3e92bab"}]}'
     http_version: 
-  recorded_at: Wed, 12 Jun 2013 07:38:00 GMT
+  recorded_at: Wed, 12 Jun 2013 19:00:32 GMT
 recorded_with: VCR 2.5.0

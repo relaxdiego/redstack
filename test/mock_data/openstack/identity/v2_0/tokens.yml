@@ -14,7 +14,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -23,24 +23,24 @@ http_interactions:
       content-length:
       - '335'
       date:
-      - Tue, 11 Jun 2013 23:02:26 GMT
+      - Wed, 12 Jun 2013 10:35:00 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-06-11T23:02:26.720954",
-        "expires": "2013-06-12T23:02:26Z", "id": "734cd90e92ef421d8d7fbd91276ee252"},
+      string: ! '{"access": {"token": {"issued_at": "2013-06-12T10:35:00.530773",
+        "expires": "2013-06-13T10:35:00Z", "id": "2e45d9c1132c423eb6a3ab00188be246"},
         "serviceCatalog": [], "user": {"username": "an_admin", "roles_links": [],
         "id": "43a000fbf0894c06a49230c7ba7401f9", "roles": [], "name": "an_admin"},
         "metadata": {"is_admin": 0, "roles": []}}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:25 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:31 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
     body:
       encoding: UTF-8
-      string: ! '{"auth":{"token":{"id":"734cd90e92ef421d8d7fbd91276ee252"},"tenantName":"Admin
+      string: ! '{"auth":{"token":{"id":"2e45d9c1132c423eb6a3ab00188be246"},"tenantName":"Admin
         Project"}}'
     headers:
       Content-Type:
@@ -50,7 +50,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -59,13 +59,13 @@ http_interactions:
       content-length:
       - '2720'
       date:
-      - Tue, 11 Jun 2013 23:02:26 GMT
+      - Wed, 12 Jun 2013 10:35:00 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-06-11T23:02:26.821371",
-        "expires": "2013-06-12T23:02:26Z", "id": "4939e2ebb03f4a27b58ecfa9889198e3",
+      string: ! '{"access": {"token": {"issued_at": "2013-06-12T10:35:00.643058",
+        "expires": "2013-06-13T10:35:00Z", "id": "6e73c3d6d9b14f98836b7dd0a544d168",
         "tenant": {"description": null, "enabled": true, "id": "a7726e17f157440ea09ba1d624a83886",
         "name": "Admin Project"}}, "serviceCatalog": [{"endpoints": [{"adminURL":
         "http://192.168.56.11:8774/v2/a7726e17f157440ea09ba1d624a83886", "region":
@@ -95,8 +95,8 @@ http_interactions:
         "an_admin", "roles_links": [], "id": "43a000fbf0894c06a49230c7ba7401f9", "roles":
         [{"name": "_member_"}, {"name": "admin"}], "name": "an_admin"}, "metadata":
         {"is_admin": 0, "roles": ["9fe2ff9ee4384b1894a90878d3e92bab", "75088ac27ff147d69f7ed3396d4da4cd"]}}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:25 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:31 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
@@ -111,7 +111,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -120,24 +120,126 @@ http_interactions:
       content-length:
       - '337'
       date:
-      - Tue, 11 Jun 2013 23:02:27 GMT
+      - Wed, 12 Jun 2013 10:35:01 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-06-11T23:02:27.027536",
-        "expires": "2013-06-12T23:02:27Z", "id": "d216ebd1d4fc4a08b17881b84adbb161"},
+      string: ! '{"access": {"token": {"issued_at": "2013-06-12T10:35:01.867541",
+        "expires": "2013-06-13T10:35:01Z", "id": "8d2898150a4b43769f6d6dcd39ec2e90"},
         "serviceCatalog": [], "user": {"username": "not_admin", "roles_links": [],
         "id": "c1fa7602504d4f92b817dfdf0b2412a7", "roles": [], "name": "not_admin"},
         "metadata": {"is_admin": 0, "roles": []}}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:26 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:32 GMT
+- request:
+    method: get
+    uri: http://192.168.56.11:35357/v2.0/tokens/8d2898150a4b43769f6d6dcd39ec2e90
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+      X-Auth-Token:
+      - 6e73c3d6d9b14f98836b7dd0a544d168
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '315'
+      date:
+      - Wed, 12 Jun 2013 10:35:02 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-06-12T10:35:02.244764",
+        "expires": "2013-06-13T10:35:01Z", "id": "8d2898150a4b43769f6d6dcd39ec2e90"},
+        "user": {"username": "not_admin", "roles_links": [], "id": "c1fa7602504d4f92b817dfdf0b2412a7",
+        "roles": [], "name": "not_admin"}, "metadata": {"is_admin": 0, "roles": []}}}'
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:32 GMT
+- request:
+    method: get
+    uri: http://192.168.56.11:35357/v2.0/tokens/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+      X-Auth-Token:
+      - 6e73c3d6d9b14f98836b7dd0a544d168
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '115'
+      date:
+      - Wed, 12 Jun 2013 10:35:02 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Could not find token: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "code": 404, "title": "Not Found"}}'
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
     body:
       encoding: UTF-8
-      string: ! '{"auth":{"token":{"id":"d216ebd1d4fc4a08b17881b84adbb161"},"tenantName":"Non
+      string: ! '{"auth":{"passwordCredentials":{"username":"invaliduserzzz","password":"asdlfkj123"},"tenantName":""}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 401
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '99'
+      date:
+      - Wed, 12 Jun 2013 10:35:02 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Could not find user: invaliduserzzz", "code":
+        401, "title": "Unauthorized"}}'
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"token":{"id":"8d2898150a4b43769f6d6dcd39ec2e90"},"tenantName":"Non
         Admin Project"}}'
     headers:
       Content-Type:
@@ -147,7 +249,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -156,13 +258,13 @@ http_interactions:
       content-length:
       - '2727'
       date:
-      - Tue, 11 Jun 2013 23:02:27 GMT
+      - Wed, 12 Jun 2013 10:35:02 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-06-11T23:02:27.125051",
-        "expires": "2013-06-12T23:02:27Z", "id": "383760912c794e76a5096570cd6d74df",
+      string: ! '{"access": {"token": {"issued_at": "2013-06-12T10:35:02.528125",
+        "expires": "2013-06-13T10:35:01Z", "id": "1c418ac301cd41ce893b6f4e28416513",
         "tenant": {"description": null, "enabled": true, "id": "07289d89987c4d779f388ac96148fb8b",
         "name": "Non Admin Project"}}, "serviceCatalog": [{"endpoints": [{"adminURL":
         "http://192.168.56.11:8774/v2/07289d89987c4d779f388ac96148fb8b", "region":
@@ -193,40 +295,8 @@ http_interactions:
         "roles": [{"name": "_member_"}, {"name": "Member"}], "name": "not_admin"},
         "metadata": {"is_admin": 0, "roles": ["9fe2ff9ee4384b1894a90878d3e92bab",
         "79899847a00c4d9ca18f05df89ba46a3"]}}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:26 GMT
-- request:
-    method: post
-    uri: http://devstack:5000/v2.0/tokens
-    body:
-      encoding: UTF-8
-      string: ! '{"auth":{"passwordCredentials":{"username":"invaliduserzzz","password":"asdlfkj123"},"tenantName":""}}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-  response:
-    status:
-      code: 401
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-type:
-      - application/json
-      content-length:
-      - '99'
-      date:
-      - Tue, 11 Jun 2013 23:02:59 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ! '{"error": {"message": "Could not find user: invaliduserzzz", "code":
-        401, "title": "Unauthorized"}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:58 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
@@ -242,7 +312,7 @@ http_interactions:
   response:
     status:
       code: 200
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -251,13 +321,13 @@ http_interactions:
       content-length:
       - '2727'
       date:
-      - Tue, 11 Jun 2013 23:03:00 GMT
+      - Wed, 12 Jun 2013 10:35:02 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-06-11T23:03:00.266374",
-        "expires": "2013-06-12T23:03:00Z", "id": "fcc4613dbe1541a6ad0ab6ab39e0ecfc",
+      string: ! '{"access": {"token": {"issued_at": "2013-06-12T10:35:02.832060",
+        "expires": "2013-06-13T10:35:02Z", "id": "7b613d7ed43748c282ebeb77c6426f0a",
         "tenant": {"description": null, "enabled": true, "id": "07289d89987c4d779f388ac96148fb8b",
         "name": "Non Admin Project"}}, "serviceCatalog": [{"endpoints": [{"adminURL":
         "http://192.168.56.11:8774/v2/07289d89987c4d779f388ac96148fb8b", "region":
@@ -288,110 +358,8 @@ http_interactions:
         "roles": [{"name": "_member_"}, {"name": "Member"}], "name": "not_admin"},
         "metadata": {"is_admin": 0, "roles": ["9fe2ff9ee4384b1894a90878d3e92bab",
         "79899847a00c4d9ca18f05df89ba46a3"]}}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:59 GMT
-- request:
-    method: get
-    uri: http://192.168.56.11:35357/v2.0/tokens/d216ebd1d4fc4a08b17881b84adbb161
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-      X-Auth-Token:
-      - 4939e2ebb03f4a27b58ecfa9889198e3
-  response:
-    status:
-      code: 200
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-type:
-      - application/json
-      content-length:
-      - '315'
-      date:
-      - Tue, 11 Jun 2013 23:03:00 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-06-11T23:03:00.372999",
-        "expires": "2013-06-12T23:02:27Z", "id": "d216ebd1d4fc4a08b17881b84adbb161"},
-        "user": {"username": "not_admin", "roles_links": [], "id": "c1fa7602504d4f92b817dfdf0b2412a7",
-        "roles": [], "name": "not_admin"}, "metadata": {"is_admin": 0, "roles": []}}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:59 GMT
-- request:
-    method: get
-    uri: http://192.168.56.11:35357/v2.0/tokens/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-      X-Auth-Token:
-      - 4939e2ebb03f4a27b58ecfa9889198e3
-  response:
-    status:
-      code: 404
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-type:
-      - application/json
-      content-length:
-      - '115'
-      date:
-      - Tue, 11 Jun 2013 23:03:00 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ! '{"error": {"message": "Could not find token: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "code": 404, "title": "Not Found"}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:02:59 GMT
-- request:
-    method: post
-    uri: http://devstack:5000/v2.0/tokens
-    body:
-      encoding: UTF-8
-      string: ! '{"auth":{"passwordCredentials":{"username":"invaliduserhere","password":"passwordz"},"tenantName":""}}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.8.7
-  response:
-    status:
-      code: 401
-      message:
-    headers:
-      vary:
-      - X-Auth-Token
-      content-type:
-      - application/json
-      content-length:
-      - '100'
-      date:
-      - Tue, 11 Jun 2013 23:03:01 GMT
-      connection:
-      - close
-    body:
-      encoding: US-ASCII
-      string: ! '{"error": {"message": "Could not find user: invaliduserhere", "code":
-        401, "title": "Unauthorized"}}'
-    http_version:
-  recorded_at: Tue, 11 Jun 2013 23:03:00 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:33 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
@@ -406,7 +374,7 @@ http_interactions:
   response:
     status:
       code: 401
-      message:
+      message: 
     headers:
       vary:
       - X-Auth-Token
@@ -415,13 +383,13 @@ http_interactions:
       content-length:
       - '100'
       date:
-      - Wed, 12 Jun 2013 01:07:04 GMT
+      - Wed, 12 Jun 2013 10:35:03 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
       string: ! '{"error": {"message": "Could not find user: invaliduserhere", "code":
         401, "title": "Unauthorized"}}'
-    http_version:
-  recorded_at: Wed, 12 Jun 2013 01:07:04 GMT
+    http_version: 
+  recorded_at: Wed, 12 Jun 2013 19:00:34 GMT
 recorded_with: VCR 2.5.0

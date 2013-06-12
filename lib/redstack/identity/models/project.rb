@@ -12,6 +12,15 @@ module Models
     attribute :description
     attribute :enabled,     default: true
             
+    def users(options = {})
+      @users ||= User.find(
+                   url_prefix:    "#{ resource_path }/#{ self[:id] }",
+                   token:         token,
+                   connection:    connection,
+                   querystring:   options[:querystring]
+                 )
+    end
+
   end # class Project
 
 end # module Models

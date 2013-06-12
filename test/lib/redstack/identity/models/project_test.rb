@@ -196,4 +196,22 @@ class IdentityProjectTests < MiniTest::Spec
 
   end
 
+  describe 'RedStack::Identity::Models::Project#users' do
+
+    it 'retrieves the users of a project' do
+      project = Project.find(
+                  where:        { name: 'admin' },
+                  token:        admin_scoped_token,
+                  connection:   os.connection,
+                  querystring:  'get_project_users_test'
+                ).first
+
+      users = project.users querystring: 'get_project_users_test'
+
+      users.must_be_instance_of Array
+      users.length.must_be :>=, 1
+    end
+
+  end
+
 end
