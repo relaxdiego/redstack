@@ -160,6 +160,8 @@ module Base
           .map { |r| new(data: { resource_name => r }, token: token, connection: connection) }
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
+      else
+        raise(RedStack::ResourceNotFoundError.new(JSON.parse(response.body)['error']['message']))
       end
     end
 
