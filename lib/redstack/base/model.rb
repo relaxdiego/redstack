@@ -129,7 +129,7 @@ module Base
       end
     end
 
-
+    # TODO: Refactor and simplify
     def self.find(options = {})
       token         = options[:token] || raise(ArgumentError.new('token not supplied'))
       connection    = options[:connection] || raise(ArgumentError.new('connection not supplied'))
@@ -156,8 +156,21 @@ module Base
 
       case response.status
       when 200
-        JSON.parse(response.body)[resource_name(plural: true)]
-          .map { |r| new(data: { resource_name => r }, token: token, connection: connection) }
+        models = JSON.parse(response.body)[resource_name(plural: true)].map do |r|
+                   new(data: { resource_name => r }, token: token, connection: connection)
+                 end
+
+        if options[:where]
+          models.select do |model|
+            # A little hat tip to Stephen Colbert (http://en.wikipedia.org/wiki/Truthiness)
+            options[:where].keys.inject(true) do |truthiness, key|
+              truthiness && (options[:where][key] == model[key])
+            end
+          end
+        else
+          models
+        end
+
       when 401, 403
         raise(RedStack::NotAuthorizedError.new(JSON.parse(response.body)['error']['message']))
       else

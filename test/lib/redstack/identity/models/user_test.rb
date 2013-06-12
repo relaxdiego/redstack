@@ -22,6 +22,16 @@ class IdentityUserTests < MiniTest::Spec
       users.each { |u| u.must_be_instance_of User }
     end
 
+    it 'retrieves users using simple \'where\' criteria' do
+      users = User.find(
+                where:      { username: 'admin' },
+                token:      admin_scoped_token,
+                connection: os.connection
+              )
+
+      users.must_be_instance_of Array
+      users.first[:username].must_equal 'admin'
+    end
 
     it 'raises an error when an unscoped token is provided' do
       find_method = lambda { User.find(token: non_admin_default_token, connection: os.connection) }
