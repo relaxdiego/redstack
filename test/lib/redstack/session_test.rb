@@ -1,50 +1,45 @@
 require 'test_helper'
- 
-describe 'RedStack::Session' do
-  
-  before do
-    @non_admin = TestFixtures.users[:non_admin]
-    @os        = new_openstack_session
-    
-    @os.authenticate username: @non_admin[:username], password: @non_admin[:password]
+
+class SessionTest < MiniTest::Spec
+
+  include RedStack::Identity::Models
+  include CommonTestHelperMethods
+
+  # Helper methods specific to these tests
+
+  def non_admin_session
+    @non_admin_session ||= new_openstack_session
+    unless @non_admin_session.authenticated?
+      @non_admin_session.authenticate username: non_admin_attrs[:username], password: non_admin_attrs[:password]
+    end
+    @non_admin_session
   end
-  
-  it 'authenticates against the backend' do  
-    non_admin = TestFixtures.users[:non_admin]
-    os        = new_openstack_session
-    
-    os.authenticate username: non_admin[:username], password: non_admin[:password]
-    
-    os.authenticated?.must_equal true
-    os.tokens[:default].wont_be_nil
+
+
+  # Tests
+
+  it 'authenticates against the backend' do
+    session = new_openstack_session
+
+    session.authenticate username: non_admin_attrs[:username], password: non_admin_attrs[:password]
+
+    session.authenticated?.must_equal true
+    session.tokens[:default].wont_be_nil
   end
-  
+
   it 'handles invalid usernames' do
-    non_admin = TestFixtures.users[:non_admin]
-    os        = new_openstack_session
-    
-    os.authenticate username: 'invaliduserhere', password: non_admin[:password]
-      
-    os.authenticated?.must_equal false
-    os.tokens[:default].must_be_nil
+    session = new_openstack_session
+
+    session.authenticate username: 'invaliduserhere', password: 'whatever'
+
+    session.authenticated?.must_equal false
+    session.tokens[:default].must_be_nil
   end
-  
-  it 'fetches projects' do      
-    projects = @os.find_projects
-    
+
+  it 'fetches projects' do
+    projects = non_admin_session.find_projects
+
     projects.wont_be_nil
   end
-  
-  # it 'has is_admin? method' do
-  #   @os.must_respond_to :is_admin?
-  # end
-  # 
-  # it 'can request for admin access' do
-  #   @os.authenticate username: 'admin', password: 'password'
-  #   
-  #   @os.is_admin?.must_equal false
-  #   @os.request_admin_access.must_equal true
-  #   @os.is_admin?.must_equal true
-  # end
- 
+
 end

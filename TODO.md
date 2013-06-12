@@ -17,6 +17,8 @@
 * DONE: Modify Session so that it uses Identity::Models::Token for requesting tokens
 * WONTFIX: Extract common code in controllers and move to ArrayController and ObjectController
 * DONE: Merge Token::create with Model::create
+* Use the cleaner way to define class methods
+* In the tests, rename the 'querystring' param to the more obvious 'vcr_signature'
 * Add cane gem and fix all violations
 
 ## v0.0.1

@@ -1,9 +1,9 @@
 require 'test_helper'
- 
-describe 'RedStack VERSION' do
- 
+
+class VersionTest < MiniTest::Spec
+
   it 'must be defined' do
     RedStack::VERSION.wont_be_nil
   end
- 
+
 end

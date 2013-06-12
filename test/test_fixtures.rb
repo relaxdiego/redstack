@@ -1,10 +1,4 @@
 module TestFixtures
-
-  include RedStack::Identity::Models
-
-  def self.load!
-    # TODO
-  end
   
   def self.users
     {
