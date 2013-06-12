@@ -17,7 +17,9 @@ module Reporters
       e.message.each_line { |line| print_with_info_padding(line) }
 
       trace = filter_backtrace(e.backtrace)
-      trace.each { |line| print_with_info_padding(line) }
+      
+      # TODO: Use the proper MiniTest way of customizing the filter
+      trace.each { |line| print_with_info_padding(line) unless line =~ /\.rvm|gems|_run_anything/ }
     end
 
   end
