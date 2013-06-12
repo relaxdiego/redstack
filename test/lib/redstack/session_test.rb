@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SessionTest < MiniTest::Spec
+class SessionTests < MiniTest::Spec
 
   include RedStack::Identity::Models
   include CommonTestHelperMethods
@@ -18,28 +18,36 @@ class SessionTest < MiniTest::Spec
 
   # Tests
 
-  it 'authenticates against the backend' do
-    session = new_openstack_session
+  describe 'RedStack::Session#authenticate' do
 
-    session.authenticate username: non_admin_attrs[:username], password: non_admin_attrs[:password]
+    it 'authenticates against the backend' do
+      session = new_openstack_session
 
-    session.authenticated?.must_equal true
-    session.tokens[:default].wont_be_nil
+      session.authenticate username: non_admin_attrs[:username], password: non_admin_attrs[:password]
+
+      session.authenticated?.must_equal true
+      session.tokens[:default].wont_be_nil
+    end
+
+    it 'handles invalid credentials' do
+      session = new_openstack_session
+
+      session.authenticate username: 'invaliduserhere', password: 'whatever'
+
+      session.authenticated?.must_equal false
+      session.tokens[:default].must_be_nil
+    end
+
   end
 
-  it 'handles invalid usernames' do
-    session = new_openstack_session
+  describe 'RedStack::Session#find_projects' do
 
-    session.authenticate username: 'invaliduserhere', password: 'whatever'
+    it 'fetches projects' do
+      projects = non_admin_session.find_projects
 
-    session.authenticated?.must_equal false
-    session.tokens[:default].must_be_nil
-  end
+      projects.wont_be_nil
+    end
 
-  it 'fetches projects' do
-    projects = non_admin_session.find_projects
-
-    projects.wont_be_nil
   end
 
 end

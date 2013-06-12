@@ -21,6 +21,7 @@ require 'minitest/autorun'
 # Do not require these gems when running in the CI
 unless ENV['CI'] || ENV['TRAVIS']
   require 'pry'
+  require 'test_reporter'
 end
 
 

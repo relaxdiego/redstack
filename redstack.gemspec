@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'ruby_gntp', '~> 0.3.0'
   spec.add_development_dependency 'debugger', '~> 1.6.0'
   spec.add_development_dependency 'pry', '~> 0.9.0'
+  spec.add_development_dependency 'minitest-reporters', '~> 0.14.20'
 end
