@@ -11,7 +11,12 @@ module Models
     attribute :name
     attribute :description
     attribute :enabled,     default: true
-            
+
+
+    def grant(options = {})
+      # TODO
+    end
+
     def users(options = {})
       @users ||= User.find(
                    url_prefix:    "#{ resource_path }/#{ self[:id] }",

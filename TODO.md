@@ -1,4 +1,21 @@
-## v0.0.2
+## v0.0.2 prototype 2
+
+###	Features
+
+* Token Create
+* Project CRUD
+* User CRUD
+* Role CRUD
+
+
+## v0.0.2 prototype 1 (ABANDONED)
+
+### Notes
+I'm going to re-design this library again due to the following:
+
+* Originally, I wanted to keep the API simple by putting back-end calls directly inside the model. However, this can produce some weird stuff like using a token to validate another token (say what??). This is an early indicator telling me that the Model class will turn into this giant blob of methods.
+* I should be re-using libraries like ActiveModel or ActiveAttr since it already has the methods that I'm using in my models
+* I need to research on REST client libraries. I should be using those to define my clients for the various OpenStack services.
 
 ###	Features
 

@@ -31,4 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'debugger', '~> 1.6.0'
   spec.add_development_dependency 'pry', '~> 0.9.0'
   spec.add_development_dependency 'minitest-reporters', '~> 0.14.20'
+  spec.add_development_dependency 'yard', '~> 0.8.0'
+  spec.add_development_dependency 'redcarpet', '~> 2.3.0'
 end

@@ -80,6 +80,48 @@ class IdentityProjectTests < MiniTest::Spec
 
   end
 
+  describe 'RedStack::Identity::Models::Project#grant' do
+
+    it 'grants a user with a role in the project' do
+      skip
+      # Setup
+      attrs = new_attributes
+      attrs[:name] += 'project_grant'
+
+      project = Project.create(
+                  attributes:  attrs,
+                  token:       admin_scoped_token,
+                  connection:  os.connection,
+                  querystring: 'before_project_grant'
+                )
+
+      user = User.find(
+               where:       { username: new_attributes[:username] },
+               token:       admin_scoped_token,
+               connection:  os.connection,
+               querystring: 'before_project_grant'
+             ).first
+
+      role = Role.find(
+               where:       { name: 'admin' },
+               token:       admin_scoped_token,
+               connection:  os.connection,
+               querystring: 'before_project_grant'
+             ).first
+
+      # Exercise
+      result = project.grant user: user, with_role: role
+
+      # Check
+      result.must_equal true
+      users = project.users querystring: 'after_project_grant'
+      users.collect{ |u| u[:id] == user[:id] }.length.must_equal 1
+
+      # Cleanup
+      project.delete!
+    end
+
+  end
 
   describe 'RedStack::Identity::Models::Project#save!' do
 
@@ -110,6 +152,57 @@ class IdentityProjectTests < MiniTest::Spec
       project[:name].must_equal updated_attributes[:name]
       project[:description].must_equal updated_attributes[:description]
       project[:enabled].must_equal updated_attributes[:enabled]
+
+      # Cleanup
+      project.delete!
+    end
+
+    it 'saves changes using an authorized user\'s default token' do
+      skip
+
+      project = Project.create(
+                  attributes:  new_attributes,
+                  token:       admin_scoped_token,
+                  connection:  os.connection,
+                  querystring: 'before_update_using_default_token'
+                )
+
+      # Give admin user the admin role in the new project
+      project.grant user: admin_user, with_role: admin_role
+
+      # Re-load the project using the admin user's _default_ token
+      project = Project.find(
+                  endpoint_type: 'public',
+                  token:         non_admin_default_token,
+                  connection:    os.connection,
+                  querystring:   'before_update_using_default_token'
+                ).find{ |p| p[:id] == project[:id] }
+
+      # Change an attribute in the project
+      project[:description] = updated_attributes[:description]
+
+      # Save the project (NOTE that at this point the admin
+      # user's default token is still associated with the project)
+      save_method = lambda do
+        project.save!
+      end
+
+      save_method.wont_raise RedStack::NotAuthorizedError
+
+      # Exercise the code
+      error = save_method.call rescue $!
+
+      # Assertions
+      error.message.must_be_nil
+
+      project = Project.find(
+                  endpoint_type: 'public',
+                  token:         admin_default_token,
+                  connection:    os.connection,
+                  querystring:   'after_update_using_default_token'
+                ).find{ |p| p[:id] == project[:id] }
+
+      project[:description].must_equal updated_attributes[:description]
 
       # Cleanup
       project.delete!
