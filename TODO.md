@@ -7,6 +7,24 @@
 * User CRUD
 * Role CRUD
 
+### Framework
+
+**Service**
+
+* Abstract class to be inherited by objects that represent a session with an OpenStack service. 
+* Knows about the routes for each model operation
+* Keeps track of authentication information
+* Input is composed of operation/action and model. Based on this, it can determine the request header and body
+* Output is a Result object which contains status, and model(s) if any.
+
+**Resource**
+
+* Abstract class to be inherited by objects that represent OpenStack data
+* Knows NOTHING about where it came from
+* Knows about its attributes, dirtiness
+* May also contain validations
+* How about associations with other models?
+
 
 ## v0.0.2 prototype 1 (ABANDONED)
 

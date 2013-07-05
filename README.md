@@ -22,30 +22,23 @@ Or install it yourself as:
 
 ## Usage
 
-In your code, require and configure RedStack
-```
+```ruby
 require 'redstack'
-RedStack.configure
-```
 
-Create a new OpenStack session. 
-```
-os = RedStack::Session.new host: 'http://myopenstackinstance.com:5000', api_version: 'v2.0'
-```
+# Define a Keystone connection
+ks = RedStack::Identity.new host: 'http://myopenstackinstance.com:5000', api_version: 'v2.0'
 
-Authenticate against the identity service
-```
-os.authenticate username: 'johndoe', password: 'gu29qa!'
-```
+# Authenticate against Keystone
+ks.authenticate username: 'johndoe', password: 'gu29qa!'
 
-Get a list of tenants/projects you have access to
-```
-projects = os.find_projects
-```
+# Get a list of tenants/projects you have access to
+projects = ks.find :projects
 
-Create a project (Requires user with admin rights)
-```
-project = os.projects.create { name: 'New Project', description: 'My awesome project', enabled: true }
+#Create a project (Requires user with admin rights)
+project = ks.create :project, name: 'New Project', description: 'My awesome project', enabled: true
+
+# Get all projects in the system  (Requires user with admin rights)
+projects = ks.find :projects, endpoint_type: :admin
 ```
 
 ## Contributing

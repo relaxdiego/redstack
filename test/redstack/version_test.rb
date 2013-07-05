@@ -8,6 +8,10 @@ class VersionTests < MiniTest::Spec
       RedStack::VERSION.wont_be_nil
     end
 
+    it 'must be a string' do
+      RedStack::VERSION.class.must_equal String
+    end
+
   end
 
 end

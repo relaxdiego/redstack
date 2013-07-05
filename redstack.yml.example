@@ -1,5 +1,0 @@
-# Copy this file to redstack.yml
-
-# If you want to test against a live OpenStack environment, comment out the line below
-# Keep in mind that File.expand_path is evaluated relative to this YAML file's location
-openstack_stub_dir: <%= File.expand_path('../test/mock_data/openstack', __FILE__) %>

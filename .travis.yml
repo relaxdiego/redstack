@@ -8,5 +8,4 @@ branches:
     - release
 bundler_args: --without development
 script:
-  - cp redstack.yml.travis redstack.yml
   - bundle exec rake
