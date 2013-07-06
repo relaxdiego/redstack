@@ -7,16 +7,22 @@ module Identity
     def initialize(options={})
       validate_args options, required: [:host, :api_version]
       
-      unless load_api_library(options[:api_version])
-        raise RedStack::UnknownApiVersionError.new("API version #{options[:api_version]} is undefined")
-      end
+      include_client_for(options[:api_version])
     end
     
     
     private
     
-    def load_api_library(version)
-      Pathname.new(__FILE__).join('..', 'api_lib', "#{version}.rb")
+    # Loads the client methods that know how to
+    # talk to the specified OpenStack API version
+    def include_client_for(version)
+      begin
+        client = "RedStack::Identity::Clients::#{version.gsub('.', '_').upcase}".constantize
+        extend client
+      rescue NameError => e
+        raise RedStack::UnknownApiVersionError.new("Identity API version #{version} is undefined")
+      end
+      true
     end
         
   end

@@ -4,30 +4,46 @@ class RedStack::Identity::ConnectionTest < MiniTest::Spec
   include RedStack::Identity
 
   describe 'RedStack::Identity::Connection' do
-    
-    it 'can be initialized' do
-      ks = Connection.new host: 'http://os.com', api_version: 'v2.0'
-      
-      ks.wont_be_nil
-    end
-    
-    it 'raises an error when initialized and host and api_version are missing' do
-      initializer = lambda { Connection.new }
-      initializer.must_raise ArgumentError
 
-      error = initializer.call rescue $!
+    describe '#new' do
 
-      error.message.wont_be_nil
-    end
-    
-    it 'raises an error when api_version is unknown' do
-      initializer = lambda { Connection.new host: 'http://os.com', api_version: 'v9999.0' }
-      initializer.must_raise RedStack::UnknownApiVersionError
+      it 'returns a Connection instance' do
+        ks = Connection.new host: 'http://os.com', api_version: 'v2.0'
 
-      error = initializer.call rescue $!
+        ks.class.must_equal RedStack::Identity::Connection
+      end
 
-      error.message.wont_be_nil
-    end
+
+      it 'raises an error when the host parameter is missing' do
+        initializer = lambda { Connection.new api_version: 'v2.0' }
+        initializer.must_raise ArgumentError
+
+        error = initializer.call rescue $!
+
+        error.message.wont_be_nil
+      end
+
+
+      it 'raises an error when the api_version parameter is missing' do
+        initializer = lambda { Connection.new host: 'http://www.example.org' }
+        initializer.must_raise ArgumentError
+
+        error = initializer.call rescue $!
+
+        error.message.wont_be_nil
+      end
+
+
+      it 'raises an error when api_version is unknown' do
+        initializer = lambda { Connection.new host: 'http://os.com', api_version: 'v9999.0' }
+        initializer.must_raise RedStack::UnknownApiVersionError
+
+        error = initializer.call rescue $!
+
+        error.message.wont_be_nil
+      end
+
+    end # describe '#new'
 
   end
 
