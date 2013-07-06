@@ -20,7 +20,11 @@ require 'minitest/autorun'
 # Do not require these gems when running in the CI
 unless ENV['CI'] || ENV['TRAVIS']
   require 'pry'
-  require 'test_reporter'
+end
+
+# Load all helpers in test/support
+Dir[Pathname.new(__FILE__).join('..', 'support', '*.rb')].each do |f|   
+  require f 
 end
 
 require 'redstack'

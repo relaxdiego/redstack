@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'faraday', '~> 0.8.0'     # NOTE: vcr 2.5.0 doesn't work with faraday 0.9.0 RCs yet
+  spec.add_dependency 'activesupport', '~> 4.0.0'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'

@@ -35,10 +35,17 @@ ks.authenticate username: 'johndoe', password: 'gu29qa!'
 projects = ks.find :projects
 
 #Create a project (Requires user with admin rights)
+ks.authenticate username: 'johndoe', password: 'gu29qa!', tenant: 'admin'
 project = ks.create :project, name: 'New Project', description: 'My awesome project', enabled: true
 
 # Get all projects in the system  (Requires user with admin rights)
 projects = ks.find :projects, endpoint_type: :admin
+
+# Re-use access information in other services
+ks.authenticate username: 'johndoe', password: 'gu29qa!', tenant: 'myproject'
+access = ks.access
+nc = RedStack::Compute.new access: access
+servers = nc.find :servers
 ```
 
 ## Contributing

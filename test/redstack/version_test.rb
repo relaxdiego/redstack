@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VersionTests < MiniTest::Spec
+class RedStack::VersionTest < MiniTest::Spec
 
   describe 'RedStack::VERSION' do
 
