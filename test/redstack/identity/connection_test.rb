@@ -45,6 +45,38 @@ class RedStack::Identity::ConnectionTest < MiniTest::Spec
 
     end # describe '#new'
 
+
+    describe '#create_token' do
+
+      def conn
+        Connection.new host: 'http://devstack:5000', api_version: 'v2.0'
+      end
+
+      it 'returns a token' do
+        token = conn.create_token username: 'validuser', password: 'validpassword'
+
+        token.class.must_equal Token
+      end
+
+
+      it 'raises an error when username, password, and token are missing' do
+        m = lambda { conn.create_token }
+        m.must_raise ArgumentError
+
+        error = m.call rescue $!
+
+        error.message.wont_be_nil
+      end
+
+
+      it 'does not require token when username and password are present' do
+        token = conn.create_token username: 'validuser', password: 'validpassword'
+
+        token.class.must_equal Token
+      end
+
+    end
+
   end
 
 end
