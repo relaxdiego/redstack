@@ -37,7 +37,7 @@ unless ENV['CI'] || ENV['TRAVIS']
       
       def print_test_with_time(suite, test)
         total_time = Time.now - (runner.test_start_time || Time.now)
-        suite_name = suite.name.gsub('::#', '#')
+        suite_name = suite.name.gsub('::#', '#').gsub('::::', '::')
         test_name  = test.to_s.gsub(/test_\d+|_/, ' ').strip
         print(" %s %s (%.2fs)%s" % [suite_name, test_name, total_time, clr])
       end
