@@ -8,4 +8,5 @@ branches:
     - release
 bundler_args: --without development
 script:
+  - cp test/test_config.yml.travis-ci test/test_config.yml
   - bundle exec rake

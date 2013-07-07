@@ -4,11 +4,15 @@ class RedStack::Identity::ConnectionTest < MiniTest::Spec
   include RedStack::Identity
 
   describe 'RedStack::Identity::Connection' do
+    
+    def identity_host
+      RedStack::TestConfig[:identity_host]
+    end
 
     describe '::new' do
 
       it 'creates a Connection instance' do
-        ks = Connection.new host: 'http://os.com', api_version: 'v2.0'
+        ks = Connection.new host: identity_host, api_version: 'v2.0'
 
         ks.class.must_equal Connection
       end
@@ -25,7 +29,7 @@ class RedStack::Identity::ConnectionTest < MiniTest::Spec
 
 
       it 'raises an error when api_version is missing' do
-        initializer = lambda { Connection.new host: 'http://www.example.org' }
+        initializer = lambda { Connection.new host: identity_host }
         initializer.must_raise ArgumentError
 
         error = initializer.call rescue $!
@@ -35,7 +39,7 @@ class RedStack::Identity::ConnectionTest < MiniTest::Spec
 
 
       it 'raises an error when api_version is unknown' do
-        initializer = lambda { Connection.new host: 'http://os.com', api_version: 'v9999.0' }
+        initializer = lambda { Connection.new host: identity_host, api_version: 'v9999.0' }
         initializer.must_raise RedStack::UnknownApiVersionError
 
         error = initializer.call rescue $!
@@ -49,7 +53,7 @@ class RedStack::Identity::ConnectionTest < MiniTest::Spec
     describe '#create_token' do
 
       def conn
-        Connection.new host: 'http://devstack:5000', api_version: 'v2.0'
+        Connection.new host: identity_host, api_version: 'v2.0'
       end
 
       it 'raises an error when username, password, and token are missing' do
