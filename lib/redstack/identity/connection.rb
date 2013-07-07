@@ -10,17 +10,6 @@ module Identity
       include_client_for(options[:api_version])
     end
 
-    def create_token(options={})
-      if options[:token]
-        token = options[:token]
-      else
-        username = extract_or_raise(options, :username)
-        password = extract_or_raise(options, :password)
-      end
-
-      Token.new
-    end
-
     private
 
     def extract_or_raise(args, name)
