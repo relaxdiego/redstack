@@ -74,6 +74,13 @@ class RedStack::Identity::ConnectionTest < MiniTest::Spec
 
         token.class.must_equal Token
       end
+      
+      
+      it 'does not require username and password when a token is present' do
+        token = conn.create_token token: 'sometokenvaluehere'
+
+        token.class.must_equal Token
+      end
 
     end
 
