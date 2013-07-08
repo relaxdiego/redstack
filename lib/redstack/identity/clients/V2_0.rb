@@ -15,7 +15,8 @@ module Clients
                          auth: {
                            token: {
                              id: token[:id]
-                           }
+                           },
+                           tenantName: options[:tenant] || options[:project]
                          }
                        }
       else
@@ -26,7 +27,8 @@ module Clients
                            passwordCredentials: {
                              username: username,
                              password: password
-                           }
+                           },
+                           tenantName: options[:tenant] || options[:project]
                          }
                        }
       end

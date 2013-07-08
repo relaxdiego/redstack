@@ -46,6 +46,22 @@ class RedStack::Identity::Clients::V2_0Test < RedStack::TestBase
 
         token.class.must_equal Token
       end
+      
+      
+      it 'creates a scoped token when username, password, and project are provided' do
+        token = conn.create_token username: 'validuser', password: 'validpassword', project: 'validproject'
+
+        token.default?.must_equal false
+      end
+
+
+      it 'creates a scoped token when token and project are provided' do
+        token = conn.create_token username: 'validuser', password: 'validpassword'
+
+        token = conn.create_token token: token, project: 'validproject'
+
+        token.default?.must_equal false
+      end
 
     end # describe '#create_token'
 

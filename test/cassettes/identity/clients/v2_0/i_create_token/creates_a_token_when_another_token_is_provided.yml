@@ -5,7 +5,7 @@ http_interactions:
     uri: http://devstack:5000/v2.0/tokens
     body:
       encoding: UTF-8
-      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"validpassword"}}}'
+      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"validpassword"},"tenantName":null}}'
     headers:
       Content-Type:
       - application/json
@@ -23,24 +23,24 @@ http_interactions:
       content-length:
       - '337'
       date:
-      - Mon, 08 Jul 2013 05:05:00 GMT
+      - Mon, 08 Jul 2013 05:41:32 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-07-08T05:05:00.738274",
-        "expires": "2013-07-09T05:05:00Z", "id": "968bddaaedd24c6fbb463adf68eb7517"},
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T05:41:32.008623",
+        "expires": "2013-07-09T05:41:32Z", "id": "3dbe248760b944998dfcf76e88daa055"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 06:39:25 GMT
+  recorded_at: Mon, 08 Jul 2013 07:15:56 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
     body:
       encoding: UTF-8
-      string: ! '{"auth":{"token":{"id":"968bddaaedd24c6fbb463adf68eb7517"}}}'
+      string: ! '{"auth":{"token":{"id":"3dbe248760b944998dfcf76e88daa055"},"tenantName":null}}'
     headers:
       Content-Type:
       - application/json
@@ -58,16 +58,16 @@ http_interactions:
       content-length:
       - '337'
       date:
-      - Mon, 08 Jul 2013 05:05:00 GMT
+      - Mon, 08 Jul 2013 05:41:32 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-07-08T05:05:00.765129",
-        "expires": "2013-07-09T05:05:00Z", "id": "c90dff79cf3e4ac0a83489d6485e49fa"},
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T05:41:32.034860",
+        "expires": "2013-07-09T05:41:32Z", "id": "ffbc3d6b0d1c493ea28c292569625a8f"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 06:39:25 GMT
+  recorded_at: Mon, 08 Jul 2013 07:15:56 GMT
 recorded_with: VCR 2.5.0
