@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RedStack::Identity::ConnectionTest < MiniTest::Spec
+class RedStack::Identity::ConnectionTest < RedStack::TestBase
   include RedStack::Identity
 
   describe 'RedStack::Identity::Connection' do

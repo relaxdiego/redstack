@@ -15,24 +15,20 @@ VCR.configure do |c|
   end
 
 
-  c.around_http_request do |request|
-    options = {
-      # If no cassette exists for a spec, VCR will record. Afterwards, VCR will
-      # stop recording for that spec. If new requests are made that are not
-      # matched by anything in the cassette, an error is thrown
-      record: :once,
+  c.default_cassette_options = {
+    # If no cassette exists for a spec, VCR will record. Afterwards, VCR will
+    # stop recording for that spec. If new requests are made that are not
+    # matched by anything in the cassette, an error is thrown
+    record: :once,
 
-      match_requests_on: [:method, :port, :path, :headers, :body],
+    match_requests_on: [:method, :port, :path, :headers, :body],
 
-      # Strict mocking
-      # Inspired by: http://myronmars.to/n/dev-blog/2012/06/thoughts-on-mocking
-      allow_unused_http_interactions: false,
+    # Strict mocking
+    # Inspired by: http://myronmars.to/n/dev-blog/2012/06/thoughts-on-mocking
+    allow_unused_http_interactions: false,
 
-      # Enable ERB in the cassettes.
-      # Reference: http://goo.gl/aPXYk
-      erb: true
-    }
-
-    VCR.use_cassette(__name__, options, &request)
-  end
+    # Enable ERB in the cassettes.
+    # Reference: http://goo.gl/aPXYk
+    erb: true
+  }
 end
