@@ -12,4 +12,6 @@ group :test do
   gem 'coveralls', '~> 0.6.0'
   gem 'json', '~> 1.7.0'
   gem 'minitest', '~> 4.7.0'
+  gem 'minitest-reporters', '~> 0.14.20'
+  gem 'vcr', '~> 2.5.0'
 end
