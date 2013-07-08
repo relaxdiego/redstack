@@ -23,13 +23,13 @@ http_interactions:
       content-length:
       - '2720'
       date:
-      - Mon, 08 Jul 2013 20:47:22 GMT
+      - Mon, 08 Jul 2013 20:52:53 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:47:22.491077",
-        "expires": "<%= Time.now.year + 1 %>-07-09T20:47:22Z", "id": "06ff0edde2bf4ca1869f4dc503de19d3",
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:52:53.604507",
+        "expires": "<%= Time.now.year + 1 %>-07-09T20:52:53Z", "id": "3e3396e7ec064806a97cd47f481608c4",
         "tenant": {"description": "", "enabled": true, "id": "ec32f8b38d094da988fb5b759ac3cb52",
         "name": "validproject"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52",
         "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52",
@@ -60,7 +60,7 @@ http_interactions:
         "metadata": {"is_admin": 0, "roles": ["9fe2ff9ee4384b1894a90878d3e92bab",
         "699d22f2df934695a3826dadf2066763"]}}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 20:47:22 GMT
+  recorded_at: Mon, 08 Jul 2013 20:52:53 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
@@ -84,13 +84,13 @@ http_interactions:
       content-length:
       - '2648'
       date:
-      - Mon, 08 Jul 2013 20:47:22 GMT
+      - Mon, 08 Jul 2013 20:52:53 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:47:22.860296",
-        "expires": "<%= Time.now.year + 1 %>-07-09T20:47:22Z", "id": "b2edad80417d4b63a298b68bae695258",
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:52:53.859827",
+        "expires": "<%= Time.now.year + 1 %>-07-09T20:52:53Z", "id": "beb0cd2308a544f0b685b37045b16807",
         "tenant": {"description": null, "enabled": true, "id": "4a08c72b0b2249ca933ddbf51446b6c2",
         "name": "admin"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",
         "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",
@@ -120,10 +120,10 @@ http_interactions:
         [{"name": "admin"}], "name": "admin"}, "metadata": {"is_admin": 0, "roles":
         ["b2fed9c6968d4cca942d63316f4312bb"]}}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 20:47:22 GMT
+  recorded_at: Mon, 08 Jul 2013 20:52:53 GMT
 - request:
     method: get
-    uri: http://devstack:5000/v2.0/tokens/06ff0edde2bf4ca1869f4dc503de19d3?belongsTo=validproject
+    uri: http://devstack:5000/v2.0/tokens/3e3396e7ec064806a97cd47f481608c4?belongsTo=ec32f8b38d094da988fb5b759ac3cb52
     body:
       encoding: US-ASCII
       string: ''
@@ -133,10 +133,10 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - b2edad80417d4b63a298b68bae695258
+      - beb0cd2308a544f0b685b37045b16807
   response:
     status:
-      code: 401
+      code: 200
       message: 
     headers:
       vary:
@@ -144,15 +144,46 @@ http_interactions:
       content-type:
       - application/json
       content-length:
-      - '106'
+      - '2877'
       date:
-      - Mon, 08 Jul 2013 20:47:22 GMT
+      - Mon, 08 Jul 2013 20:52:53 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"error": {"message": "Token does not belong to specified tenant.",
-        "code": 401, "title": "Unauthorized"}}'
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:52:53.928674",
+        "expires": "<%= Time.now.year + 1 %>-07-09T20:52:53Z", "id": "3e3396e7ec064806a97cd47f481608c4",
+        "tenant": {"id": "ec32f8b38d094da988fb5b759ac3cb52", "enabled": true, "description":
+        "", "name": "validproject"}}, "serviceCatalog": [{"endpoints": [{"adminURL":
+        "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52", "region":
+        "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52",
+        "id": "0729056f257a49cfb99b2f2d4c38905b", "publicURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52"}],
+        "endpoints_links": [], "type": "compute", "name": "nova"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:3333", "region": "RegionOne", "internalURL": "http://192.168.56.11:3333",
+        "id": "3c54ac4188ae4286ba594a3cfe6ee241", "publicURL": "http://192.168.56.11:3333"}],
+        "endpoints_links": [], "type": "s3", "name": "s3"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:9292", "region": "RegionOne", "internalURL": "http://192.168.56.11:9292",
+        "id": "1996a49176d14877bd43f2b6515143df", "publicURL": "http://192.168.56.11:9292"}],
+        "endpoints_links": [], "type": "image", "name": "glance"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:8777", "region": "RegionOne", "internalURL": "http://192.168.56.11:8777",
+        "id": "0e78aff8178149039a2c67f03ead2b95", "publicURL": "http://192.168.56.11:8777"}],
+        "endpoints_links": [], "type": "metering", "name": "ceilometer"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8776/v1/ec32f8b38d094da988fb5b759ac3cb52",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8776/v1/ec32f8b38d094da988fb5b759ac3cb52",
+        "id": "2f9ba2fce99b4387acf0efeb59c06ebb", "publicURL": "http://192.168.56.11:8776/v1/ec32f8b38d094da988fb5b759ac3cb52"}],
+        "endpoints_links": [], "type": "volume", "name": "cinder"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8773/services/Admin", "region": "RegionOne",
+        "internalURL": "http://192.168.56.11:8773/services/Cloud", "id": "7919f57de45249e690842133f85b372a",
+        "publicURL": "http://192.168.56.11:8773/services/Cloud"}], "endpoints_links":
+        [], "type": "ec2", "name": "ec2"}, {"endpoints": [{"adminURL": "http://192.168.56.11:35357/v2.0",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:5000/v2.0", "id":
+        "2208f4002f9b45e4b331cc6e93c85127", "publicURL": "http://192.168.56.11:5000/v2.0"}],
+        "endpoints_links": [], "type": "identity", "name": "keystone"}], "user": {"username":
+        "validuser", "roles_links": [], "id": "24655bbc441843efb44c5cf058978df6",
+        "roles": [{"enabled": "True", "description": "Default role for project membership",
+        "name": "_member_", "id": "9fe2ff9ee4384b1894a90878d3e92bab"}, {"id": "699d22f2df934695a3826dadf2066763",
+        "name": "Member"}], "name": "validuser"}, "metadata": {"is_admin": 0, "roles":
+        ["9fe2ff9ee4384b1894a90878d3e92bab", "699d22f2df934695a3826dadf2066763"]}}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 20:47:22 GMT
+  recorded_at: Mon, 08 Jul 2013 20:52:53 GMT
 recorded_with: VCR 2.5.0

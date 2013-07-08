@@ -103,9 +103,9 @@ class RedStack::Identity::Clients::V2_0Test < RedStack::TestBase
       it 'returns true if token belongs to the specified project' do
         token = conn.authenticate username: 'validuser', password: 'validpassword', project: 'validproject'
 
-        result = admin_conn.validate_token token: token, project: token[:project][:name]
+        result = admin_conn.validate_token token: token, project: token[:project][:id]
 
-        result.must_equal false
+        result.must_equal true
       end
 
       it 'returns false if token does not belong to the specified project' do
