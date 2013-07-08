@@ -29,23 +29,26 @@ require 'redstack'
 ks = RedStack::Identity.new host: 'http://myopenstackinstance.com:5000', api_version: 'v2.0'
 
 # Authenticate against Keystone
-ks.authenticate username: 'johndoe', password: 'gu29qa!'
+token = ks.authenticate username: 'johndoe', password: 'gu29qa!'
 
 # Get a list of tenants/projects you have access to
-projects = ks.find :projects
+projects = ks.find_projects
 
-#Create a project (Requires user with admin rights)
-ks.authenticate username: 'johndoe', password: 'gu29qa!', tenant: 'admin'
-project = ks.create :project, name: 'New Project', description: 'My awesome project', enabled: true
+#Create a project (Requires token with admin access)
+ks.authenticate username: 'johndoe', password: 'adfw@1', tenant: 'my_project'
+project = ks.create_project name: 'New Project', description: 'My awesome project', enabled: true
 
-# Get all projects in the system  (Requires user with admin rights)
-projects = ks.find :projects, endpoint_type: :admin
+# Get all projects in the system  (Requires token with admin access)
+ks.authenticate username: 'johndoe', password: 'adfw@1', tenant: 'my_project'
+projects = ks.find_projects select: :all
 
-# Re-use access information in other services
-ks.authenticate username: 'johndoe', password: 'gu29qa!', tenant: 'myproject'
-access = ks.access
-nc = RedStack::Compute.new access: access
-servers = nc.find :servers
+# Re-use token in other services
+ks.authenticate username: 'johndoe', password: 'adfw@1', tenant: 'my_project'
+nc = RedStack::Compute.new token: ks.token
+servers = nc.find_servers
+
+# ...or Re-use it in a new Keystone instance
+ks2 = RedStack::Identity.new token: ks.token
 ```
 
 ## Contributing
