@@ -1,21 +1,24 @@
 require 'test_helper'
 
-class RedStack::Identity::Clients::V2_0Test < MiniTest::Spec
+class RedStack::Identity::Clients::V2_0Test < RedStack::TestBase
   include RedStack::Identity
+  include RedStack::Identity::Resources
 
   describe 'RedStack::Identity::Clients::V2_0' do
 
     def conn
       Connection.new host: RedStack::TestConfig[:identity_host], api_version: 'v2.0'
     end
-    
+
+
     describe '#api_version' do
-      
+
       it 'returns v2.0' do
         conn.api_version.must_equal 'v2.0'
       end
-      
+
     end # describe '#api_version'
+
 
     describe '#create_token' do
 
@@ -37,7 +40,9 @@ class RedStack::Identity::Clients::V2_0Test < MiniTest::Spec
 
 
       it 'creates a token when another token is provided' do
-        token = conn.create_token token: 'sometokenvaluehere'
+        token = conn.create_token username: 'validuser', password: 'validpassword'
+
+        token = conn.create_token token: token
 
         token.class.must_equal Token
       end

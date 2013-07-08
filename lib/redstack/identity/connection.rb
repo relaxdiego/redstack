@@ -7,10 +7,16 @@ module Identity
       host        = extract_or_raise(options, :host)
       api_version = extract_or_raise(options, :api_version)
 
+      init_connection(host)
       include_client_for(options[:api_version])
     end
 
     private
+
+    def connection
+      # Initialized via init_connection
+      @connection
+    end
 
     def extract_or_raise(args, name)
       args[name] || (raise ArgumentError.new("Missing argument #{name}"))
@@ -27,7 +33,13 @@ module Identity
       end
       true
     end
-    
+
+    def init_connection(host)
+      @connection = Faraday::Connection.new(:url => host.to_s) do |c|
+        c.headers['Content-Type'] = 'application/json'
+        c.adapter Faraday.default_adapter
+      end
+    end
   end
 
 end
