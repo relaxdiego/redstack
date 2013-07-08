@@ -29,7 +29,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:23:07.841040",
-        "expires": "2013-07-09T20:23:07Z", "id": "a06803ad8a45466bb37ca3ea532e2965",
+        "expires": "<%= Time.now.year + 1 %>-07-09T20:23:07Z", "id": "a06803ad8a45466bb37ca3ea532e2965",
         "tenant": {"description": null, "enabled": true, "id": "4a08c72b0b2249ca933ddbf51446b6c2",
         "name": "admin"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",
         "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",

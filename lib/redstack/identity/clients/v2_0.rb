@@ -47,17 +47,25 @@ module Clients
     
     def validate_token(options={})
       token_to_validate = extract_or_raise(options, :token)
+      which_project     = options[:project] || options[:tenant]
+      
+      path = "#{ resource_path(:token) }/#{ token_to_validate[:id] }"
+      
+      if which_project
+        path += "?belongsTo=#{ which_project }"
+      end
+
       response = connection.get do |request| 
-        request.url "#{ resource_path(:token) }/#{ token_to_validate[:id] }"
+        request.url path
         request.headers['X-Auth-Token'] = self.token[:id]
       end
       
       case response.status
       when 200, 203
         true
-      when 404
+      when 401, 404
         false
-      when 401, 403
+      when 403
         raise RedStack::NotAuthorizedError.new("Token #{ self.token[:id] } is not authorized to perform that action")
       else
         raise RedStack::UnexpectedError.new("Unexpected server response: #{ response.status }")

@@ -21,7 +21,7 @@ VCR.configure do |c|
     # matched by anything in the cassette, an error is thrown
     record: :once,
 
-    match_requests_on: [:method, :port, :path, :headers, :body],
+    match_requests_on: [:method, :port, :path, :query, :headers, :body],
 
     # Strict mocking
     # Inspired by: http://myronmars.to/n/dev-blog/2012/06/thoughts-on-mocking

@@ -100,6 +100,22 @@ class RedStack::Identity::Clients::V2_0Test < RedStack::TestBase
         result.must_equal true
       end
 
+      it 'returns true if token belongs to the specified project' do
+        token = conn.authenticate username: 'validuser', password: 'validpassword', project: 'validproject'
+
+        result = admin_conn.validate_token token: token, project: token[:project][:name]
+
+        result.must_equal false
+      end
+
+      it 'returns false if token does not belong to the specified project' do
+        token = conn.authenticate username: 'validuser', password: 'validpassword'
+
+        result = admin_conn.validate_token token: token, project: 'myproject'
+
+        result.must_equal false
+      end
+
       it 'returns false if the token is invalid' do
         token = Token.new(%Q{
            {"access": {"token": {"issued_at": "2013-07-08T03:51:43.718569",

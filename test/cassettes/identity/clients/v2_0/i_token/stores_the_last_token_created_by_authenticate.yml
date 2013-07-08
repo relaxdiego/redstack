@@ -29,7 +29,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:00:18.475426",
-        "expires": "2013-07-09T20:00:18Z", "id": "ace3ac9be2744ce1b9e389d2df9f811b"},
+        "expires": "<%= Time.now.year + 1 %>-07-09T20:00:18Z", "id": "ace3ac9be2744ce1b9e389d2df9f811b"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'

@@ -23,24 +23,24 @@ http_interactions:
       content-length:
       - '337'
       date:
-      - Mon, 08 Jul 2013 20:28:50 GMT
+      - Mon, 08 Jul 2013 20:44:35 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:28:50.160577",
-        "expires": "<%= Time.now.year + 1 %>-07-09T20:28:50Z", "id": "fd365c4b829d43ff829e2df7b1448f6a"},
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:44:35.736854",
+        "expires": "<%= Time.now.year + 1 %>-07-09T20:44:35Z", "id": "3c27bbf284c346efb3affde7fc21ced4"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 20:28:50 GMT
+  recorded_at: Mon, 08 Jul 2013 20:44:35 GMT
 - request:
     method: post
     uri: http://devstack:5000/v2.0/tokens
     body:
       encoding: UTF-8
-      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"validpassword"},"tenantName":"validproject"}}'
+      string: ! '{"auth":{"passwordCredentials":{"username":"admin","password":"password"},"tenantName":"admin"}}'
     headers:
       Content-Type:
       - application/json
@@ -56,19 +56,19 @@ http_interactions:
       content-type:
       - application/json
       content-length:
-      - '2720'
+      - '2648'
       date:
-      - Mon, 08 Jul 2013 20:28:50 GMT
+      - Mon, 08 Jul 2013 20:44:35 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:28:50.404716",
-        "expires": "<%= Time.now.year + 1 %>-07-09T20:28:50Z", "id": "4de8a379856c44328913ae854558561c",
-        "tenant": {"description": "", "enabled": true, "id": "ec32f8b38d094da988fb5b759ac3cb52",
-        "name": "validproject"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52",
-        "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52",
-        "id": "0729056f257a49cfb99b2f2d4c38905b", "publicURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52"}],
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:44:35.989709",
+        "expires": "<%= Time.now.year + 1 %>-07-09T20:44:35Z", "id": "fb35adec9e4049e2915d149e8ad4a6e0",
+        "tenant": {"description": null, "enabled": true, "id": "4a08c72b0b2249ca933ddbf51446b6c2",
+        "name": "admin"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",
+        "id": "0729056f257a49cfb99b2f2d4c38905b", "publicURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2"}],
         "endpoints_links": [], "type": "compute", "name": "nova"}, {"endpoints": [{"adminURL":
         "http://192.168.56.11:3333", "region": "RegionOne", "internalURL": "http://192.168.56.11:3333",
         "id": "3c54ac4188ae4286ba594a3cfe6ee241", "publicURL": "http://192.168.56.11:3333"}],
@@ -79,9 +79,9 @@ http_interactions:
         "http://192.168.56.11:8777", "region": "RegionOne", "internalURL": "http://192.168.56.11:8777",
         "id": "0e78aff8178149039a2c67f03ead2b95", "publicURL": "http://192.168.56.11:8777"}],
         "endpoints_links": [], "type": "metering", "name": "ceilometer"}, {"endpoints":
-        [{"adminURL": "http://192.168.56.11:8776/v1/ec32f8b38d094da988fb5b759ac3cb52",
-        "region": "RegionOne", "internalURL": "http://192.168.56.11:8776/v1/ec32f8b38d094da988fb5b759ac3cb52",
-        "id": "2f9ba2fce99b4387acf0efeb59c06ebb", "publicURL": "http://192.168.56.11:8776/v1/ec32f8b38d094da988fb5b759ac3cb52"}],
+        [{"adminURL": "http://192.168.56.11:8776/v1/4a08c72b0b2249ca933ddbf51446b6c2",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8776/v1/4a08c72b0b2249ca933ddbf51446b6c2",
+        "id": "2f9ba2fce99b4387acf0efeb59c06ebb", "publicURL": "http://192.168.56.11:8776/v1/4a08c72b0b2249ca933ddbf51446b6c2"}],
         "endpoints_links": [], "type": "volume", "name": "cinder"}, {"endpoints":
         [{"adminURL": "http://192.168.56.11:8773/services/Admin", "region": "RegionOne",
         "internalURL": "http://192.168.56.11:8773/services/Cloud", "id": "7919f57de45249e690842133f85b372a",
@@ -90,15 +90,14 @@ http_interactions:
         "region": "RegionOne", "internalURL": "http://192.168.56.11:5000/v2.0", "id":
         "2208f4002f9b45e4b331cc6e93c85127", "publicURL": "http://192.168.56.11:5000/v2.0"}],
         "endpoints_links": [], "type": "identity", "name": "keystone"}], "user": {"username":
-        "validuser", "roles_links": [], "id": "24655bbc441843efb44c5cf058978df6",
-        "roles": [{"name": "_member_"}, {"name": "Member"}], "name": "validuser"},
-        "metadata": {"is_admin": 0, "roles": ["9fe2ff9ee4384b1894a90878d3e92bab",
-        "699d22f2df934695a3826dadf2066763"]}}}'
+        "admin", "roles_links": [], "id": "e28e630de4604f2ba6088896f3c2cb71", "roles":
+        [{"name": "admin"}], "name": "admin"}, "metadata": {"is_admin": 0, "roles":
+        ["b2fed9c6968d4cca942d63316f4312bb"]}}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 20:28:50 GMT
+  recorded_at: Mon, 08 Jul 2013 20:44:35 GMT
 - request:
     method: get
-    uri: http://devstack:5000/v2.0/tokens/fd365c4b829d43ff829e2df7b1448f6a
+    uri: http://devstack:5000/v2.0/tokens/3c27bbf284c346efb3affde7fc21ced4?belongsTo=myproject
     body:
       encoding: US-ASCII
       string: ''
@@ -108,10 +107,10 @@ http_interactions:
       User-Agent:
       - Faraday v0.8.7
       X-Auth-Token:
-      - 4de8a379856c44328913ae854558561c
+      - fb35adec9e4049e2915d149e8ad4a6e0
   response:
     status:
-      code: 403
+      code: 401
       message: 
     headers:
       vary:
@@ -119,15 +118,15 @@ http_interactions:
       content-type:
       - application/json
       content-length:
-      - '136'
+      - '106'
       date:
-      - Mon, 08 Jul 2013 20:28:50 GMT
+      - Mon, 08 Jul 2013 20:44:36 GMT
       connection:
       - close
     body:
       encoding: US-ASCII
-      string: ! '{"error": {"message": "You are not authorized to perform the requested
-        action: admin_required", "code": 403, "title": "Not Authorized"}}'
+      string: ! '{"error": {"message": "Token does not belong to specified tenant.",
+        "code": 401, "title": "Unauthorized"}}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 20:28:50 GMT
+  recorded_at: Mon, 08 Jul 2013 20:44:35 GMT
 recorded_with: VCR 2.5.0
