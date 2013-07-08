@@ -1,1 +1,2 @@
+# Copy this file to test/support/test_config.yml
 identity_host: 'http://www.example.org:5000'
