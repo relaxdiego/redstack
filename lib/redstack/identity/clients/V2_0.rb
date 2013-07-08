@@ -8,7 +8,7 @@ module Clients
       'v2.0'
     end
 
-    def create_token(options={})
+    def authenticate(options={})
       if options[:token]
         token = options[:token]
         request_body = {

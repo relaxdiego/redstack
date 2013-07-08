@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"validpassword"},"tenantName":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '337'
+      date:
+      - Mon, 08 Jul 2013 06:24:30 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T06:24:30.890960",
+        "expires": "2013-07-09T06:24:30Z", "id": "a1bcfcc1f20e42238043af66786bbf39"},
+        "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
+        "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
+        "metadata": {"is_admin": 0, "roles": []}}}'
+    http_version: 
+  recorded_at: Mon, 08 Jul 2013 07:58:55 GMT
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"token":{"id":"a1bcfcc1f20e42238043af66786bbf39"},"tenantName":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '337'
+      date:
+      - Mon, 08 Jul 2013 06:24:30 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T06:24:30.918821",
+        "expires": "2013-07-09T06:24:30Z", "id": "644cef6aec6c4157b4fa9299e4d93e22"},
+        "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
+        "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
+        "metadata": {"is_admin": 0, "roles": []}}}'
+    http_version: 
+  recorded_at: Mon, 08 Jul 2013 07:58:55 GMT
+recorded_with: VCR 2.5.0
