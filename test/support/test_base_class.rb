@@ -3,7 +3,14 @@ module RedStack
   class TestBase < MiniTest::Spec
 
     def vcr_cassette_name
-      __name__.gsub(/test_\d+_/, '')
+      path     = self.class.to_s
+                   .gsub(/^RedStack::/, '')
+                   .gsub(/::#/,'/i_')
+                   .gsub(/::::/, '/c_')
+                   .gsub(/::/, '/')
+                   .underscore
+      basename = __name__.gsub(/test_\d+_/, '')
+      "#{ path }/#{ basename }"
     end
 
     before do
