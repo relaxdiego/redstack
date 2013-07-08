@@ -29,7 +29,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"access": {"token": {"issued_at": "2013-07-08T06:24:31.410854",
-        "expires": "2013-07-09T06:24:31Z", "id": "974bb6c418cf4bbcaf020d5f78cc22d3"},
+        "expires": "<%= Time.now.year + 1 %>-07-09T06:24:31Z", "id": "974bb6c418cf4bbcaf020d5f78cc22d3"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'
@@ -64,7 +64,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"access": {"token": {"issued_at": "2013-07-08T06:24:31.490117",
-        "expires": "2013-07-09T06:24:31Z", "id": "3217c4d87c264e4aa42d237ad1a86a13",
+        "expires": "<%= Time.now.year + 1 %>-07-09T06:24:31Z", "id": "3217c4d87c264e4aa42d237ad1a86a13",
         "tenant": {"description": "", "enabled": true, "id": "ec32f8b38d094da988fb5b759ac3cb52",
         "name": "validproject"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52",
         "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/ec32f8b38d094da988fb5b759ac3cb52",

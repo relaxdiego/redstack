@@ -6,11 +6,13 @@ class RedStack::Identity::Resources::TokenTest < RedStack::TestBase
   describe 'RedStack::Identity::Resources::Token' do
 
     def response_str
-      '{"access": {"token": {"issued_at": "2013-07-08T03:51:43.718569",
-       "expires": "2013-07-09T03:51:43Z", "id": "1f78f8319e2a4088a2dad7ef999f3d8b"},
-       "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
-       "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
-       "metadata": {"is_admin": 0, "roles": []}}}'
+      %Q{
+         {"access": {"token": {"issued_at": "2013-07-08T03:51:43.718569",
+         "expires": "#{ Time.now.year + 1 }-07-09T03:51:43Z", "id": "1f78f8319e2a4088a2dad7ef999f3d8b"},
+         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
+         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
+         "metadata": {"is_admin": 0, "roles": []}}}
+       }
     end
 
     def response_json

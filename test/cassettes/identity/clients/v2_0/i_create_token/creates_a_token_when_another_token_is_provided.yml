@@ -29,7 +29,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"access": {"token": {"issued_at": "2013-07-08T05:41:32.008623",
-        "expires": "2013-07-09T05:41:32Z", "id": "3dbe248760b944998dfcf76e88daa055"},
+        "expires": "<%= Time.now.year + 1 %>-07-09T05:41:32Z", "id": "3dbe248760b944998dfcf76e88daa055"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'
@@ -64,7 +64,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"access": {"token": {"issued_at": "2013-07-08T05:41:32.034860",
-        "expires": "2013-07-09T05:41:32Z", "id": "ffbc3d6b0d1c493ea28c292569625a8f"},
+        "expires": "<%= Time.now.year + 1 %>-07-09T05:41:32Z", "id": "ffbc3d6b0d1c493ea28c292569625a8f"},
         "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
         "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
         "metadata": {"is_admin": 0, "roles": []}}}'
