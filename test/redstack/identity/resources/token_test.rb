@@ -101,19 +101,12 @@ class RedStack::Identity::Resources::TokenTest < RedStack::TestBase
 
       it 'returns false when the token is scoped' do
         json = response_json
-        json[:access][:serviceCatalog] = [{
-            endpoints: 
-              [{
-                adminURL: "http://example", 
-                region: "RegionOne", 
-                internalURL: "http://example", 
-                id: "2f835cf8ce0f4da9ac96ad2d5f7218e0", 
-                publicURL: "http://example"
-              }], 
-            endpoints_links: [], 
-            type: "compute", 
-            name: "nova"
-           }]
+        json[:access][:token][:tenant] = {
+              description: "My Project", 
+              enabled: true, 
+              id: "212b7cca6266486c8b5b819c3e70f85c", 
+              name: "mmaglana" 
+            }
         
         new_token(JSON.generate(json)).default?.must_equal false
       end

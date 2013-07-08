@@ -14,7 +14,7 @@ module Identity
     private
 
     def connection
-      # Initialized via init_connection
+      # Initialized via init_connection which is called by initialize
       @connection
     end
 
