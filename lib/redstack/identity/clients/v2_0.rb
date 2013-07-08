@@ -8,6 +8,10 @@ module Clients
       'v2.0'
     end
 
+    #==================
+    # TOKEN OPERATIONS
+    #==================
+    
     def authenticate(options)
       create_token(options)
     end
@@ -25,8 +29,8 @@ module Clients
                       passwordCredentials: {
                         username: username,
                         password: password
-                      }          
-                    }                    
+                      }
+                    }
       end
 
       request_body = auth_body(auth_data, options[:tenant] || options[:project])
@@ -36,11 +40,33 @@ module Clients
         request.body = request_body.to_json
       end
 
-      instantiate_resource_or_raise(response, Resources::Token)
+      self.token = instantiate_resource_or_raise(response, Resources::Token)
+      self.token
     end
+    
+    
+    def validate_token(options={})
+      token_to_validate = extract_or_raise(options, :token)
+      response = connection.get do |request| 
+        request.url "#{ resource_path(:token) }/#{ token_to_validate[:id] }"
+        request.headers['X-Auth-Token'] = self.token[:id]
+      end
+      
+      case response.status
+      when 200, 203
+        true
+      when 404
+        false
+      when 401, 403
+        raise RedStack::NotAuthorizedError.new("Token #{ self.token[:id] } is not authorized to perform that action")
+      else
+        raise RedStack::UnexpectedError.new("Unexpected server response: #{ response.status }")
+      end
+    end
+    
 
     private
-    
+
     def auth_body(data, project)
       data = data.dup
       data.merge!({ tenantName: project }) if project
@@ -58,7 +84,7 @@ module Clients
     def resource_path(name)
       "#{ api_version }/#{ name.to_s.pluralize }"
     end
-
+    
   end
 
 end

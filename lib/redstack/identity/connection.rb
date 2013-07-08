@@ -3,6 +3,8 @@ module Identity
 
   class Connection
 
+    attr_reader :token
+
     def initialize(options={})
       host        = extract_or_raise(options, :host)
       api_version = extract_or_raise(options, :api_version)
@@ -39,6 +41,11 @@ module Identity
         c.headers['Content-Type'] = 'application/json'
         c.adapter Faraday.default_adapter
       end
+    end
+    
+    def token=(val)
+      raise ArgumentError.new('Object must be an instance of Token') unless val.class == Resources::Token
+      @token = val
     end
   end
 

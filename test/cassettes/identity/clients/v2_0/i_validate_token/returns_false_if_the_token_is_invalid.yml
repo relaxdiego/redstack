@@ -1,0 +1,97 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"admin","password":"password"},"tenantName":"admin"}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '2648'
+      date:
+      - Mon, 08 Jul 2013 20:23:07 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:23:07.841040",
+        "expires": "2013-07-09T20:23:07Z", "id": "a06803ad8a45466bb37ca3ea532e2965",
+        "tenant": {"description": null, "enabled": true, "id": "4a08c72b0b2249ca933ddbf51446b6c2",
+        "name": "admin"}}, "serviceCatalog": [{"endpoints": [{"adminURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2",
+        "id": "0729056f257a49cfb99b2f2d4c38905b", "publicURL": "http://192.168.56.11:8774/v2/4a08c72b0b2249ca933ddbf51446b6c2"}],
+        "endpoints_links": [], "type": "compute", "name": "nova"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:3333", "region": "RegionOne", "internalURL": "http://192.168.56.11:3333",
+        "id": "3c54ac4188ae4286ba594a3cfe6ee241", "publicURL": "http://192.168.56.11:3333"}],
+        "endpoints_links": [], "type": "s3", "name": "s3"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:9292", "region": "RegionOne", "internalURL": "http://192.168.56.11:9292",
+        "id": "1996a49176d14877bd43f2b6515143df", "publicURL": "http://192.168.56.11:9292"}],
+        "endpoints_links": [], "type": "image", "name": "glance"}, {"endpoints": [{"adminURL":
+        "http://192.168.56.11:8777", "region": "RegionOne", "internalURL": "http://192.168.56.11:8777",
+        "id": "0e78aff8178149039a2c67f03ead2b95", "publicURL": "http://192.168.56.11:8777"}],
+        "endpoints_links": [], "type": "metering", "name": "ceilometer"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8776/v1/4a08c72b0b2249ca933ddbf51446b6c2",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:8776/v1/4a08c72b0b2249ca933ddbf51446b6c2",
+        "id": "2f9ba2fce99b4387acf0efeb59c06ebb", "publicURL": "http://192.168.56.11:8776/v1/4a08c72b0b2249ca933ddbf51446b6c2"}],
+        "endpoints_links": [], "type": "volume", "name": "cinder"}, {"endpoints":
+        [{"adminURL": "http://192.168.56.11:8773/services/Admin", "region": "RegionOne",
+        "internalURL": "http://192.168.56.11:8773/services/Cloud", "id": "7919f57de45249e690842133f85b372a",
+        "publicURL": "http://192.168.56.11:8773/services/Cloud"}], "endpoints_links":
+        [], "type": "ec2", "name": "ec2"}, {"endpoints": [{"adminURL": "http://192.168.56.11:35357/v2.0",
+        "region": "RegionOne", "internalURL": "http://192.168.56.11:5000/v2.0", "id":
+        "2208f4002f9b45e4b331cc6e93c85127", "publicURL": "http://192.168.56.11:5000/v2.0"}],
+        "endpoints_links": [], "type": "identity", "name": "keystone"}], "user": {"username":
+        "admin", "roles_links": [], "id": "e28e630de4604f2ba6088896f3c2cb71", "roles":
+        [{"name": "admin"}], "name": "admin"}, "metadata": {"is_admin": 0, "roles":
+        ["b2fed9c6968d4cca942d63316f4312bb"]}}}'
+    http_version: 
+  recorded_at: Mon, 08 Jul 2013 20:23:07 GMT
+- request:
+    method: get
+    uri: http://devstack:5000/v2.0/tokens/zzzzzzzzzzzzzzzzzzz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+      X-Auth-Token:
+      - a06803ad8a45466bb37ca3ea532e2965
+  response:
+    status:
+      code: 404
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '102'
+      date:
+      - Mon, 08 Jul 2013 20:23:07 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"error": {"message": "Could not find token: zzzzzzzzzzzzzzzzzzz",
+        "code": 404, "title": "Not Found"}}'
+    http_version: 
+  recorded_at: Mon, 08 Jul 2013 20:23:07 GMT
+recorded_with: VCR 2.5.0

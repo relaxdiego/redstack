@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://devstack:5000/v2.0/tokens
+    body:
+      encoding: UTF-8
+      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"validpassword"}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.8.7
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      vary:
+      - X-Auth-Token
+      content-type:
+      - application/json
+      content-length:
+      - '337'
+      date:
+      - Mon, 08 Jul 2013 20:00:18 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! '{"access": {"token": {"issued_at": "2013-07-08T20:00:18.475426",
+        "expires": "2013-07-09T20:00:18Z", "id": "ace3ac9be2744ce1b9e389d2df9f811b"},
+        "serviceCatalog": [], "user": {"username": "validuser", "roles_links": [],
+        "id": "24655bbc441843efb44c5cf058978df6", "roles": [], "name": "validuser"},
+        "metadata": {"is_admin": 0, "roles": []}}}'
+    http_version: 
+  recorded_at: Mon, 08 Jul 2013 20:00:18 GMT
+recorded_with: VCR 2.5.0

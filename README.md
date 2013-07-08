@@ -32,7 +32,7 @@ ks = RedStack::Identity.new host: 'http://myopenstackinstance.com:5000', api_ver
 token = ks.authenticate username: 'johndoe', password: 'gu29qa!'
 
 # Get a list of tenants/projects you have access to
-projects = ks.find_projects
+projects = ks.get_projects
 
 #Create a project (Requires token with admin access)
 ks.authenticate username: 'johndoe', password: 'adfw@1', tenant: 'my_project'
@@ -40,7 +40,7 @@ project = ks.create_project name: 'New Project', description: 'My awesome projec
 
 # Get all projects in the system  (Requires token with admin access)
 ks.authenticate username: 'johndoe', password: 'adfw@1', tenant: 'my_project'
-projects = ks.find_projects select: :all
+projects = ks.get_projects select: :all
 
 # Re-use token in other services
 ks.authenticate username: 'johndoe', password: 'adfw@1', tenant: 'my_project'
