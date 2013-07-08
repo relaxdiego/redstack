@@ -31,6 +31,10 @@ module Resources
       Time.parse(self[:expires]).utc <= Time.now.utc
     end
 
+    def scoped?
+      !default?
+    end
+
   end
 
 end
