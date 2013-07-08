@@ -23,8 +23,8 @@ unless ENV['CI'] || ENV['TRAVIS']
 end
 
 # Load all helpers in test/support
-Dir[Pathname.new(__FILE__).join('..', 'support', '*.rb')].each do |f|   
-  require f 
+Dir[Pathname.new(__FILE__).join('..', 'support', '*.rb')].each do |f|
+  require f
 end
 
 require 'active_support/core_ext/numeric'

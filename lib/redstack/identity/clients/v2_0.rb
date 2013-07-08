@@ -10,28 +10,22 @@ module Clients
 
     def authenticate(options={})
       if options[:token]
-        token = options[:token]
-        request_body = {
-                         auth: {
-                           token: {
-                             id: token[:id]
-                           },
-                           tenantName: options[:tenant] || options[:project]
-                         }
-                       }
+        token     = options[:token]
+        auth_data = {
+                      token: { id: token[:id] }
+                    }
       else
-        username     = extract_or_raise(options, :username)
-        password     = extract_or_raise(options, :password)
-        request_body = {
-                         auth: {
-                           passwordCredentials: {
-                             username: username,
-                             password: password
-                           },
-                           tenantName: options[:tenant] || options[:project]
-                         }
-                       }
+        username  = extract_or_raise(options, :username)
+        password  = extract_or_raise(options, :password)
+        auth_data = {
+                      passwordCredentials: {
+                        username: username,
+                        password: password
+                      }          
+                    }                    
       end
+
+      request_body = auth_body(auth_data, options[:tenant] || options[:project])
 
       response = connection.post do |request|
         request.url resource_path(:token)
@@ -43,6 +37,13 @@ module Clients
 
 
     private
+    
+    def auth_body(data, project)
+      data = data.dup
+      data.merge!({ tenantName: project }) if project
+
+      { auth: data }
+    end
 
     def instantiate_resource_or_raise(response, resource)
       case response.status

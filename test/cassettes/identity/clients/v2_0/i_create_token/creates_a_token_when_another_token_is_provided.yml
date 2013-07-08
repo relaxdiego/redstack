@@ -5,7 +5,7 @@ http_interactions:
     uri: http://devstack:5000/v2.0/tokens
     body:
       encoding: UTF-8
-      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"validpassword"},"tenantName":null}}'
+      string: ! '{"auth":{"passwordCredentials":{"username":"validuser","password":"validpassword"}}}'
     headers:
       Content-Type:
       - application/json
@@ -40,7 +40,7 @@ http_interactions:
     uri: http://devstack:5000/v2.0/tokens
     body:
       encoding: UTF-8
-      string: ! '{"auth":{"token":{"id":"3dbe248760b944998dfcf76e88daa055"},"tenantName":null}}'
+      string: ! '{"auth":{"token":{"id":"3dbe248760b944998dfcf76e88daa055"}}}'
     headers:
       Content-Type:
       - application/json
