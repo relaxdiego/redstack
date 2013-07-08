@@ -8,7 +8,11 @@ module Clients
       'v2.0'
     end
 
-    def authenticate(options={})
+    def authenticate(options)
+      create_token(options)
+    end
+
+    def create_token(options={})
       if options[:token]
         token     = options[:token]
         auth_data = {
@@ -34,7 +38,6 @@ module Clients
 
       instantiate_resource_or_raise(response, Resources::Token)
     end
-
 
     private
     
